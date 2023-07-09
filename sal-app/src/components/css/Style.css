@@ -1,0 +1,124 @@
+
+.login{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+    padding: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px;
+    background-color: #fff4bb;
+}
+
+.page {
+    background-color: #a69f7a; /* Replace with your desired background color */
+}
+
+h1{
+    font-size: 60px;
+    padding: 10px;
+}
+
+input[type=text],input[type=password]{
+    border: 1px solid #343434;
+    width: 300px;
+    height: 34px;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 100;
+    border-radius: 5px;
+}
+
+input[type=button]{
+    border: 1px solid #343434;
+    text-align: center;
+    height: 34px;
+    width: 320px;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 100;
+    background: #ffda21;
+    color: #343434;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.center {
+    justify-content: center;
+    align-items: center;
+    border: 1px  #343434;
+}
+
+label{
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+/* html, body {
+    display: flex;
+    justify-content: center;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 15px;
+}
+form {
+    border: 5px solid #f1f1f1;
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 16px 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.icon {
+    font-size: 110px;
+    display: flex;
+    justify-content: center;
+    color: #4286f4;
+}
+button {
+    background-color: #4286f4;
+    color: white;
+    padding: 14px 0;
+    margin: 10px 0;
+    border: none;
+    cursor: grab;
+    width: 48%;
+}
+h1 {
+    text-align:center;
+    fone-size:18;
+}
+button:hover {
+    opacity: 0.8;
+}
+.formcontainer {
+    text-align: center;
+    margin: 24px 50px 12px;
+}
+.container {
+    padding: 16px 0;
+    text-align:left;
+}
+span.psw {
+    float: right;
+    padding-top: 0;
+    padding-right: 15px;
+}
+    /* Change styles for span on extra small screens 
+@media screen and (max-width: 300px) {
+    span.psw {
+    display: block;
+    float: none;
+    }
+} */
