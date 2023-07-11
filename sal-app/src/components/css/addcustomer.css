@@ -3,14 +3,19 @@
   }
 
   table{
-    width: 75%;
+    width: 100%;
   }
   .label{
-    width: 10%;
+    width: 100%;
   }
   .label1{
     width: 0.5%;
   }
   .textbox{
     width: 20%;
+  }
+
+.customerimage img{
+  max-width: 20%;
+  max-height: 20%;
   }

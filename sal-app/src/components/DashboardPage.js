@@ -43,7 +43,7 @@ export function DashboardPage() {
       </div>
 
       <div class="area4">
-      <img src={myImage} alt="Image description" />    
+      <img src={myImage} alt="logo" />    
     </div>
   </div>
 

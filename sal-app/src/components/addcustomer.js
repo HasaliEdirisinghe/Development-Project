@@ -2,6 +2,8 @@ import React from 'react';
 import './css/DashboardStyle.css';
 import './css/addcustomer.css';
 import { useState } from 'react';
+import axios from 'axios';
+import myImage from './img/customerprofile.png';
 
 export function AddCustomer() {
   const handleButtonClick = (e) => {
@@ -18,38 +20,47 @@ export function AddCustomer() {
     const [address,setAddress] = useState('');
     const [phone,setPhone] = useState('');
   
-    const handleSubmit = async () => {
-        // Check if the form is valid
-        if (!nic || !fname || !lname || !address || !phone) {
-          alert('Please fill in all the fields.');
-          return;
-        }
-    
-        // Create a JSON object with the customer data
-        const customer = {
-          nic: nic,
-          fname: fname,
-          lname: lname,
-          othernames: othernames,
-          address: address,
-          phone: phone,
-        };
-    
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      if(nic.length === 0){
+        alert("NIC is required!");
+      }
+      else if(fname.length === 0){
+        alert("First Name is required!");
+      }
+      else if(lname.length === 0){
+        alert("Last Name is required!");
+      }
+      else if(address.length === 0){
+        alert("Address is required!");
+      }
+      else if(phone.length === 0){
+        alert("Phone is required!");
+      }
+      else{
+
+      
         // Send the customer data to the database
-        const url = 'http://localhost/backend/addcustomer.php';
-        const response = await fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(customer),
-        });
-    
-        // Check the response status code
-        if (response.status === 200) {
-          alert('Customer added successfully.');
-        } else {
-          alert('Error adding customer.');
-        }
-      };
-    
+
+        let fData = new FormData();
+        fData.append('nic', nic);
+        fData.append('fname', fname);
+        fData.append('lname', lname);
+        fData.append('othernames', othernames);
+        fData.append('address', address);
+        fData.append('phone', phone);
+      // Send a POST request with the form data
+      axios.post(`http://localhost/backend/addcustomer.php`, fData)
+        .then(response => {
+          if (response.data === 'Customer Added') {
+            alert('Customer Added Successfully');
+          } else {
+            alert('Invalid');
+          }
+        })
+        .catch(error => alert(error.message)); // Display an error message if the request fails
+      }
+    }
 
 
   return (
@@ -89,43 +100,43 @@ export function AddCustomer() {
                 <tr><td><button class="area4button">Add Customer</button></td></tr>
                 <tr><td><button class="area4button">Edit Customer</button></td></tr>
             </table>
-            <form action="addcustomer.php" method="post">
-                <table border={1}>
+            <form onSubmit={handleSubmit}>
+                <table>
                     <tr>
-                        <td colspan="3" align='center'>image</td>
+                        <td colspan="3" align='center' class='customerimage'><img src={myImage} alt="customer"/>    </td>
                     </tr>
                     <tr>
                         <td class='label'>NIC</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='nic'/></td>
+                        <td class='textbox'><input type='text' name='nic'  onChange={(e) => setNIC(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class='label'>First Name</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='fname'/></td>
+                        <td class='textbox'><input type='text' name='fname'  onChange={(e) => setFname(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class='label'>Last Name</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='lname'/></td>
+                        <td class='textbox'><input type='text' name='lname'  onChange={(e) => setLname(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class='label'>Other Names</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='other'/></td>
+                        <td class='textbox'><input type='text' name='other' onChange={(e) => setOtherName(e.target.value)}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Permanent Address</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='address'/></td>
+                        <td class='textbox'><input type='text' name='address'  onChange={(e) => setAddress(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class='label'>Phone Number</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='phone'/></td>
+                        <td class='textbox'><input type='text' name='phone'  onChange={(e) => setPhone(e.target.value)} /></td>
                     </tr>
                 </table>
-                <input type='submit' onClick={handleSubmit}/>
+              <input type='submit'  />
 
             </form>
                 
@@ -133,8 +144,7 @@ export function AddCustomer() {
 
         </div>
     </div>
-  </div>
+</div>
 
-  );
+);
 }
-

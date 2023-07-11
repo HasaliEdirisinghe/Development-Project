@@ -29,12 +29,12 @@
     $nic = mysqli_real_escape_string($connectNow, $_POST['nic']);
     $fname = mysqli_real_escape_string($connectNow, $_POST['fname']);
     $lname = mysqli_real_escape_string($connectNow, $_POST['lname']);
-    $othernames = mysqli_real_escape_string($connectNow, $_POST['other']);
+    $othernames = mysqli_real_escape_string($connectNow, $_POST['othernames']);
     $address = mysqli_real_escape_string($connectNow, $_POST['address']);
     $phone = mysqli_real_escape_string($connectNow, $_POST['phone']);
 
     // Create the SQL query
-    $sql = "INSERT INTO customer (NIC, FirstName, LastName, OtherName, PermenantAddress, PhoneNumber) VALUES ('$nic', '$fname', '$lname', '$othernames', '$address', '$phone')";
+    $sql = "INSERT INTO customer (NIC, FirstName, LastName, OtherNames, PermanentAddress, PhoneNumber) VALUES ('$nic', '$fname', '$lname', '$othernames', '$address', '$phone');";
 
     // Execute the query
     $result = mysqli_query($connectNow, $sql);
