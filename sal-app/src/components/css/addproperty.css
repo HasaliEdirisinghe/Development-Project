@@ -14,23 +14,30 @@
   }
   .textbox{
     width: 20%;
-  }
+}
 
-  .customerimage {
+.propertyimage {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px; /* Adjust the height to your preference */
-    text-align: center; /* Add this line */
-  }
+    height: 200px; 
+    text-align: center; 
+}
   
-  .customerimage img {
+.propertyimage img {
     max-width: 20%;
     max-height: 20%;
-    margin: 0 auto; /* Update this line */
-  }
+    margin: 0 auto; 
+}
 
 .submitbutton, .cancelbutton{
   background-color: white;
   cursor: pointer;
+}
+
+.radioButton{
+    font-size: 20px;
+}
+.dropdown{
+    width: 20%;
 }

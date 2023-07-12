@@ -3,9 +3,9 @@ import './css/DashboardStyle.css';
 import './css/addcustomer.css';
 import { useState } from 'react';
 import axios from 'axios';
-import myImage from './img/customerprofile.png';
+import myImage from './img/money.png';
 
-export function AddCustomer() {
+export function AddPaymentDetails() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
@@ -114,29 +114,29 @@ export function AddCustomer() {
                         <td colspan="3" align='center' class='customerimage'><img src={myImage} alt="customer"/>    </td>
                     </tr>
                     <tr>
-                        <td class='label'>NIC</td>
+                        <td class='label'>Price per Unit</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='nic'  onChange={(e) => setNIC(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='ppu'  onChange={(e) => setNIC(e.target.value)} /></td>
                     </tr>
                     <tr>
-                        <td class='label'>First Name</td>
+                        <td class='label'>Basic Property Value</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='fname'  onChange={(e) => setFname(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='basic'  onChange={(e) => setFname(e.target.value)} /></td>
                     </tr>
                     <tr>
-                        <td class='label'>Last Name</td>
+                        <td class='label'>Discount</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='lname'  onChange={(e) => setLname(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='discount'  onChange={(e) => setLname(e.target.value)} /></td>
                     </tr>
                     <tr>
-                        <td class='label'>Other Names</td>
+                        <td class='label'>Other Charges</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='other' onChange={(e) => setOtherName(e.target.value)}/></td>
+                        <td class='textbox'><input type='text' name='othercharges' onChange={(e) => setOtherName(e.target.value)}/></td>
                     </tr>
                     <tr>
-                        <td class='label'>Permanent Address</td>
+                        <td class='label'>Final Value</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='address'  onChange={(e) => setAddress(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='finalvalue'  onChange={(e) => setAddress(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class='label'>Phone Number</td>

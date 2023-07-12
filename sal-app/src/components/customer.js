@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './css/DashboardStyle.css';
-import myImage from './img/bhoomilogo.jpg';
+import './css/customer.css';
 
-export function DashboardPage() {
-  const handleButtonClick = (e) => {
-    if (e.target.nodeName !== 'BUTTON') {
-      return;
+export function CustomerPage() {
+    const handleButtonClick = async () => {
+        window.location.href = '/addcustomer';
     }
-    e.target.style.background = '#808080';
-  };
-
 
   return (
     <div class="container">
@@ -43,7 +39,15 @@ export function DashboardPage() {
       </div>
 
       <div class="area4">
-      <img src={myImage} alt="logo" class='logo'/>    
+      {/* <img src={myImage} alt="logo" />     */}
+        <table>
+            <tr><td><button class="area4button" onClick={() => handleButtonClick('add')}>Add Customer</button></td></tr>
+            <tr><td><button class="area4button" onClick={() => handleButtonClick('edit')}>Edit Customer</button></td></tr>
+        </table>
+
+        {/* Render the appropriate page based on the current state */}
+        {/* {currentPage === 'add' && <AddCustomer />} */}
+        {/* {currentPage === 'edit' && <EditCustomer />} */}
     </div>
   </div>
 
