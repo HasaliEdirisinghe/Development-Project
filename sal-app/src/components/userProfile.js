@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import profileImage from './img/user_icon.png';
 import { logout } from './logout';
+import { handleBackButton } from './LocalStorageUtils';
+
 
 
 export function UserProfile() {
@@ -42,10 +44,13 @@ export function UserProfile() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (password.length === 0){
+      alert("Add a New Password");
+    }
+    else if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
-    }
+    }else{
 
     // Send the user data to the database
     let fData = new FormData();
@@ -65,11 +70,14 @@ export function UserProfile() {
       })
       .catch((error) => alert(error.message));
   };
-
+  }
   const [showInput, setShowInput] = useState(false);
 
   const handleChangePassword = () => {
     setShowInput(true);
+  };
+  const handleBackButton1 = () => {
+    handleBackButton(designation);
   };
 
   return (
@@ -90,9 +98,9 @@ export function UserProfile() {
             <tbody>
               <tr>
                 <td>
-                  <Link to="/addcustomer">
+                  {/* <Link to="/addcustomer"> */}
                     <button className="tablebutton">Customer</button>
-                  </Link>
+                  {/* </Link> */}
                 </td>
               </tr>
               <tr>
@@ -181,6 +189,9 @@ export function UserProfile() {
                   <button type="button" onClick={handleChangePassword}>
                     Change Password
                   </button>
+                  </td>
+                  <td className="label1">:</td>
+                  <td>
                   {showInput && (
                     <div>
                       <input
@@ -189,6 +200,7 @@ export function UserProfile() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                       />
+                      
                       <input
                         type="password"
                         placeholder="Confirm Password"
@@ -201,12 +213,11 @@ export function UserProfile() {
               </tr>
             </tbody>
           </table>
-          <a href="/dashboard">
-            <button type="button" className="cancelbutton">
-              Back
+          {/* <a href="/dashboard"> */}
+          <button type="button" className="backbutton" onClick={handleBackButton1}>              Back
             </button>
-          </a>
-          <input type="submit" className="submitbutton" value='Submit'/>
+          {/* </a> */}
+          <input type="submit" className="submitbutton" value='Save'/>
         </form>
       </div>
     </div>

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 
 
-export function CustomerPage() {
+export function ViewCustomer() {
     const handleButtonClick = async () => {
         window.location.href = '/addcustomer';
     }
@@ -69,14 +69,12 @@ function getAllCustomers(){
   }
 const setData = (med) => {
 
-  let {CustomerID, NIC,FirstName,LastName,OtherNames, PermanentAddress, PhoneNumber} = med;
+  let {CustomerID,NIC,FirstName,LastName,PhoneNumber} = med;
   
-  localStorage.setItem('customerId',CustomerID);
+  localStorage.setItem('id',CustomerID);
   localStorage.setItem('NIC', NIC);
   localStorage.setItem('FirstName', FirstName);
   localStorage.setItem('LastName', LastName);
-  localStorage.setItem('OtherNames', OtherNames);
-  localStorage.setItem('PermanentAddress', PermanentAddress);
   localStorage.setItem('PhoneNumber', PhoneNumber);
 
   }
@@ -150,11 +148,7 @@ const setData = (med) => {
 
       <div class="area4">
       <div>
-  <a href='/addcustomer'>
-  <button type='button'>Add New Customer</button>
-
-  </a>
-
+ 
 
 <br/><br/><br/>
   
@@ -170,7 +164,7 @@ const setData = (med) => {
 <br /><br/><br/>
       <table class="table table-striped" border={1}>
             <thead>
-              <th> </th>
+              
                 <th>NIC</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -181,19 +175,13 @@ const setData = (med) => {
                 {customers.map((customer) => {
                   return (
                     <tr>
-                      <td>
-                      <Link to={`/editcustomer`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Edit</button>
-                        </Link>
-                      </td>
+  
                       <td>{customer.NIC}</td>
                       <td>{customer.FirstName}</td>
                       <td>{customer.LastName}</td>
                       <td>{customer.PhoneNumber}</td>
                       <td>
-                        <Link to={`/property`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Assign Property</button>
-                        </Link>
+
                         <Link to={`/ownedproperties`}>
                           <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Owned Properties</button>
                         </Link>

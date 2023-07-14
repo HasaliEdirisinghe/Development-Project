@@ -63,6 +63,17 @@ label{
     margin-bottom: 10px;
 }
 
+.page{
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 /* html, body {
     display: flex;
     justify-content: center;

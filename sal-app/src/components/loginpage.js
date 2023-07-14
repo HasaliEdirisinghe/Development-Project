@@ -3,6 +3,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 import { setUsername } from './LocalStorageUtils';
+import bannerImage from './img/bannerImage.png';
+
 
 export function LoginPage() {
 
@@ -63,6 +65,7 @@ export function LoginPage() {
 
   return (
     <div className="page">
+      <img src={bannerImage} alt="profile" className="bannerImage" />
       <h1>SAL</h1>
       <div className="login">
         <label htmlFor="name">Username</label>

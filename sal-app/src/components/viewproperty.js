@@ -114,19 +114,25 @@ const setData = (med) => {
       </div>
 
       <div class="area3">
-        <div id="wrapper" onClick={handleButtonClick}>
+        <div id="wrapper" >
           <table>
             <tr><td>
-              <button class="tablebutton">Customer</button>
+            <Link to={`/customer`}>
+            <button class="tablebutton">Customer</button>
+                        </Link>
             </td></tr>
             <tr><td>
               <button class="tablebutton">Property</button>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Project Page</button>
+            <Link to={`/projectpage`}>
+            <button class="tablebutton">Project Page</button>
+                        </Link>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Approvals</button>
+            <Link to={`/salesofficerapprovals`}>
+            <button class="tablebutton">Approvals</button>
+                        </Link>
             </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>            

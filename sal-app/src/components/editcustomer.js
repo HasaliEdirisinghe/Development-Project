@@ -6,102 +6,67 @@ import axios from 'axios';
 import myImage from './img/customerprofile.png';
 
 export function EditCustomer() {
-  const [customerData, setCustomerData] = useState({
-    nic: '',
-    fname: '',
-    lname: '',
-    othernames: '',
-    address: '',
-    phone: ''
-  });
-
-  const handleButtonClick = (e) => {
-    if (e.target.nodeName !== 'BUTTON') {
-      return;
-    }
-    e.target.style.background = '#808080';
-  };
+  const [CusID, setCusID] = useState('');
+  const [CusNIC, setCusNIC] = useState('');
+  const [CusFirstName, setCusFirstName] = useState('');
+  const [CusLastName, setCusLastName] = useState('');
+  const [CusOtherNames, setCusOtherNames] = useState('');
+  const [CusPermanentAddress, setCusPermanentAddress] = useState('');
+  const [CusPhoneNumber, setCusPhoneNumber] = useState('');
 
   useEffect(() => {
     // Fetch the customer data based on the customer ID (retrieve the ID from localStorage or URL params)
-    const customerId = localStorage.getItem('customerId'); // Assuming you store the customer ID in localStorage
-    // const customerId = useParams().id; // If you're using React Router, retrieve the ID from URL params
-
-    // Fetch the customer data using the customer ID
-    axios.get(`http://localhost/backend/getcustomer.php?id=${customerId}`)
-      .then(response => {
-        const customer = response.data;
-        setCustomerData({
-          nic: customer.NIC,
-          fname: customer.FirstName,
-          lname: customer.LastName,
-          othernames: customer.OtherNames,
-          address: customer.Address,
-          phone: customer.PhoneNumber
-        });
-      })
-      .catch(error => {
-        alert(error.message);
-      });
+    const customerId = localStorage.getItem('customerId');
+    const NIC = localStorage.getItem('NIC');
+    const FirstName = localStorage.getItem('FirstName');
+    const LastName = localStorage.getItem('LastName');
+    const OtherNames = localStorage.getItem('OtherNames');
+    const PermanentAddress = localStorage.getItem('PermanentAddress');
+    const PhoneNumber = localStorage.getItem('PhoneNumber');
+    setCusID(customerId);
+    setCusNIC(NIC);
+    setCusFirstName(FirstName);
+    setCusLastName(LastName);
+    setCusOtherNames(OtherNames);
+    setCusPermanentAddress(PermanentAddress);
+    setCusPhoneNumber(PhoneNumber);
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Send the updated customer data to the database
 
-    const { nic, fname, lname, othernames, address, phone } = customerData;
-    const customerId = localStorage.getItem('customerId'); // Assuming you store the customer ID in localStorage
-
     const formData = new FormData();
-    formData.append('nic', nic);
-    formData.append('fname', fname);
-    formData.append('lname', lname);
-    formData.append('othernames', othernames);
-    formData.append('address', address);
-    formData.append('phone', phone);
-    formData.append('id', customerId);
+    formData.append('nic', CusNIC);
+    formData.append('fname', CusFirstName);
+    formData.append('lname', CusLastName);
+    formData.append('othernames', CusOtherNames);
+    formData.append('address', CusPermanentAddress);
+    formData.append('phone', CusPhoneNumber);
+    formData.append('id', CusID);
 
     // Send a POST request with the form data
-    axios.post(`http://localhost/backend/editcustomer.php`, formData)
-      .then(response => {
+    axios
+      .post(`http://localhost/backend/editcustomer.php`, formData)
+      .then((response) => {
         if (response.data === 'Customer Updated') {
           alert('Customer updated successfully');
-          // Reset the customer data
-          setCustomerData({
-            nic: '',
-            fname: '',
-            lname: '',
-            othernames: '',
-            address: '',
-            phone: ''
-          });
         } else {
           alert('Invalid');
         }
       })
-      .catch(error => alert(error.message)); // Display an error message if the request fails
+      .catch((error) => alert(error.message));
   };
 
   const handleCancelClick = (event) => {
     event.preventDefault();
     // Reset the customer data
-    setCustomerData({
-      nic: '',
-      fname: '',
-      lname: '',
-      othernames: '',
-      address: '',
-      phone: ''
-    });
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    // Update the corresponding field in the customerData state
-    setCustomerData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    setCusNIC('');
+    setCusFirstName('');
+    setCusLastName('');
+    setCusOtherNames('');
+    setCusPermanentAddress('');
+    setCusPhoneNumber('');
   };
 
   return (
@@ -113,7 +78,7 @@ export function EditCustomer() {
       <div className="area2"></div>
 
       <div className="area3">
-        <div id="wrapper" onClick={handleButtonClick}>
+        <div id="wrapper">
           <table>
             <tr>
               <td>
@@ -162,8 +127,8 @@ export function EditCustomer() {
                   <input
                     type="text"
                     name="nic"
-                    onChange={handleChange}
-                    value={customerData.nic}
+                    value={CusNIC}
+                    onChange={(e) => setCusNIC(e.target.value)} required
                   />
                 </td>
               </tr>
@@ -174,8 +139,8 @@ export function EditCustomer() {
                   <input
                     type="text"
                     name="fname"
-                    onChange={handleChange}
-                    value={customerData.fname}
+                    value={CusFirstName}
+                    onChange={(e) => setCusFirstName(e.target.value)}
                   />
                 </td>
               </tr>
@@ -186,8 +151,8 @@ export function EditCustomer() {
                   <input
                     type="text"
                     name="lname"
-                    onChange={handleChange}
-                    value={customerData.lname}
+                    value={CusLastName}
+                    onChange={(e) => setCusLastName(e.target.value)}
                   />
                 </td>
               </tr>
@@ -198,8 +163,8 @@ export function EditCustomer() {
                   <input
                     type="text"
                     name="othernames"
-                    onChange={handleChange}
-                    value={customerData.othernames}
+                    value={CusOtherNames}
+                    onChange={(e) => setCusOtherNames(e.target.value)}
                   />
                 </td>
               </tr>
@@ -210,8 +175,8 @@ export function EditCustomer() {
                   <input
                     type="text"
                     name="address"
-                    onChange={handleChange}
-                    value={customerData.address}
+                    value={CusPermanentAddress}
+                    onChange={(e) => setCusPermanentAddress(e.target.value)}
                   />
                 </td>
               </tr>
@@ -222,8 +187,8 @@ export function EditCustomer() {
                   <input
                     type="text"
                     name="phone"
-                    onChange={handleChange}
-                    value={customerData.phone}
+                    value={CusPhoneNumber}
+                    onChange={(e) => setCusPhoneNumber(e.target.value)}
                   />
                 </td>
               </tr>

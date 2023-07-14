@@ -20,7 +20,16 @@ export function PropertyPage() {
   const [id2, setId2] = useState(null);
     const [properties, setProperties] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
+    const [customerId, SetID] = useState("");
+
+
   useEffect(() => {
+    function getUserData(){
+
+      SetID(localStorage.getItem('id'));
+      
+
+}
     
     function getusername(){
   
@@ -66,17 +75,22 @@ function getAllProperties(){
           alert(err.message);
         });
   }
-const setData = (med) => {
+function assignProperty(p){
+  let {PropertyID, PropertyType,Location, District, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice } = p;    
+    localStorage.setItem('PropId',PropertyID);
+    localStorage.setItem('PropertyType',PropertyType);
+    localStorage.setItem('Location',Location);
+    localStorage.setItem('District', District);
+    localStorage.setItem('Address', Address);
+    localStorage.setItem('LotNo', LotNo);
+    localStorage.setItem('PlanNo', PlanNo);
+    localStorage.setItem('Size', Size);
+    localStorage.setItem('UnitPrice', UnitPrice);
+    localStorage.setItem('TotalPrice', TotalPrice);
 
-  let {id,NIC,FirstName,LastName,PhoneNumber} = med;
-  
-  localStorage.setItem('id',id);
-  localStorage.setItem('NIC', NIC);
-  localStorage.setItem('FirstName', FirstName);
-  localStorage.setItem('LastName', LastName);
-  localStorage.setItem('PhoneNumber', PhoneNumber);
-
-  }
+    // localStorage.setItem('CusId',customerId);
+    
+}
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -114,7 +128,7 @@ const setData = (med) => {
       </div>
 
       <div class="area3">
-        <div id="wrapper" onClick={handleButtonClick}>
+        <div id="wrapper" >
           <table>
             <tr><td>
               <button class="tablebutton">Customer</button>
@@ -146,14 +160,8 @@ const setData = (med) => {
     >
 
     </input>
-  </div> 
-<div>
-  <a href='/addcustomer'>
-  <button type='button'>Add New Customer</button>
 
-  </a>
 
-</div>
 <br/><br/>
       <table class="table table-striped">
             <thead>
@@ -182,8 +190,8 @@ const setData = (med) => {
                       <td>{property.UnitPrice}</td>
                       <td>{property.TotalPrice}</td>
                       <td>
-                        <Link to={`/Inventory/medbatches/update/whole`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>Assign</button>
+                        <Link to={`/propertypayment/${customerId}`}>
+                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>assignProperty(property)}>Assign</button>
                         </Link>
                          
                         </td>
@@ -192,6 +200,7 @@ const setData = (med) => {
                 })}
               </tbody>
             </table>
+      </div> 
      
     </div>
   </div>

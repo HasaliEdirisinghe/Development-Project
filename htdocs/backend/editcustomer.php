@@ -16,7 +16,7 @@ $phoneNumber = mysqli_real_escape_string($connectNow, $_POST['phone']);
 
 // Prepare the SQL statement to update the customer record
 $sql_query = "UPDATE customer 
-            SET NIC = '$nic', FirstName = '$firstName', LastName = '$lastName', OtherNames = '$otherNames', Address = '$address', PhoneNumber = '$phoneNumber' 
+            SET NIC = '$nic', FirstName = '$firstName', LastName = '$lastName', OtherNames = '$otherNames', PermanentAddress = '$address', PhoneNumber = '$phoneNumber' 
             WHERE CustomerID = '$id'";
 
 // Execute the query

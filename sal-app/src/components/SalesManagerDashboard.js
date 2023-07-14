@@ -57,10 +57,10 @@ export function SalesManagerDashboardPage() {
         <div id="wrapper" onClick={handleButtonClick}>
           <table>
           <tr><td>
-              <button class="tablebutton">Dashboard - Sales Manager</button>
+              <button class="tablebutton">Dashboard</button>
             </td></tr>
             <tr><td>
-            <Link to={`/customer`}>
+            <Link to={`/viewcustomer`}>
             <button class="tablebutton">Customer</button>
             </Link>
               

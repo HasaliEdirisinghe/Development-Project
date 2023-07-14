@@ -10,12 +10,12 @@ import { logout } from './logout';
 
 
 
-export function ProjectPage() {
+export function SalesOfficerApprovals() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
-    e.target.style.background = '#808080';
+    // e.target.style.background = '#808080';
   };
 
   // const [username,setUsername] = useState('');
@@ -54,7 +54,7 @@ export function ProjectPage() {
       </div>
 
       <div class="area3">
-        <div id="wrapper" >
+        <div id="wrapper" onClick={handleButtonClick}>
           <table>
             <tr><td>
             <Link to={`/customer`}>
@@ -74,9 +74,8 @@ export function ProjectPage() {
               
             </td></tr>
             <tr><td>
-            <Link to={`/salesofficerapprovals`}>
-            <button class="tablebutton">Approvals</button>
-                        </Link>            </td></tr>
+              <button class="tablebutton">Approvals</button>
+            </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>
@@ -86,18 +85,8 @@ export function ProjectPage() {
       </div>
 
       <div class="area4">
-  <div>
-    <div class="section">
-      <h1> Customer Info </h1>
+      <h1>Approval status for sales officer</h1>
     </div>
-    <div class="section">
-    <h1> Property Info </h1>
-    </div>
-    <div class="section">
-    <h1> Payment Info </h1>
-    </div>
-  </div>
-</div>
   </div>
 
   );
