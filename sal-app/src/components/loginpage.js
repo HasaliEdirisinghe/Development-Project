@@ -2,66 +2,77 @@ import './css/Style.css';
 import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
+import { setUsername } from './LocalStorageUtils';
 
 export function LoginPage() {
 
   // State variables to hold the username and password
-  const [name,setName] = useState('');
-  const [password,setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
     // Check if the username field is empty
-    if(name.length === 0){
+    if (name.length === 0) {
       alert("Please enter your username!");
-    }
-    // Check if the password field is empty
-    else if(password.length === 0){
+    } else if (password.length === 0) {
       alert("Please enter your password!");
-    }
-    else {
-      // If both fields are filled, make a request to the server
+    } else {
       const url = 'http://localhost/backend/login.php';
-      let fData = new FormData();
-      fData.append('name', name);
-      fData.append('password', password);
-      // Send a POST request with the form data
-      axios.post(url, fData)
-        .then(response => {
-          if (response.data === 'Login successful.') {
-            // Redirect to the dashboard page
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('password', password);
+
+      try {
+        // Send a POST request to the login endpoint
+        const response = await axios.post(url, formData);
+        
+        // Check if the login was successful
+        if (response.data === 'Login successful.') {
+          // Set the username in local storage
+          setUsername(name);
+          
+          // Request the designation for the logged-in user
+          const designationUrl = 'http://localhost/backend/getdesignation.php';
+          const designationResponse = await axios.post(designationUrl, formData);
+          const designation = designationResponse.data;
+
+          // Redirect the user based on the designation
+          if (designation === 'Admin') {
             window.location.href = '/dashboard';
+          } else if (designation === 'Sales Manager') {
+            window.location.href = '/salesmanagerdashboard';
+          } else if (designation === 'Sales Officer') {
+            window.location.href = '/salesofficerdashboard';
+          } else if (designation === 'Accountant') {
+            window.location.href = '/accountantdashboard';
+          } else if (designation === 'Chief Accountant') {
+            window.location.href = '/chiefaccountantdashboard';
+          } else if (designation === 'Legal Officer') {
+            window.location.href = '/legalofficerdashboard';
           } else {
             alert('Invalid credentials.');
           }
-        })
-        .catch(error => alert(error.message)); // Display an error message if the request fails
+        } else {
+          alert('Invalid credentials.');
+        }
+      } catch (error) {
+        alert(error.message);
+      }
     }
-  }
+  };
 
   return (
     <div className="page">
       <h1>SAL</h1>
-      {/* The banner image
-      <img src="C:\xampp\MITProject\sal-app\src\img\bannerImage.png" alt="BannerImage" />
-   */}
       <div className="login">
-        {/* Username label */}
         <label htmlFor="name">Username</label>
-        {/* Username input field */}
         <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-  
-        {/* Password label */}
         <label htmlFor="password">Password</label>
-        {/* Password input field */}
         <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-  
         <div className="center">
-          {/* Login button */}
           <input type="button" name="submit" id="submit" value="Login" onClick={handleSubmit} />
         </div>
       </div>
     </div>
   );
-  
 }
-

@@ -10,7 +10,7 @@ import { logout } from './logout';
 
 
 
-export function DashboardPage() {
+export function ProjectPage() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
@@ -63,12 +63,15 @@ export function DashboardPage() {
               
             </td></tr>
             <tr><td>
-            <Link to={`/property`}>
+            <Link to={`/viewproperty`}>
             <button class="tablebutton">Property</button>
                         </Link>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Project Page</button>
+            <Link to={`/projectpage`}>
+            <button class="tablebutton">Project Page</button>
+                        </Link>
+              
             </td></tr>
             <tr><td>
               <button class="tablebutton">Approvals</button>
@@ -82,8 +85,18 @@ export function DashboardPage() {
       </div>
 
       <div class="area4">
-      <img src={myImage} alt="logo" class='logo'/>    
+  <div>
+    <div class="section">
+      <h1> Customer Info </h1>
     </div>
+    <div class="section">
+    <h1> Property Info </h1>
+    </div>
+    <div class="section">
+    <h1> Payment Info </h1>
+    </div>
+  </div>
+</div>
   </div>
 
   );

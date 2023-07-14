@@ -4,6 +4,7 @@ import './css/addproperty.css';
 import { useState } from 'react';
 import axios from 'axios';
 import myImage from './img/property.png';
+import { logout } from './logout';
 
 export function AddProperty() {
   const handleButtonClick = (e) => {
@@ -71,6 +72,16 @@ export function AddProperty() {
         .catch(error => alert(error.message)); // Display an error message if the request fails
       }
     }
+    const handleCancelClick = (event) => {
+      event.preventDefault();
+      setLocation('');
+            setDistrict('');
+            setAddress('');
+            setLotNo('');
+            setPlanNo('');
+            setSize('');
+            setPrice('');
+    };
 
 
   return (
@@ -97,8 +108,7 @@ export function AddProperty() {
               <button class="tablebutton">Approvals</button>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Logout</button>
-            </td></tr>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            </td></tr>
           </table>
         </div>
       
@@ -119,7 +129,7 @@ export function AddProperty() {
                         <td class='label'>Property Type</td>
                         <td class='label1'>:</td>
                         <td class='radioButton'>
-                            <input type="radio" id="house" name="property_type" value="House" onChange={(e) => setPropertyType(e.target.value)}/>
+                            <input type="radio" id="house" name="property_type" value="House" onChange={(e) => setPropertyType(e.target.value)} />
                             <label for="html">House</label>
                             <input type="radio" id="land" name="property_type" value="Land" onChange={(e) => setPropertyType(e.target.value)}/>
                             <label for="css">Land</label>
@@ -128,13 +138,14 @@ export function AddProperty() {
                     <tr>
                         <td class='label'>Location</td>
                         <td class='label1'>:</td>
-                        <td class='dropdown'><input type='text' name='location'  onChange={(e) => setLocation(e.target.value)} /></td>
+                        <td class='dropdown'><input type='text' name='location'  onChange={(e) => setLocation(e.target.value)} value={location}/></td>
                     </tr>
                     <tr>
                         <td class='label'>District</td>
                         <td class='label1'>:</td>
                         <td class='textbox'>
-                            <select name="district" id="district" onChange={(e) => setDistrict(e.target.value)}>
+                            <select name="district" id="district" onChange={(e) => setDistrict(e.target.value)} value={district}>
+                                <option value="blank">   </option>
                                 <option value="Ampara">Ampara</option>
                                 <option value="Anuradhapura">Anuradhapura</option>
                                 <option value="Badulla">Badulla</option>
@@ -166,30 +177,30 @@ export function AddProperty() {
                     <tr>
                         <td class='label'>Address</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='property_address' onChange={(e) => setAddress(e.target.value)}/></td>
+                        <td class='textbox'><input type='text' name='property_address' onChange={(e) => setAddress(e.target.value)} value={address}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Lot No</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='lotNo'  onChange={(e) => setLotNo(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='lotNo'  onChange={(e) => setLotNo(e.target.value)} value={lot_no}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Plan No</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='planNo'  onChange={(e) => setPlanNo(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='planNo'  onChange={(e) => setPlanNo(e.target.value)} value={plan_no} /></td>
                     </tr>
                     <tr>
                         <td class='label'>Size (Square Feet)</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='size'  onChange={(e) => setSize(e.target.value)} /></td>
+                        <td class='textbox'><input type='number' name='size'  onChange={(e) => setSize(e.target.value)} step="0.01" value={size}/></td>
                     </tr>
                     <tr>
-                        <td class='label'>Price (LKR)</td>
+                        <td class='label'>Unit Price (LKR)</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='price'  onChange={(e) => setPrice(e.target.value)} /></td>
+                        <td class='textbox'><input type='number' name='price'  onChange={(e) => setPrice(e.target.value) } step="0.01" value={price}/></td>
                     </tr>
                 </table>
-                <button class="cancelbutton">Cancel</button>
+                <button class="cancelbutton" onClick={handleCancelClick}>Cancel</button>
                 <input type='submit' class='submitbutton' /> 
 
             </form>

@@ -11,16 +11,15 @@ import { Link } from 'react-router-dom';
 
 
 
-export function CustomerPage() {
+export function ViewProperty() {
     const handleButtonClick = async () => {
         window.location.href = '/addcustomer';
     }
 
   // setUsername(username2)
   const [id2, setId2] = useState(null);
-    const [customers, setCustomers] = useState([]);
+    const [properties, setProperties] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
-    
   useEffect(() => {
     
     function getusername(){
@@ -41,12 +40,12 @@ export function CustomerPage() {
       });
  
     }
-function getAllCustomers(){
-  const url_customers = 'http://localhost/backend/customerpage.php';
-      axios.post(url_customers)
+function getAllProperties(){
+  const url_properties = 'http://localhost/backend/propertypage.php';
+      axios.post(url_properties)
       .then(response => {
-        const customers = response.data;
-        setCustomers (customers);
+        const properties = response.data;
+        setProperties (properties);
         // Do further processing with the username here
       })
       .catch(error => {
@@ -54,14 +53,14 @@ function getAllCustomers(){
       });
 }
     getusername()
-    getAllCustomers()
+    getAllProperties()
   }, []); // Empty dependencies array means the effect only runs once (on mount)
 
   const getData = () => {
     axios
-        .get("http://localhost/backend/customerpage.php")
+        .get("http://localhost/backend/propertypage.php")
         .then((res) => {
-          setCustomers(res.data);
+          setProperties(res.data);
         })
         .catch((err) => {
           alert(err.message);
@@ -69,9 +68,9 @@ function getAllCustomers(){
   }
 const setData = (med) => {
 
-  let {CustomerID,NIC,FirstName,LastName,PhoneNumber} = med;
+  let {id,NIC,FirstName,LastName,PhoneNumber} = med;
   
-  localStorage.setItem('id',CustomerID);
+  localStorage.setItem('id',id);
   localStorage.setItem('NIC', NIC);
   localStorage.setItem('FirstName', FirstName);
   localStorage.setItem('LastName', LastName);
@@ -83,18 +82,18 @@ const setData = (med) => {
     const searchWord = event.target.value;
     console.log(searchWord);
     setWordEntered(searchWord);
-    axios.get("http://localhost/backend/customerpage.php")
+    axios.get("http://localhost/backend/propertypage.php")
     .then(response => {
         console.log(response)
-        const newFilter = customers.filter((response) => {
-            return response.NIC.toLowerCase().includes(searchWord.toLowerCase());
+        const newFilter = properties.filter((response) => {
+            return response.Location.toLowerCase().includes(searchWord.toLowerCase());
         });
   
         if (searchWord === "") {
             console.log("EMPLTY");
             getData();
         } else {
-          setCustomers(newFilter);
+          setProperties(newFilter);
         }
     })
     .catch(error => console.log(error));
@@ -115,12 +114,10 @@ const setData = (med) => {
       </div>
 
       <div class="area3">
-        <div id="wrapper">
+        <div id="wrapper" onClick={handleButtonClick}>
           <table>
             <tr><td>
-            <Link to={`/customer`}>
-            <button class="tablebutton">Customer</button>
-                        </Link>
+              <button class="tablebutton">Customer</button>
             </td></tr>
             <tr><td>
               <button class="tablebutton">Property</button>
@@ -140,62 +137,44 @@ const setData = (med) => {
       </div>
 
       <div class="area4">
-      <div>
-  <a href='/addcustomer'>
-  <button type='button'>Add New Customer</button>
 
-  </a>
-
-
-<br/><br/><br/>
+<div>
   
-    <input type="search" 
-    placeholder="Search" 
-    name="Searchquery" 
-    value={wordEntered}
-    onChange={handleFilter}
-    >
-    </input>
-  
 
-<br /><br/><br/>
-      <table class="table table-striped" border={1}>
+</div>
+<br/><br/>
+      <table class="table table-striped">
             <thead>
-              <th> </th>
-                <th>NIC</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Actions</th>
+                <th>Property Type</th>
+                <th>Location</th>
+                <th>District</th>
+                <th>Address</th>
+                <th>Lot No</th>
+                <th>Plan No</th>
+                <th>Size</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+
             </thead>    
               <tbody>
-                {customers.map((customer) => {
+                {properties.map((property) => {
                   return (
                     <tr>
-                      <td>
-                      <Link to={`/editcustomer`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Edit</button>
-                        </Link>
-                      </td>
-                      <td>{customer.NIC}</td>
-                      <td>{customer.FirstName}</td>
-                      <td>{customer.LastName}</td>
-                      <td>{customer.PhoneNumber}</td>
-                      <td>
-                        <Link to={`/property`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Assign Property</button>
-                        </Link>
-                        <Link to={`/ownedproperties`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Owned Properties</button>
-                        </Link>
-                        
-                        </td>
+                      <td>{property.PropertyType}</td>
+                      <td>{property.Location}</td>
+                      <td>{property.District}</td>
+                      <td>{property.Address}</td>
+                      <td>{property.LotNo}</td>
+                      <td>{property.PlanNo}</td>
+                      <td>{property.Size}</td>
+                      <td>{property.UnitPrice}</td>
+                      <td>{property.TotalPrice}</td>
+
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-    </div> 
      
     </div>
   </div>

@@ -5,13 +5,9 @@ require 'connection.php';
 // Allow cross-origin requests
 header('Access-Control-Allow-Origin: *');
 
-// Get the password and username from the POST data and sanitize them to prevent SQL injection
-$username = mysqli_real_escape_string($connectNow, $_POST['name']);
-$password = mysqli_real_escape_string($connectNow, $_POST['password']);
+$id = mysqli_real_escape_string($connectNow, $_POST['id']);
 
-// Create the SQL query
-$sql_query = "SELECT * FROM user_login WHERE EmployeeID = '$username' AND Password = '$password'";
-// $sql_designation = "SELECT Designation FROM employee WHERE EmployeeID = '$username';";
+$sql_query = "SELECT EmployeeName FROM employee WHERE EmployeeID = '$id'";
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql_query);
@@ -20,8 +16,10 @@ $result = mysqli_query($connectNow, $sql_query);
 if ($result) {
     // If the query was successful, check if any rows were returned
     if (mysqli_num_rows($result) > 0) {
-        // If rows were returned, echo a success message
-        echo "Login successful.";
+        // If rows were returned, echo the username
+        $row = mysqli_fetch_assoc($result);
+        $username = $row['EmployeeName'];
+        echo $username;
     } else {
         // If no rows were returned, echo an invalid credentials message
         echo "Invalid credentials.";

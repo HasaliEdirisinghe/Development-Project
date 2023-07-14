@@ -10,7 +10,7 @@ import { logout } from './logout';
 
 
 
-export function DashboardPage() {
+export function SalesOfficerDashboardPage() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
@@ -63,12 +63,15 @@ export function DashboardPage() {
               
             </td></tr>
             <tr><td>
-            <Link to={`/property`}>
+            <Link to={`/viewproperty`}>
             <button class="tablebutton">Property</button>
                         </Link>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Project Page</button>
+            <Link to={`/projectpage`}>
+            <button class="tablebutton">Project Page</button>
+                        </Link>
+              
             </td></tr>
             <tr><td>
               <button class="tablebutton">Approvals</button>

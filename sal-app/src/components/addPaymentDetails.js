@@ -4,6 +4,7 @@ import './css/addcustomer.css';
 import { useState } from 'react';
 import axios from 'axios';
 import myImage from './img/money.png';
+import { logout } from './logout';
 
 export function AddPaymentDetails() {
   const handleButtonClick = (e) => {
@@ -95,8 +96,7 @@ export function AddPaymentDetails() {
               <button class="tablebutton">Approvals</button>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Logout</button>
-            </td></tr>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            </td></tr>
           </table>
         </div>
       

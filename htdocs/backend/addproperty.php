@@ -13,11 +13,13 @@
     $plan_no = mysqli_real_escape_string($connectNow, $_POST['plan_no']);
     $size = mysqli_real_escape_string($connectNow, $_POST['size']);
     $price = mysqli_real_escape_string($connectNow, $_POST['price']);
+
+    $total_price = (int)$price*(int)$size;
  
 
     // Create the SQL query
-    $sql = "INSERT INTO property (PropertyType, Location, District, Address, LotNo, PlanNo, Size, Prize) 
-    VALUES ('$propertytype', '$location', '$district', '$address', '$lot_no', '$size', '$price');";
+    $sql = "INSERT INTO property (PropertyType, Location, District, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice) 
+    VALUES ('$propertytype', '$location', '$district', '$address', '$lot_no', '$plan_no', '$size', '$price', '$total_price');";
 
     // Execute the query
     $result = mysqli_query($connectNow, $sql);

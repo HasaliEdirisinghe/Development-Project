@@ -6,21 +6,26 @@ import { getUsername} from './LocalStorageUtils';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
-
-export function CustomerPage() {
+export function OwnedProperties() {
     const handleButtonClick = async () => {
         window.location.href = '/addcustomer';
     }
 
   // setUsername(username2)
   const [id2, setId2] = useState(null);
-    const [customers, setCustomers] = useState([]);
+    const [properties, setProperties] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
-    
+    const [id, setID] = useState([]);
+    const [NIC, setNIC] = useState("");
+    const [FirstName, setFName] = useState("");
+    const [LastName, setLName] = useState("");
+    const [PhoneNumber, setPhone] = useState("");
+
+
   useEffect(() => {
     
     function getusername(){
@@ -41,27 +46,40 @@ export function CustomerPage() {
       });
  
     }
-function getAllCustomers(){
-  const url_customers = 'http://localhost/backend/customerpage.php';
-      axios.post(url_customers)
+function getAllProperties(){
+  const url_properties = 'http://localhost/backend/ownedproperties.php';
+  let fData = new FormData();
+    fData.append('cusid', id);
+      axios.post(url_properties, fData)
       .then(response => {
-        const customers = response.data;
-        setCustomers (customers);
+        const properties = response.data;
+        setProperties (properties);
         // Do further processing with the username here
       })
       .catch(error => {
         alert(error.message)
       });
 }
-    getusername()
-    getAllCustomers()
+
+function getUserData(){
+
+        setID(localStorage.getItem('id'));
+        setNIC(localStorage.getItem('NIC'));
+        setFName(localStorage.getItem('FirstName'));
+        setLName(localStorage.getItem('LastName'));
+        setPhone(localStorage.getItem('PhoneNumber'));
+
+}
+getusername();
+getAllProperties();
+getUserData();
   }, []); // Empty dependencies array means the effect only runs once (on mount)
 
   const getData = () => {
     axios
-        .get("http://localhost/backend/customerpage.php")
+        .get("http://localhost/backend/ownedproperties.php")
         .then((res) => {
-          setCustomers(res.data);
+          setProperties(res.data);
         })
         .catch((err) => {
           alert(err.message);
@@ -69,9 +87,9 @@ function getAllCustomers(){
   }
 const setData = (med) => {
 
-  let {CustomerID,NIC,FirstName,LastName,PhoneNumber} = med;
+  let {_id,NIC,FirstName,LastName,PhoneNumber} = med;
   
-  localStorage.setItem('id',CustomerID);
+  localStorage.setItem('id',_id);
   localStorage.setItem('NIC', NIC);
   localStorage.setItem('FirstName', FirstName);
   localStorage.setItem('LastName', LastName);
@@ -83,18 +101,18 @@ const setData = (med) => {
     const searchWord = event.target.value;
     console.log(searchWord);
     setWordEntered(searchWord);
-    axios.get("http://localhost/backend/customerpage.php")
+    axios.get("http://localhost/backend/ownedproperties.php")
     .then(response => {
         console.log(response)
-        const newFilter = customers.filter((response) => {
-            return response.NIC.toLowerCase().includes(searchWord.toLowerCase());
+        const newFilter = properties.filter((response) => {
+            return response.Location.toLowerCase().includes(searchWord.toLowerCase());
         });
   
         if (searchWord === "") {
             console.log("EMPLTY");
             getData();
         } else {
-          setCustomers(newFilter);
+          setProperties(newFilter);
         }
     })
     .catch(error => console.log(error));
@@ -111,11 +129,12 @@ const setData = (med) => {
         <a href="/userprofile">
           <img src={profileImage} alt="profile" className="profile" />
         </a>
+     
  
       </div>
 
       <div class="area3">
-        <div id="wrapper">
+        <div id="wrapper" >
           <table>
             <tr><td>
             <Link to={`/customer`}>
@@ -141,14 +160,6 @@ const setData = (med) => {
 
       <div class="area4">
       <div>
-  <a href='/addcustomer'>
-  <button type='button'>Add New Customer</button>
-
-  </a>
-
-
-<br/><br/><br/>
-  
     <input type="search" 
     placeholder="Search" 
     name="Searchquery" 
@@ -156,47 +167,51 @@ const setData = (med) => {
     onChange={handleFilter}
     >
     </input>
-  
+    <br/>
+    <h2>{FirstName}{' '} {LastName}</h2>
+    <h3>{NIC}</h3>
 
-<br /><br/><br/>
+
+
+<br/><br/>
       <table class="table table-striped" border={1}>
             <thead>
-              <th> </th>
-                <th>NIC</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Actions</th>
+                <th>Property Type</th>
+                <th>Location</th>
+                <th>District</th>
+                <th>Address</th>
+                <th>Lot No</th>
+                <th>Plan No</th>
+                <th>Size</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th>Action</th>
             </thead>    
               <tbody>
-                {customers.map((customer) => {
+                {properties.map((property) => {
                   return (
                     <tr>
+                      <td>{property.PropertyType}</td>
+                      <td>{property.Location}</td>
+                      <td>{property.District}</td>
+                      <td>{property.Address}</td>
+                      <td>{property.LotNo}</td>
+                      <td>{property.PlanNo}</td>
+                      <td>{property.Size}</td>
+                      <td>{property.UnitPrice}</td>
+                      <td>{property.TotalPrice}</td>
                       <td>
-                      <Link to={`/editcustomer`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Edit</button>
+                        <Link to={`/Inventory/medbatches/update/whole`}>
+                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>See Data</button>
                         </Link>
-                      </td>
-                      <td>{customer.NIC}</td>
-                      <td>{customer.FirstName}</td>
-                      <td>{customer.LastName}</td>
-                      <td>{customer.PhoneNumber}</td>
-                      <td>
-                        <Link to={`/property`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Assign Property</button>
-                        </Link>
-                        <Link to={`/ownedproperties`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Owned Properties</button>
-                        </Link>
-                        
+                         
                         </td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-    </div> 
-     
+     </div>
     </div>
   </div>
 

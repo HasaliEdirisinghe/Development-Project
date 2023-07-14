@@ -4,6 +4,9 @@ import './css/addcustomer.css';
 import { useState } from 'react';
 import axios from 'axios';
 import myImage from './img/customerprofile.png';
+import { logout } from './logout';
+import {Link} from 'react-router-dom';
+
 
 export function AddCustomer() {
   const handleButtonClick = (e) => {
@@ -12,6 +15,8 @@ export function AddCustomer() {
     }
     e.target.style.background = '#808080';
   };
+
+
     // State variables to hold the username and password
     const [nic,setNIC] = useState('');
     const [fname,setFname] = useState('');
@@ -70,6 +75,16 @@ export function AddCustomer() {
       }
     }
 
+    const handleCancelClick = (event) => {
+      event.preventDefault();
+      setNIC('');
+              setFname('');
+              setLname('');
+              setOtherName('');
+              setAddress('');
+              setPhone('');
+    };
+
 
   return (
     <div class="container">
@@ -80,10 +95,12 @@ export function AddCustomer() {
       <div class="area2"></div>
 
       <div class="area3">
-        <div id="wrapper" onClick={handleButtonClick}>
+        <div id="wrapper" >
           <table>
             <tr><td>
-              <button class="tablebutton">Customer</button>
+            <Link to={`/customer`}>
+            <button class="tablebutton">Customer</button>
+                        </Link>
             </td></tr>
             <tr><td>
               <button class="tablebutton">Property</button>
@@ -95,7 +112,7 @@ export function AddCustomer() {
               <button class="tablebutton">Approvals</button>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Logout</button>
+              <button className="tablebutton" type="button" onClick={logout}>Logout</button>
             </td></tr>
           </table>
         </div>
@@ -104,10 +121,7 @@ export function AddCustomer() {
 
       <div class="area4">
         <div>
-            <table>
-                <tr><td><button class="area4button">Add Customer</button></td></tr>
-                <tr><td><button class="area4button">Edit Customer</button></td></tr>
-            </table>
+            
             <form onSubmit={handleSubmit}>
                 <table>
                     <tr>
@@ -116,36 +130,36 @@ export function AddCustomer() {
                     <tr>
                         <td class='label'>NIC</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='nic'  onChange={(e) => setNIC(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='nic'  onChange={(e) => setNIC(e.target.value)} value={nic}/></td>
                     </tr>
                     <tr>
                         <td class='label'>First Name</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='fname'  onChange={(e) => setFname(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='fname'  onChange={(e) => setFname(e.target.value)} value={fname}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Last Name</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='lname'  onChange={(e) => setLname(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='lname'  onChange={(e) => setLname(e.target.value)} value={lname}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Other Names</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='other' onChange={(e) => setOtherName(e.target.value)}/></td>
+                        <td class='textbox'><input type='text' name='other' onChange={(e) => setOtherName(e.target.value)} value={othernames}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Permanent Address</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='address'  onChange={(e) => setAddress(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='address'  onChange={(e) => setAddress(e.target.value)} value={address}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Phone Number</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='phone'  onChange={(e) => setPhone(e.target.value)} /></td>
+                        <td class='textbox'><input type='text' name='phone'  onChange={(e) => setPhone(e.target.value)} value={phone} /></td>
                     </tr>
                 </table>
-                <button class="cancelbutton">Cancel</button>
-                <input type='submit' class='submitbutton' /> 
+                <button class="cancelbutton" onClick={handleCancelClick}>Cancel</button>
+                <input type='submit' class='submitbutton'value='Submit'/> 
 
             </form>
                 
