@@ -66,7 +66,10 @@ export function LoginPage() {
   return (
     <div className="page">
       <img src={bannerImage} alt="profile" className="bannerImage" />
+      <div className='top'>
       <h1>SAL</h1>
+      </div>
+    
       <div className="login">
         <label htmlFor="name">Username</label>
         <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} />

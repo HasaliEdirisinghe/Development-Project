@@ -3,7 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import profileImage from './img/user_icon.png';
 import { logout } from './logout';
-import { handleBackButton } from './LocalStorageUtils';
+import { getUsername, handleArea1, handleBackButton } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
 
 
 
@@ -15,6 +16,9 @@ export function UserProfile() {
   const [designation, setDesignation] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const username2 = getUsername();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,10 +84,17 @@ export function UserProfile() {
     handleBackButton(designation);
   };
 
+  function gotoDashboard (){
+    handleArea1(username2)
+}
+
   return (
     <div className="container">
       <div className="area1">
-        <h1 className="area1text">SAL</h1>
+      <button class="area1button" onClick={gotoDashboard} >
+          <img src={homeImage} alt="logo" class='homeimage'/>    
+          <h1 class='area1text'>SAL</h1> 
+        </button>
       </div>
 
       <div className="area2">

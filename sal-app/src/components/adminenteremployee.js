@@ -2,11 +2,15 @@ import './css/Style.css';
 import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
+import { getUsername, handleArea1 } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
 
 
 export function AdminEnterEmployee() {
   const [name,setName] = useState('');
   const [password,setPassword] = useState('');
+  const username2 = getUsername();
+
 
   const handleSubmit = () => {
     if(name.length === 0){
@@ -25,6 +29,10 @@ export function AdminEnterEmployee() {
        axios.post(url, fData).then(response=> alert(response.data)).catch(error=> alert(error.message));
     }
   }
+
+  function gotoDashboard (){
+    handleArea1(username2)
+}
 
   return (
     <div>

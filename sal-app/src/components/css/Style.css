@@ -15,10 +15,18 @@
 }
 
 .page {
-    background-color: #a69f7a; /* Replace with your desired background color */
+    background-color: #ffffff; /* Replace with your desired background color */
+    
 }
 
-h1{
+.top{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh; 
+}
+
+.top h1{
     font-size: 60px;
     padding: 10px;
 }
@@ -72,6 +80,9 @@ label{
     justify-content: center;
     align-items: center;
 
+}
+.bannerImage{
+    opacity: 0.5;
 }
 
 /* html, body {

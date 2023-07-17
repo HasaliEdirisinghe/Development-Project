@@ -5,6 +5,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import myImage from './img/money.png';
 import { logout } from './logout';
+import { getUsername, handleArea1 } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
+
+
 
 export function AddPaymentDetails() {
   const handleButtonClick = (e) => {
@@ -13,6 +17,8 @@ export function AddPaymentDetails() {
     }
     e.target.style.background = '#808080';
   };
+
+  const username2 = getUsername();
     // State variables to hold the username and password
     const [nic,setNIC] = useState('');
     const [fname,setFname] = useState('');
@@ -71,11 +77,17 @@ export function AddPaymentDetails() {
       }
     }
 
+    function gotoDashboard (){
+      handleArea1(username2)
+  }
 
   return (
     <div class="container">
       <div class="area1">
-        <h1 class='area1text'>SAL</h1>
+      <button class="area1button" onClick={gotoDashboard} >
+          <img src={homeImage} alt="logo" class='homeimage'/>    
+          <h1 class='area1text'>SAL</h1> 
+        </button>
       </div>
 
       <div class="area2"></div>

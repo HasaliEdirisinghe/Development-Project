@@ -2,10 +2,11 @@ import './css/DashboardStyle.css';
 import myImage from './img/bhoomilogo.jpg';
 import profileImage from './img/user_icon.png';
 import {Link} from 'react-router-dom';
-import { getUsername} from './LocalStorageUtils';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { logout } from './logout';
+import { getUsername, handleArea1 } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
 
 
 
@@ -17,6 +18,7 @@ export function ChiefAccountantDashboardPage() {
     }
     e.target.style.background = '#808080';
   };
+  
 
   // const [username,setUsername] = useState('');
   const username2 = getUsername();
@@ -38,12 +40,16 @@ export function ChiefAccountantDashboardPage() {
       .catch(error => alert(error.message));
   }, []); // Empty dependencies array means the effect only runs once (on mount)
 
-
+  function gotoDashboard (){
+    handleArea1(username2)
+}
   return (
     <div class="container">
       <div class="area1">
-        <h1 class='area1text'>SAL</h1>
-      </div>
+      <button class="area1button" onClick={gotoDashboard} >
+          <img src={homeImage} alt="logo" class='homeimage'/>    
+          <h1 class='area1text'>SAL</h1> 
+        </button>      </div>
 
       <div class="area2">
         <input type='text' value={id2} readOnly/>

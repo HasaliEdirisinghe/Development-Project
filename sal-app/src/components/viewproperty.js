@@ -2,8 +2,8 @@ import './css/DashboardStyle.css';
 import './css/customer.css';
 import { logout } from './logout';
 import profileImage from './img/user_icon.png';
-import { getUsername} from './LocalStorageUtils';
-import axios from 'axios';
+import { getUsername, handleArea1 } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,6 +15,7 @@ export function ViewProperty() {
     const handleButtonClick = async () => {
         window.location.href = '/addcustomer';
     }
+    const username2 = getUsername();
 
   // setUsername(username2)
   const [id2, setId2] = useState(null);
@@ -99,11 +100,18 @@ const setData = (med) => {
     .catch(error => console.log(error));
   };
 
+  
+  function gotoDashboard (){
+    handleArea1(username2)
+}
+
   return (
     <div class="container">
       <div class="area1">
-        <h1 class='area1text'>SAL</h1>
-      </div>
+      <button class="area1button" onClick={gotoDashboard} >
+          <img src={homeImage} alt="logo" class='homeimage'/>    
+          <h1 class='area1text'>SAL</h1> 
+        </button>      </div>
 
       <div class="area2">
       <input type='text' value={id2} readOnly/>

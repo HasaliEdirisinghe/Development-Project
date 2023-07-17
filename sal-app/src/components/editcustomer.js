@@ -4,6 +4,9 @@ import './css/addcustomer.css';
 import { logout } from './logout';
 import axios from 'axios';
 import myImage from './img/customerprofile.png';
+import { Link } from 'react-router-dom';
+import { getUsername, handleArea1 } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
 
 export function EditCustomer() {
   const [CusID, setCusID] = useState('');
@@ -13,6 +16,9 @@ export function EditCustomer() {
   const [CusOtherNames, setCusOtherNames] = useState('');
   const [CusPermanentAddress, setCusPermanentAddress] = useState('');
   const [CusPhoneNumber, setCusPhoneNumber] = useState('');
+
+  const username2 = getUsername();
+
 
   useEffect(() => {
     // Fetch the customer data based on the customer ID (retrieve the ID from localStorage or URL params)
@@ -69,10 +75,18 @@ export function EditCustomer() {
     setCusPhoneNumber('');
   };
 
+  function gotoDashboard (){
+    handleArea1(username2)
+}
+
+
   return (
     <div className="container">
       <div className="area1">
-        <h1 className="area1text">SAL</h1>
+      <button class="area1button" onClick={gotoDashboard} >
+          <img src={homeImage} alt="logo" class='homeimage'/>    
+          <h1 class='area1text'>SAL</h1> 
+        </button>
       </div>
 
       <div className="area2"></div>
@@ -127,7 +141,7 @@ export function EditCustomer() {
                   <input
                     type="text"
                     name="nic"
-                    value={CusNIC}
+                    value={CusNIC} pattern="^\d{9}[VX]$|^\d{12}$"
                     onChange={(e) => setCusNIC(e.target.value)} required
                   />
                 </td>

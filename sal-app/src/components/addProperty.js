@@ -5,6 +5,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import myImage from './img/property.png';
 import { logout } from './logout';
+import { getUsername, handleArea1 } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
+
 
 export function AddProperty() {
   const handleButtonClick = (e) => {
@@ -13,6 +16,8 @@ export function AddProperty() {
     }
     e.target.style.background = '#808080';
   };
+
+  const username2 = getUsername();
     // State variables to hold the username and password
     const [propertytype,setPropertyType] = useState('');
     const [location,setLocation] = useState('');
@@ -83,11 +88,17 @@ export function AddProperty() {
             setPrice('');
     };
 
+    function gotoDashboard (){
+      handleArea1(username2)
+  }
 
   return (
     <div class="container">
       <div class="area1">
-        <h1 class='area1text'>SAL</h1>
+      <button class="area1button" onClick={gotoDashboard} >
+          <img src={homeImage} alt="logo" class='homeimage'/>    
+          <h1 class='area1text'>SAL</h1> 
+        </button>
       </div>
 
       <div class="area2"></div>

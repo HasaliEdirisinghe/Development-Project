@@ -10,15 +10,18 @@
 .area1 {
   background-color: #ffda21;
   padding: 20px;
-  display: grid;
+  /* display: grid; */
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
-  height: 20vh;
+  /* height: auto; */
   width: 30vh;
   grid-column: 1;
   grid-row: 1;
   height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .area2 {
   background-color: #fffffffc;
@@ -41,7 +44,7 @@
   grid-template-rows: 1fr 1fr;
   gap: 10px;
   width: 30vh;
-  height: 70vh;
+  height: auto;
   grid-column: 1;
   grid-row: 2;
 }
@@ -55,28 +58,42 @@
   grid-column: 2;
   grid-row: 2;
   display: flex;
-  height: 75vh;
-  width: 175vh;
+  height: auto;
+  width: auto;
 }
   
-.container::before {
+/* .container::before {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  left: calc(30vh + 40px); /* Adjustable */
-  height: 100vh;
+  left: calc(30vh + 40px); 
+  height: auto;
   width: 4px;
   background-color: #000000;
-}
+} */
 
 h1 {
   text-align: center;
 }
 .area1text{
     display: flex;
-    margin: 0;
-    text-align: center
+    margin: 1%;
+    text-align: center;
+    font-size: 50px
+}
+.area1button{
+  background-color: #ffda21;
+  border: none;
+  color: black;
+  padding: 2px 1px; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: auto; 
 }
 .area4 img {
   max-width: 40%;
@@ -84,10 +101,19 @@ h1 {
   position: absolute;
 }
 
-.logo{
+.area3 table td, table th {
+  border-bottom: 2px solid #ffda21;
+}
 
+.logo{
   top: 50%;
   left: 50%;
+}
+
+.area1 img{
+  width: 25px;
+  height: 25px;
+  align-items: center;
 }
 
 table {
@@ -96,7 +122,7 @@ table {
 }
 
 table td, table th {
-  border-bottom: 2px solid #ffda21;
+  border-bottom: 1px solid #000000;
   padding: 4px;
   border-bottom-width: 30;
   

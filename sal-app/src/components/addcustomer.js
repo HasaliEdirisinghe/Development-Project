@@ -6,6 +6,9 @@ import axios from 'axios';
 import myImage from './img/customerprofile.png';
 import { logout } from './logout';
 import {Link} from 'react-router-dom';
+import homeImage from './img/homepage.png';
+import { getUsername, handleArea1 } from './LocalStorageUtils';
+
 
 
 export function AddCustomer() {
@@ -16,6 +19,7 @@ export function AddCustomer() {
     e.target.style.background = '#808080';
   };
 
+  const username2 = getUsername();
 
     // State variables to hold the username and password
     const [nic,setNIC] = useState('');
@@ -85,11 +89,17 @@ export function AddCustomer() {
               setPhone('');
     };
 
+    function gotoDashboard (){
+      handleArea1(username2)
+  }
 
   return (
     <div class="container">
       <div class="area1">
-        <h1 class='area1text'>SAL</h1>
+      <button class="area1button" onClick={gotoDashboard} >
+          <img src={homeImage} alt="logo" class='homeimage'/>    
+          <h1 class='area1text'>SAL</h1> 
+        </button>
       </div>
 
       <div class="area2"></div>
@@ -130,7 +140,8 @@ export function AddCustomer() {
                     <tr>
                         <td class='label'>NIC</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='nic'  onChange={(e) => setNIC(e.target.value)} value={nic}/></td>
+                        <td class='textbox'><input type='text' name='nic' pattern="^\d{9}[VX]$|^\d{12}$"   onChange={(e) => setNIC(e.target.value)} value={nic}/></td>
+                        {/* <input type="text" pattern="^\d{9}[VX]$|^\d{12}$" title="Invalid input" required></input> */}
                     </tr>
                     <tr>
                         <td class='label'>First Name</td>
