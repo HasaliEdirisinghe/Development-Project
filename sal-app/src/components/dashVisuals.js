@@ -3,20 +3,18 @@ import myImage from './img/bhoomilogo.jpg';
 import profileImage from './img/user_icon.png';
 import {Link} from 'react-router-dom';
 import { getUsername, handleArea1 } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { logout } from './logout';
-import homeImage from './img/homepage.png';
 
 
-
-
-export function AccountantDashboardPage() {
+export function DashVisuals() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
-    e.target.style.background = '#808080';
+    // e.target.style.background = '#808080';
   };
 
   // const [username,setUsername] = useState('');
@@ -39,11 +37,9 @@ export function AccountantDashboardPage() {
       .catch(error => alert(error.message));
   }, []); // Empty dependencies array means the effect only runs once (on mount)
 
-
   function gotoDashboard (){
     handleArea1(username2)
 }
-
 
   return (
     <div class="container">
@@ -66,7 +62,9 @@ export function AccountantDashboardPage() {
         <div id="wrapper" onClick={handleButtonClick}>
           <table>
           <tr><td>
-              <button class="tablebutton">Dashboard - Accountant</button>
+          <Link to={`/dashvisuals`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>
             </td></tr>
             <tr><td>
             <Link to={`/viewcustomer`}>
@@ -92,7 +90,7 @@ export function AccountantDashboardPage() {
       </div>
 
       <div class="area4">
-      <img src={myImage} alt="logo" class='logo'/>    
+      <h1>Dashboard for visuals</h1> 
     </div>
   </div>
 

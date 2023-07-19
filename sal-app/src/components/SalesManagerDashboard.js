@@ -14,7 +14,7 @@ export function SalesManagerDashboardPage() {
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
-    e.target.style.background = '#808080';
+    // e.target.style.background = '#808080';
   };
 
   // const [username,setUsername] = useState('');
@@ -62,7 +62,9 @@ export function SalesManagerDashboardPage() {
         <div id="wrapper" onClick={handleButtonClick}>
           <table>
           <tr><td>
-              <button class="tablebutton">Dashboard</button>
+          <Link to={`/dashvisuals`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>
             </td></tr>
             <tr><td>
             <Link to={`/viewcustomer`}>
@@ -71,7 +73,8 @@ export function SalesManagerDashboardPage() {
               
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Property</button>
+            <Link to={`/addproperty`}>
+            <button class="tablebutton">Property</button>            </Link>
             </td></tr>
             <tr><td>
               <button class="tablebutton">Project Page</button>

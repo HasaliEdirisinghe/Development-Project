@@ -26,6 +26,10 @@ export function OwnedProperties() {
     const [FirstName, setFName] = useState("");
     const [LastName, setLName] = useState("");
     const [PhoneNumber, setPhone] = useState("");
+    const [CusID, setCusID] = useState([]);
+    const [loading, setLoading] = useState(true); // Add loading state
+
+
 
 
   useEffect(() => {
@@ -51,21 +55,24 @@ export function OwnedProperties() {
 function getAllProperties(){
   const url_properties = 'http://localhost/backend/ownedproperties.php';
   let fData = new FormData();
-    fData.append('cusid', id);
+    fData.append('cusid', CusID);
       axios.post(url_properties, fData)
       .then(response => {
         const properties = response.data;
         setProperties (properties);
+        setLoading(false); // Set loading to false after data is fetched
+
         // Do further processing with the username here
       })
       .catch(error => {
+        setLoading(false);
         alert(error.message)
       });
 }
 
 function getUserData(){
 
-        setID(localStorage.getItem('id'));
+        setCusID(localStorage.getItem('customerId'));
         setNIC(localStorage.getItem('NIC'));
         setFName(localStorage.getItem('FirstName'));
         setLName(localStorage.getItem('LastName'));
@@ -73,9 +80,9 @@ function getUserData(){
 
 }
 getusername();
-getAllProperties();
 getUserData();
-  }, []); // Empty dependencies array means the effect only runs once (on mount)
+getAllProperties();
+  }, [CusID]); // Empty dependencies array means the effect only runs once (on mount)
 
   const getData = () => {
     axios
@@ -186,14 +193,15 @@ const setData = (med) => {
             <thead>
                 <th>Property Type</th>
                 <th>Location</th>
-                <th>District</th>
+                <th>Project Name</th>
                 <th>Address</th>
                 <th>Lot No</th>
                 <th>Plan No</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
-                <th>Action</th>
+                <th>Project Status</th>
+                <th>Deed Status</th>
             </thead>    
               <tbody>
                 {properties.map((property) => {
@@ -201,19 +209,15 @@ const setData = (med) => {
                     <tr>
                       <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
-                      <td>{property.District}</td>
+                      <td>{property.ProjectName}</td>
                       <td>{property.Address}</td>
                       <td>{property.LotNo}</td>
                       <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>
                       <td>{property.UnitPrice}</td>
                       <td>{property.TotalPrice}</td>
-                      <td>
-                        <Link to={`/Inventory/medbatches/update/whole`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>See Data</button>
-                        </Link>
-                         
-                        </td>
+                      <td>{property.ProjPageStatus}</td>
+                      <td>{property.DeedStatus}</td>
                     </tr>
                   );
                 })}

@@ -53,3 +53,13 @@ export const handleArea1 = async (username) => {
     alert('Invalid credentials.');
   }
 };
+
+export const getAllProperties = async () => {
+  try {
+    const url_properties = 'http://localhost/backend/getdetailsforprojectpage.php';
+    const response = await axios.post(url_properties);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

@@ -127,6 +127,11 @@ const setData = (med) => {
       <div class="area3">
         <div id="wrapper">
           <table>
+          <tr><td>
+          <Link to={`/dashvisuals`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>
+            </td></tr>
             <tr><td>
             <Link to={`/customer`}>
             <button class="tablebutton">Customer</button>

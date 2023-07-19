@@ -22,7 +22,7 @@ export function PropertyPage() {
 
   useEffect(() => {
     function getUserData() {
-      SetID(localStorage.getItem('id'));
+      SetID(localStorage.getItem('customerId'));
     }
 
     function getUsername() {
@@ -129,7 +129,7 @@ export function PropertyPage() {
       .get('http://localhost/backend/propertypage.php')
       .then((response) => {
         const newFilter = properties.filter((response) => {
-          return response.Location.toLowerCase().includes(searchWord.toLowerCase());
+          return response.Location.toLowerCase().includes(searchWord.toLowerCase()) || response.ProjectName.toLowerCase().includes(searchWord.toLowerCase());
         });
 
         if (searchWord === '') {
@@ -166,27 +166,39 @@ export function PropertyPage() {
           <table>
             <tr>
               <td>
-                <button className="tablebutton">Customer</button>
+              <Link to={`/customer`}>
+                  {/* Link to Customer page */}
+                  <button class="tablebutton">Customer</button>
+                </Link>              </td>
+            </tr>
+            <tr>
+              <td>
+              <Link to={`/viewproperty`}>
+                  {/* Link to Property page */}
+                  <button class="tablebutton">Property</button>
+                </Link>
               </td>
             </tr>
             <tr>
               <td>
-                <button className="tablebutton">Property</button>
+              <Link to={`/viewprojectpage`}>
+                  {/* Link to Project Page */}
+                  <button class="tablebutton">Project Page</button>
+                </Link>
               </td>
             </tr>
             <tr>
               <td>
-                <button className="tablebutton">Project Page</button>
+              <Link to={`/salesofficerapprovals`}>
+                  {/* Link to Approvals page */}
+                  <button class="tablebutton">Approvals</button>
+                </Link>
               </td>
             </tr>
             <tr>
               <td>
-                <button className="tablebutton">Approvals</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton" type="button" onClick={logout}>
+              <button className="tablebutton" type="button" onClick={logout}>
+                  {/* Logout button */}
                   Logout
                 </button>
               </td>
@@ -210,7 +222,9 @@ export function PropertyPage() {
           <table className="table table-striped">
   <thead>
     <tr>
-      <th>Property Type</th>
+      <th>ID</th>
+      <th>Type</th>
+      <th>Project Name</th>
       <th>Location</th>
       <th>District</th>
       <th>Address</th>
@@ -219,15 +233,16 @@ export function PropertyPage() {
       <th>Size</th>
       <th>Unit Price</th>
       <th>Total Price</th>
-      <th>PropertyID</th>
-      <th>Action</th>
+      <th>Assign</th>
     </tr>
   </thead>
   <tbody>
     {properties.map((property) => {
       return (
         <tr key={property.PropertyID}>
+          <td>{property.PropertyID}</td>
           <td>{property.PropertyType}</td>
+          <td>{property.ProjectName}</td>
           <td>{property.Location}</td>
           <td>{property.District}</td>
           <td>{property.Address}</td>
@@ -236,7 +251,6 @@ export function PropertyPage() {
           <td>{property.Size}</td>
           <td>{property.UnitPrice}</td>
           <td>{property.TotalPrice}</td>
-          <td>{property.PropertyID}</td>
           <td>
             <Link to={`/propertypayment/${customerId}`}>
               <button

@@ -59,7 +59,7 @@ export function LegalOfficerDashboardPage() {
       <div class="area3">
         <div id="wrapper" onClick={handleButtonClick}>
           <table>
-          <tr><td>
+          {/* <tr><td>
               <button class="tablebutton">Dashboard - Legal</button>
             </td></tr>
             <tr><td>
@@ -70,12 +70,12 @@ export function LegalOfficerDashboardPage() {
             </td></tr>
             <tr><td>
               <button class="tablebutton">Property</button>
-            </td></tr>
+            </td></tr> */}
             <tr><td>
               <button class="tablebutton">Project Page</button>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Approvals</button>
+              <button class="tablebutton">Deed Status</button>
             </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  

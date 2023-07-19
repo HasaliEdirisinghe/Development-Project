@@ -101,9 +101,8 @@ const [LastName, setLastName] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const fData = new FormData();
-    fData.append('CusID', CusID);
+    fData.append('CusID', myVariable);
     fData.append('PropID', PropID);
     fData.append('Discount', Discount);
     fData.append('OtherCharges', OtherCharges);
@@ -223,7 +222,7 @@ const [LastName, setLastName] = useState('');
             <button className="cancelbutton" onClick={handleCancelClick}>
               Cancel
             </button>
-            <input type="submit" className="submitbutton" />
+            <input type="submit" className="submitbutton" value='Submit'/>
           </form>
         </div>
       </div>

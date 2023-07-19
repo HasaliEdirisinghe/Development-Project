@@ -1,30 +1,33 @@
 import './css/DashboardStyle.css';
-import './css/customer.css';
-import { logout } from './logout';
 import profileImage from './img/user_icon.png';
+import {Link} from 'react-router-dom';
 import { getUsername, handleArea1, getAllProperties } from './LocalStorageUtils';
-import homeImage from './img/homepage.png';import axios from 'axios';
+import homeImage from './img/homepage.png';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { logout } from './logout';
 
 
 
 
-export function ViewProperty() {
-    const handleButtonClick = async () => {
-        window.location.href = '/addcustomer';
+export function ViewProjectPage() {
+  const handleButtonClick = (e) => {
+    if (e.target.nodeName !== 'BUTTON') {
+      return;
     }
-    const username2 = getUsername();
+    e.target.style.background = '#808080';
+  };
 
+
+  // const [username,setUsername] = useState('');
+  const username2 = getUsername();
   // setUsername(username2)
   const [id2, setId2] = useState(null);
-    const [properties, setProperties] = useState([]);
-    const [wordEntered, setWordEntered] = useState("");
+  const [customers, setCustomers] = useState([]);
+  const [properties, setProperties] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+
   useEffect(() => {
-    
-    function getusername(){
-  
     const url = 'http://localhost/backend/getemployeename.php';
     const id = localStorage.getItem('username');
     let fData = new FormData();
@@ -36,46 +39,55 @@ export function ViewProperty() {
         setId2(username);
         // Do further processing with the username here
       })
-      .catch(error => {
-        alert(error.message)
-      });
- 
-    }
-function getAllProperties(){
-  const url_properties = 'http://localhost/backend/viewallproperties.php';
-      axios.post(url_properties)
-      .then(response => {
-        const properties = response.data;
-        setProperties (properties);
-        // Do further processing with the username here
+      .catch(error => alert(error.message));
+
+      getAllProperties()
+      .then((propertiesData) => {
+        setProperties(propertiesData);
       })
-      .catch(error => {
-        alert(error.message)
+      .catch((error) => {
+        alert(error.message);
       });
-}
-    getusername()
-    getAllProperties()
   }, []); // Empty dependencies array means the effect only runs once (on mount)
 
   const getData = () => {
     axios
-        .get("http://localhost/backend/viewallproperties.php")
+        .get("http://localhost/backend/customerpage.php")
         .then((res) => {
-          setProperties(res.data);
+          setCustomers(res.data);
         })
         .catch((err) => {
           alert(err.message);
         });
   }
+
 const setData = (med) => {
 
-  let {id,NIC,FirstName,LastName,PhoneNumber} = med;
+  let {CustomerID, NIC,FirstName,LastName,OtherNames, PropertyID, ProjectName, PropertyType, Location, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice, Discount, OtherCharges, FinalValue, ProjPageStatus} = med;
   
-  localStorage.setItem('id',id);
   localStorage.setItem('NIC', NIC);
   localStorage.setItem('FirstName', FirstName);
   localStorage.setItem('LastName', LastName);
-  localStorage.setItem('PhoneNumber', PhoneNumber);
+  localStorage.setItem('OtherNames', OtherNames);
+  localStorage.setItem('ProjectName', ProjectName);
+  localStorage.setItem('PropertyType', PropertyType);
+  localStorage.setItem('Location', Location);
+  localStorage.setItem('Address', Address);
+  localStorage.setItem('LotNo', LotNo);
+  localStorage.setItem('PlanNo', PlanNo);
+  localStorage.setItem('Size', Size);
+  localStorage.setItem('UnitPrice', UnitPrice);
+  localStorage.setItem('TotalPrice', TotalPrice);
+  localStorage.setItem('Discount', Discount);
+  localStorage.setItem('OtherCharges', OtherCharges);
+  localStorage.setItem('FinalValue', FinalValue);
+  localStorage.setItem('ProjPageStatus', ProjPageStatus);
+  localStorage.setItem('CustomerID', CustomerID);
+  localStorage.setItem('PropertyID', PropertyID);
+
+
+
+  
 
   }
 
@@ -83,11 +95,12 @@ const setData = (med) => {
     const searchWord = event.target.value;
     console.log(searchWord);
     setWordEntered(searchWord);
-    axios.get("http://localhost/backend/viewallproperties.php")
+    axios.get("http://localhost/backend/getdetailsforprojectpage.php") //new php?
     .then(response => {
         console.log(response)
         const newFilter = properties.filter((response) => {
-            return response.Location.toLowerCase().includes(searchWord.toLowerCase()) || response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()); //search from location
+          //search using customer NIC, project name or location
+            return response.NIC.toLowerCase().includes(searchWord.toLowerCase()) ||response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || response.Location.toLowerCase().includes(searchWord.toLowerCase()); 
         });
   
         if (searchWord === "") {
@@ -100,10 +113,11 @@ const setData = (med) => {
     .catch(error => console.log(error));
   };
 
-  
+
   function gotoDashboard (){
     handleArea1(username2)
 }
+
 
   return (
     <div class="container">
@@ -114,11 +128,11 @@ const setData = (med) => {
         </button>      </div>
 
       <div class="area2">
-      <input type='text' value={id2} readOnly/>
+        <input type='text' value={id2} readOnly/>
         <a href="/userprofile">
           <img src={profileImage} alt="profile" className="profile" />
         </a>
- 
+            
       </div>
 
       <div class="area3">
@@ -128,22 +142,25 @@ const setData = (med) => {
             <Link to={`/customer`}>
             <button class="tablebutton">Customer</button>
                         </Link>
+              
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Property</button>
+            <Link to={`/viewproperty`}>
+            <button class="tablebutton">Property</button>
+                        </Link>
             </td></tr>
             <tr><td>
             <Link to={`/viewprojectpage`}>
             <button class="tablebutton">Project Page</button>
                         </Link>
+              
             </td></tr>
             <tr><td>
             <Link to={`/salesofficerapprovals`}>
             <button class="tablebutton">Approvals</button>
-                        </Link>
-            </td></tr>
+                        </Link>            </td></tr>
             <tr><td>
-            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>
           </table>
         </div>
@@ -151,11 +168,9 @@ const setData = (med) => {
       </div>
 
       <div class="area4">
-
-<div>
-  
-
-<input type="search" 
+  <div>
+    <div class="section">
+    <input type="search" 
     placeholder="Search" 
     name="Searchquery" 
     value={wordEntered}
@@ -163,43 +178,55 @@ const setData = (med) => {
     >
     </input>
 
-<br/><br/>
-      <table class="table table-striped">
+    <br/><br/><br/>
+    <table class="table table-striped">
             <thead>
-                <th>Type</th>
+                <th>NIC</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Other Names</th>
                 <th>Project Name</th>
+                <th>Property Type</th>
                 <th>Location</th>
-                <th>District</th>
                 <th>Address</th>
                 <th>Lot No</th>
-                <th>Plan No</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
-
+                <th>Final Value</th>
+                <th>Actions</th>
             </thead>    
               <tbody>
                 {properties.map((property) => {
                   return (
                     <tr>
-                      <td>{property.PropertyType}</td>
+                      <td>{property.NIC}</td>
+                      <td>{property.FirstName}</td>
+                      <td>{property.LastName}</td>
+                      <td>{property.OtherNames}</td>
                       <td>{property.ProjectName}</td>
+                      <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
-                      <td>{property.District}</td>
                       <td>{property.Address}</td>
                       <td>{property.LotNo}</td>
-                      <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>
                       <td>{property.UnitPrice}</td>
                       <td>{property.TotalPrice}</td>
+                      <td>{property.FinalValue}</td>
+                      <td> <Link to={`/personalprojectpage`}>
+                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>View More</button>
+                        </Link></td>
 
+                      
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-     </div>
+      
     </div>
+  </div>
+</div>
   </div>
 
   );

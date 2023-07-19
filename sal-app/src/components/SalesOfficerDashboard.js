@@ -81,7 +81,7 @@ export function SalesOfficerDashboardPage() {
             </tr>
             <tr>
               <td>
-                <Link to={`/projectpage`}>
+                <Link to={`/viewprojectpage`}>
                   {/* Link to Project Page */}
                   <button class="tablebutton">Project Page</button>
                 </Link>

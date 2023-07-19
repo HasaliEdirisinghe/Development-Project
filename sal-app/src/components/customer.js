@@ -88,7 +88,7 @@ const setData = (med) => {
     const searchWord = event.target.value;
     console.log(searchWord);
     setWordEntered(searchWord);
-    axios.get("http://localhost/backend/customerpage.php")
+    axios.get("http://localhost/backend/customerpage.php") 
     .then(response => {
         console.log(response)
         const newFilter = customers.filter((response) => {
@@ -140,7 +140,7 @@ const setData = (med) => {
               
             </td></tr>
             <tr><td>
-            <Link to={`/projectpage`}>
+            <Link to={`/viewprojectpage`}>
             <button class="tablebutton">Project Page</button>
                         </Link>
             </td></tr>

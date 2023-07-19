@@ -5,7 +5,7 @@ require 'connection.php';
 // Allow cross-origin requests
 header('Access-Control-Allow-Origin: *');
 
-$sql_query = "SELECT p.* FROM property p WHERE p.PropertyID NOT IN (SELECT PropertyID FROM customer_payment)";
+$sql_query = "SELECT * FROM property";
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql_query);
