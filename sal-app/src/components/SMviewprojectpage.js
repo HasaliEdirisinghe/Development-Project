@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { logout } from './logout';
 
 
-export function ViewProjectPage() {
+export function SalesManagerViewProjectPage() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
@@ -135,28 +135,32 @@ const setData = (med) => {
 
       <div class="area3">
         <div id="wrapper" >
-          <table>
+        <table>
+          <tr><td>
+          <Link to={`/dashvisuals`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>
+            </td></tr>
             <tr><td>
-            <Link to={`/customer`}>
+            <Link to={`/viewcustomer`}>
             <button class="tablebutton">Customer</button>
-                        </Link>
+            </Link>
               
             </td></tr>
             <tr><td>
-            <Link to={`/viewproperty`}>
-            <button class="tablebutton">Property</button>
-                        </Link>
+            <Link to={`/salesmanagerviewproperty`}>
+            <button class="tablebutton">Property</button>            </Link>
             </td></tr>
             <tr><td>
-            <Link to={`/viewprojectpage`}>
-            <button class="tablebutton">Project Page</button>
-                        </Link>
-              
+            <Link to={`/salesmanagerviewprojectpage`}>
+              <button class="tablebutton">Project Page</button>
+              </Link>
             </td></tr>
             <tr><td>
-            <Link to={`/salesofficerapprovals`}>
-            <button class="tablebutton">Approvals</button>
-                        </Link>            </td></tr>
+            <Link to={`/salesmanagerapprovals`}>
+              <button class="tablebutton">Approvals</button>
+              </Link>
+            </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>
@@ -211,7 +215,7 @@ const setData = (med) => {
                       <td>{property.UnitPrice}</td>
                       <td>{property.TotalPrice}</td>
                       <td>{property.FinalValue}</td>
-                      <td> <Link to={`/personalprojectpage`}>
+                      <td> <Link to={`/salesmanagerpersonalprojectpage`}>
                           <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>View More</button>
                         </Link></td>
 

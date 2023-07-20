@@ -16,7 +16,7 @@ export function AccountantDashboardPage() {
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
-    e.target.style.background = '#808080';
+    // e.target.style.background = '#808080';
   };
 
   // const [username,setUsername] = useState('');
@@ -66,23 +66,19 @@ export function AccountantDashboardPage() {
         <div id="wrapper" onClick={handleButtonClick}>
           <table>
           <tr><td>
-              <button class="tablebutton">Dashboard - Accountant</button>
-            </td></tr>
+          <Link to={`/dashvisualsforaccountant`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>            </td></tr>
             <tr><td>
-            <Link to={`/viewcustomer`}>
-            <button class="tablebutton">Customer</button>
+            <Link to={`/pendingapprovals`}>
+            <button class="tablebutton">Pending Approvals</button>
             </Link>
               
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Property</button>
-            </td></tr>
-            <tr><td>
-              <button class="tablebutton">Project Page</button>
-            </td></tr>
-            <tr><td>
-              <button class="tablebutton">Approvals</button>
-            </td></tr>
+            <Link to={`/accountantapprovals`}>
+              <button class="tablebutton">All Approvals</button>
+              </Link>            </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>

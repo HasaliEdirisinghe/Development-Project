@@ -7,7 +7,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { logout } from './logout';
 
-export function PersonalProjectPage() {
+export function SalesManagerViewPersonalProjectPage() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
@@ -174,46 +174,34 @@ export function PersonalProjectPage() {
       <div class="area3">
         <div id="wrapper" >
         <table>
-            <tr>
-              <td>
-                <Link to={`/customer`}>
-                  {/* Link to Customer page */}
-                  <button class="tablebutton">Customer</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Link to={`/viewproperty`}>
-                  {/* Link to Property page */}
-                  <button class="tablebutton">Property</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Link to={`/viewprojectpage`}>
-                  {/* Link to Project Page */}
-                  <button class="tablebutton">Project Page</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Link to={`/salesofficerapprovals`}>
-                  {/* Link to Approvals page */}
-                  <button class="tablebutton">Approvals</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton" type="button" onClick={logout}>
-                  {/* Logout button */}
-                  Logout
-                </button>
-              </td>
-            </tr>
+          <tr><td>
+          <Link to={`/dashvisuals`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/viewcustomer`}>
+            <button class="tablebutton">Customer</button>
+            </Link>
+              
+            </td></tr>
+            <tr><td>
+            <Link to={`/salesmanagerviewproperty`}>
+            <button class="tablebutton">Property</button>            </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/salesmanagerviewprojectpage`}>
+              <button class="tablebutton">Project Page</button>
+              </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/salesmanagerapprovals`}>
+              <button class="tablebutton">Approvals</button>
+              </Link>
+            </td></tr>
+            <tr><td>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
+            </td></tr>
           </table>
         </div>
       </div>
@@ -246,11 +234,13 @@ export function PersonalProjectPage() {
             <h3>Final Value: {FinalValue}</h3>
             <hr />
 
-            {Status.toLowerCase() === 'pending' ? (
+            <h3>Status: {Status}</h3>
+
+            {/* {Status.toLowerCase() === 'pending' ? (
               <button class='sendButton' onClick={sendtoAccountant}>Get Approval</button>
             ) : (
               <h3>Status: {Status}</h3>
-            )}
+            )} */}
 
             <hr />
           </div>

@@ -69,9 +69,9 @@ export function LoginPage() {
       <div className='top'>
       <h1>SAL</h1>
       </div>
-    
+     
       <div className="login">
-        <label htmlFor="name">Username</label>
+        <label htmlFor="name">Employee ID</label>
         <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} />
         <label htmlFor="password">Password</label>
         <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />

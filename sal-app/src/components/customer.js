@@ -162,7 +162,7 @@ const setData = (med) => {
   <a href='/addcustomer'>
   <button type='button'>Add New Customer</button>
 
-  </a>
+  </a> 
 
 
 <br/><br/><br/>

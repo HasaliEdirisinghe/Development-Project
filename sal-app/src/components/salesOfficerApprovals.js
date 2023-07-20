@@ -15,7 +15,7 @@ export function SalesOfficerApprovals() {
     }
     // e.target.style.background = '#808080';
   };
-
+ 
   // const [username,setUsername] = useState('');
   const username2 = getUsername();
   // setUsername(username2)
@@ -111,7 +111,7 @@ export function SalesOfficerApprovals() {
             <Link to={`/customer`}>
             <button class="tablebutton">Customer</button>
                         </Link>
-              
+               
             </td></tr>
             <tr><td>
             <Link to={`/viewproperty`}>
@@ -137,7 +137,7 @@ export function SalesOfficerApprovals() {
 
       <div class="area4">
         <div>
-        <h1>statuses</h1>
+        <h2>Approval Status</h2>
         <br></br>
 
     <div class="section">

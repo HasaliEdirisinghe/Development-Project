@@ -216,7 +216,7 @@ export function PropertyPage() {
             value={wordEntered}
             onChange={handleFilter}
           />
-
+ 
           <br />
           <br />
           <table className="table table-striped">

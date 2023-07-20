@@ -1,3 +1,4 @@
+
 import './css/DashboardStyle.css';
 import './css/customer.css';
 import { logout } from './logout';
@@ -7,24 +8,31 @@ import homeImage from './img/homepage.png';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
-
-export function ViewCustomer() {
+export function SMviewOwnedProperties() {
     const handleButtonClick = async () => {
         window.location.href = '/addcustomer';
     }
-
     const username2 = getUsername();
-
 
   // setUsername(username2)
   const [id2, setId2] = useState(null);
-    const [customers, setCustomers] = useState([]);
+    const [properties, setProperties] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
-    
+    const [id, setID] = useState([]);
+    const [NIC, setNIC] = useState("");
+    const [FirstName, setFName] = useState("");
+    const [LastName, setLName] = useState("");
+    const [PhoneNumber, setPhone] = useState("");
+    const [CusID, setCusID] = useState([]);
+    const [loading, setLoading] = useState(true); // Add loading state
+
+
+
+
   useEffect(() => {
     
     function getusername(){
@@ -45,27 +53,43 @@ export function ViewCustomer() {
       });
  
     }
-function getAllCustomers(){
-  const url_customers = 'http://localhost/backend/customerpage.php';
-      axios.post(url_customers)
+function getAllProperties(){
+  const url_properties = 'http://localhost/backend/ownedproperties.php';
+  let fData = new FormData();
+    fData.append('cusid', CusID);
+      axios.post(url_properties, fData)
       .then(response => {
-        const customers = response.data;
-        setCustomers (customers);
+        const properties = response.data;
+        setProperties (properties);
+        setLoading(false); // Set loading to false after data is fetched
+
         // Do further processing with the username here
       })
       .catch(error => {
+        setLoading(false);
         alert(error.message)
       });
 }
-    getusername()
-    getAllCustomers()
-  }, []); // Empty dependencies array means the effect only runs once (on mount)
+
+function getUserData(){
+
+        setCusID(localStorage.getItem('customerId'));
+        setNIC(localStorage.getItem('NIC'));
+        setFName(localStorage.getItem('FirstName'));
+        setLName(localStorage.getItem('LastName'));
+        setPhone(localStorage.getItem('PhoneNumber'));
+
+}
+getusername();
+getUserData();
+getAllProperties();
+  }, [CusID]); // Empty dependencies array means the effect only runs once (on mount)
 
   const getData = () => {
     axios
-        .get("http://localhost/backend/customerpage.php")
+        .get("http://localhost/backend/ownedproperties.php")
         .then((res) => {
-          setCustomers(res.data);
+          setProperties(res.data);
         })
         .catch((err) => {
           alert(err.message);
@@ -73,12 +97,12 @@ function getAllCustomers(){
   }
 const setData = (med) => {
 
-  let {CustomerID,NIC,FirstName,LastName,PhoneNumber} = med;
+  let {_id,NIC,FirstName,LastName,PhoneNumber} = med;
   
-  localStorage.setItem('customerId',CustomerID);
+  localStorage.setItem('id',_id);
   localStorage.setItem('NIC', NIC);
   localStorage.setItem('FirstName', FirstName);
-  localStorage.setItem('LastName', LastName);;
+  localStorage.setItem('LastName', LastName);
   localStorage.setItem('PhoneNumber', PhoneNumber);
 
   }
@@ -87,18 +111,18 @@ const setData = (med) => {
     const searchWord = event.target.value;
     console.log(searchWord);
     setWordEntered(searchWord);
-    axios.get("http://localhost/backend/customerpage.php")
+    axios.get("http://localhost/backend/ownedproperties.php")
     .then(response => {
         console.log(response)
-        const newFilter = customers.filter((response) => {
-            return response.NIC.toLowerCase().includes(searchWord.toLowerCase());
+        const newFilter = properties.filter((response) => {
+            return response.Location.toLowerCase().includes(searchWord.toLowerCase());
         });
   
         if (searchWord === "") {
             console.log("EMPLTY");
             getData();
         } else {
-          setCustomers(newFilter);
+          setProperties(newFilter);
         }
     })
     .catch(error => console.log(error));
@@ -121,11 +145,12 @@ const setData = (med) => {
         <a href="/userprofile">
           <img src={profileImage} alt="profile" className="profile" />
         </a>
+     
  
       </div>
 
       <div class="area3">
-        <div id="wrapper">
+        <div id="wrapper" >
         <table>
           <tr><td>
           <Link to={`/dashvisuals`}>
@@ -162,10 +187,6 @@ const setData = (med) => {
 
       <div class="area4">
       <div>
- 
-
-<br/>
-  
     <input type="search" 
     placeholder="Search" 
     name="Searchquery" 
@@ -173,41 +194,48 @@ const setData = (med) => {
     onChange={handleFilter}
     >
     </input>
-  
+    <br/>
+    <h2>{FirstName}{' '} {LastName}</h2>
+    <h3>{NIC}</h3>
 
-<br /><br/><br/>
+
+
+<br/><br/>
       <table class="table table-striped" border={1}>
             <thead>
-              
-                <th>NIC</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Actions</th>
+                <th>Property Type</th>
+                <th>Location</th>
+                <th>Project Name</th>
+                <th>Address</th>
+                <th>Lot No</th>
+                <th>Plan No</th>
+                <th>Size</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th>Project Status</th>
+                <th>Deed Status</th>
             </thead>    
               <tbody>
-                {customers.map((customer) => {
+                {properties.map((property) => {
                   return (
                     <tr>
-  
-                      <td>{customer.NIC}</td>
-                      <td>{customer.FirstName}</td>
-                      <td>{customer.LastName}</td>
-                      <td>{customer.PhoneNumber}</td>
-                      <td>
-
-                        <Link to={`/salesmanagerviewownedproperties`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Owned Properties</button>
-                        </Link>
-                        
-                        </td>
+                      <td>{property.PropertyType}</td>
+                      <td>{property.Location}</td>
+                      <td>{property.ProjectName}</td>
+                      <td>{property.Address}</td>
+                      <td>{property.LotNo}</td>
+                      <td>{property.PlanNo}</td>
+                      <td>{property.Size}</td>
+                      <td>{property.UnitPrice}</td>
+                      <td>{property.TotalPrice}</td>
+                      <td>{property.ProjPageStatus}</td>
+                      <td>{property.DeedStatus}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-    </div>  
-     
+     </div>
     </div>
   </div>
 

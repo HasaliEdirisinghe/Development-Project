@@ -123,6 +123,7 @@ const [LastName, setLastName] = useState('');
 
   const handleCancelClick = (event) => {
     event.preventDefault();
+    window.location.href = '/customer';
   };
 
   function gotoDashboard (){
@@ -142,36 +143,31 @@ const [LastName, setLastName] = useState('');
 
       <div className="area3">
         <div id="wrapper">
-          <table>
-            <tr>
-              <td>
-                <Link to={`/customer`}>
-                  <button className="tablebutton">Customer</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton">Property</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton">Project Page</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton">Approvals</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton" type="button" onClick={logout}>
-                  Logout
-                </button>
-              </td>
-            </tr>
+        <table>
+            <tr><td>
+            <Link to={`/customer`}>
+            <button class="tablebutton">Customer</button>
+                        </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/viewproperty`}>
+            <button class="tablebutton">Property</button>
+                        </Link>
+              
+            </td></tr>
+            <tr><td>
+            <Link to={`/viewprojectpage`}>
+            <button class="tablebutton">Project Page</button>
+                        </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/salesofficerapprovals`}>
+            <button class="tablebutton">Approvals</button>
+                        </Link>
+            </td></tr>
+            <tr><td>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            
+            </td></tr>
           </table>
         </div>
       </div>

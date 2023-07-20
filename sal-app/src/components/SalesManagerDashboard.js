@@ -73,14 +73,18 @@ export function SalesManagerDashboardPage() {
               
             </td></tr>
             <tr><td>
-            <Link to={`/addproperty`}>
+            <Link to={`/salesmanagerviewproperty`}>
             <button class="tablebutton">Property</button>            </Link>
             </td></tr>
             <tr><td>
+            <Link to={`/salesmanagerviewprojectpage`}>
               <button class="tablebutton">Project Page</button>
+              </Link>
             </td></tr>
             <tr><td>
+            <Link to={`/salesmanagerapprovals`}>
               <button class="tablebutton">Approvals</button>
+              </Link>
             </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  

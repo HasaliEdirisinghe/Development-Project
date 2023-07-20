@@ -1,34 +1,33 @@
 import './css/DashboardStyle.css';
-import './css/customer.css';
-import { logout } from './logout';
 import profileImage from './img/user_icon.png';
-import { getUsername, handleArea1 } from './LocalStorageUtils';
-import homeImage from './img/homepage.png';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { logout } from './logout';
+import { getUsername, handleArea1,getAllProperties } from './LocalStorageUtils';
+import homeImage from './img/homepage.png';
 
 
-
-
-export function ViewCustomer() {
-    const handleButtonClick = async () => {
-        window.location.href = '/addcustomer';
+export function SalesManagerApprovals() {
+  const handleButtonClick = (e) => {
+    if (e.target.nodeName !== 'BUTTON') {
+      return;
     }
-
-    const username2 = getUsername();
-
-
+    // e.target.style.background = '#808080';
+  };
+ 
+  // const [username,setUsername] = useState('');
+  const username2 = getUsername();
   // setUsername(username2)
   const [id2, setId2] = useState(null);
-    const [customers, setCustomers] = useState([]);
-    const [wordEntered, setWordEntered] = useState("");
-    
+  const [wordEntered, setWordEntered] = useState("");
+  const [properties, setProperties] = useState([]);
+  const [customers, setCustomers] = useState([]);
+
+
+
+
   useEffect(() => {
-    
-    function getusername(){
-  
     const url = 'http://localhost/backend/getemployeename.php';
     const id = localStorage.getItem('username');
     let fData = new FormData();
@@ -40,30 +39,21 @@ export function ViewCustomer() {
         setId2(username);
         // Do further processing with the username here
       })
-      .catch(error => {
-        alert(error.message)
-      });
- 
-    }
-function getAllCustomers(){
-  const url_customers = 'http://localhost/backend/customerpage.php';
-      axios.post(url_customers)
-      .then(response => {
-        const customers = response.data;
-        setCustomers (customers);
-        // Do further processing with the username here
+      .catch(error => alert(error.message));
+
+      getAllProperties()
+      .then((propertiesData) => {
+        setProperties(propertiesData);
       })
-      .catch(error => {
-        alert(error.message)
+      .catch((error) => {
+        alert(error.message);
       });
-}
-    getusername()
-    getAllCustomers()
+
   }, []); // Empty dependencies array means the effect only runs once (on mount)
 
   const getData = () => {
     axios
-        .get("http://localhost/backend/customerpage.php")
+        .get("http://localhost/backend/salesofficerapprovals.php")
         .then((res) => {
           setCustomers(res.data);
         })
@@ -71,34 +61,24 @@ function getAllCustomers(){
           alert(err.message);
         });
   }
-const setData = (med) => {
-
-  let {CustomerID,NIC,FirstName,LastName,PhoneNumber} = med;
-  
-  localStorage.setItem('customerId',CustomerID);
-  localStorage.setItem('NIC', NIC);
-  localStorage.setItem('FirstName', FirstName);
-  localStorage.setItem('LastName', LastName);;
-  localStorage.setItem('PhoneNumber', PhoneNumber);
-
-  }
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     console.log(searchWord);
     setWordEntered(searchWord);
-    axios.get("http://localhost/backend/customerpage.php")
+    axios.get("http://localhost/backend/salesofficerapprovals.php") //new php?
     .then(response => {
         console.log(response)
-        const newFilter = customers.filter((response) => {
-            return response.NIC.toLowerCase().includes(searchWord.toLowerCase());
+        const newFilter = properties.filter((response) => {
+          //search using customer NIC, project name or location
+            return response.NIC.toLowerCase().includes(searchWord.toLowerCase()) ||response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || response.Location.toLowerCase().includes(searchWord.toLowerCase()); 
         });
   
         if (searchWord === "") {
             console.log("EMPLTY");
             getData();
         } else {
-          setCustomers(newFilter);
+          setProperties(newFilter);
         }
     })
     .catch(error => console.log(error));
@@ -117,15 +97,15 @@ const setData = (med) => {
         </button>      </div>
 
       <div class="area2">
-      <input type='text' value={id2} readOnly/>
+        <input type='text' value={id2} readOnly/>
         <a href="/userprofile">
           <img src={profileImage} alt="profile" className="profile" />
         </a>
- 
+            
       </div>
 
       <div class="area3">
-        <div id="wrapper">
+        <div id="wrapper" onClick={handleButtonClick}>
         <table>
           <tr><td>
           <Link to={`/dashvisuals`}>
@@ -161,11 +141,11 @@ const setData = (med) => {
       </div>
 
       <div class="area4">
-      <div>
- 
+        <div>
+        <h2>Approval Status</h2>
+        <br></br>
 
-<br/>
-  
+    <div class="section">
     <input type="search" 
     placeholder="Search" 
     name="Searchquery" 
@@ -173,42 +153,53 @@ const setData = (med) => {
     onChange={handleFilter}
     >
     </input>
-  
 
-<br /><br/><br/>
-      <table class="table table-striped" border={1}>
+    <br/><br/><br/>
+    <table class="table table-striped">
             <thead>
-              
                 <th>NIC</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Actions</th>
+                <th>PropertyID</th>
+                <th>Project Name</th>
+                <th>Property Type</th>
+                <th>Location</th>
+                <th>Lot No</th>
+                <th>Size</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th>Final Value</th>   
+                <th>ProjectPage Status</th> 
+                <th>Deed Status</th>    
             </thead>    
               <tbody>
-                {customers.map((customer) => {
+                {properties.map((property) => {
                   return (
                     <tr>
-  
-                      <td>{customer.NIC}</td>
-                      <td>{customer.FirstName}</td>
-                      <td>{customer.LastName}</td>
-                      <td>{customer.PhoneNumber}</td>
-                      <td>
-
-                        <Link to={`/salesmanagerviewownedproperties`}>
-                          <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Owned Properties</button>
-                        </Link>
-                        
-                        </td>
+                      <td>{property.NIC}</td>
+                      <td>{property.FirstName}</td>
+                      <td>{property.LastName}</td>
+                      <td>{property.PropertyID}</td>
+                      <td>{property.ProjectName}</td>
+                      <td>{property.PropertyType}</td>
+                      <td>{property.Location}</td>
+                      <td>{property.LotNo}</td>
+                      <td>{property.Size}</td>
+                      <td>{property.UnitPrice}</td>
+                      <td>{property.TotalPrice}</td>
+                      <td>{property.FinalValue}</td>
+                      <td>{property.ProjPageStatus}</td>
+                      <td>{property.DeedStatus}</td>
+           
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-    </div>  
-     
+      
     </div>
+  </div>
+</div>
   </div>
 
   );

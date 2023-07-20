@@ -29,6 +29,7 @@ export function EditCustomer() {
     const OtherNames = localStorage.getItem('OtherNames');
     const PermanentAddress = localStorage.getItem('PermanentAddress');
     const PhoneNumber = localStorage.getItem('PhoneNumber');
+    
     setCusID(customerId);
     setCusNIC(NIC);
     setCusFirstName(FirstName);
@@ -57,6 +58,7 @@ export function EditCustomer() {
       .then((response) => {
         if (response.data === 'Customer Updated') {
           alert('Customer updated successfully');
+          window.location.href = '/customer';
         } else {
           alert('Invalid');
         }
@@ -93,34 +95,31 @@ export function EditCustomer() {
 
       <div className="area3">
         <div id="wrapper">
-          <table>
-            <tr>
-              <td>
-                <button className="tablebutton">Customer</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton">Property</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton">Project Page</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton">Approvals</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton" type="button" onClick={logout}>
-                  Logout
-                </button>
-              </td>
-            </tr>
+        <table>
+            <tr><td>
+            <Link to={`/customer`}>
+            <button class="tablebutton">Customer</button>
+                        </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/viewproperty`}>
+            <button class="tablebutton">Property</button>
+                        </Link>
+              
+            </td></tr>
+            <tr><td>
+            <Link to={`/viewprojectpage`}>
+            <button class="tablebutton">Project Page</button>
+                        </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/salesofficerapprovals`}>
+            <button class="tablebutton">Approvals</button>
+                        </Link>
+            </td></tr>
+            <tr><td>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            
+            </td></tr>
           </table>
         </div>
       </div>

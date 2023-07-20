@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { logout } from './logout';
 
 
-export function DashVisuals() {
+export function DashVisualsForAccountant() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
@@ -62,30 +62,19 @@ export function DashVisuals() {
         <div id="wrapper" onClick={handleButtonClick}>
         <table>
           <tr><td>
-          <Link to={`/dashvisuals`}>
+          <Link to={`/dashvisualsforaccountant`}>
           <button class="tablebutton">Dashboard</button>
-            </Link>
-            </td></tr>
+            </Link>            </td></tr>
             <tr><td>
-            <Link to={`/viewcustomer`}>
-            <button class="tablebutton">Customer</button>
+            <Link to={`/pendingapprovals`}>
+            <button class="tablebutton">Pending Approvals</button>
             </Link>
               
             </td></tr>
             <tr><td>
-            <Link to={`/salesmanagerviewproperty`}>
-            <button class="tablebutton">Property</button>            </Link>
-            </td></tr>
-            <tr><td>
-            <Link to={`/salesmanagerviewprojectpage`}>
-              <button class="tablebutton">Project Page</button>
-              </Link>
-            </td></tr>
-            <tr><td>
-            <Link to={`/salesmanagerapprovals`}>
-              <button class="tablebutton">Approvals</button>
-              </Link>
-            </td></tr>
+            <Link to={`/accountantapprovals`}>
+              <button class="tablebutton">All Approvals</button>
+              </Link>            </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>
@@ -95,7 +84,7 @@ export function DashVisuals() {
       </div>
 
       <div class="area4">
-      <h1>Dashboard for visuals</h1> 
+      <h1>Dashboard for visuals - Accountant</h1> 
     </div>
   </div>
 

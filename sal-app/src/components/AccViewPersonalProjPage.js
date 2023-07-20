@@ -7,7 +7,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { logout } from './logout';
 
-export function PersonalProjectPage() {
+export function AccViewPersonalProjectPage() {
   const handleButtonClick = (e) => {
     if (e.target.nodeName !== 'BUTTON') {
       return;
@@ -44,7 +44,8 @@ export function PersonalProjectPage() {
   const [CustomerID, setCustomerID] = useState('');
   const [PropertyID, setPropertyID] = useState('');
 
-  
+  const [approval,setApproval] = useState('');
+
 
   
 
@@ -246,11 +247,14 @@ export function PersonalProjectPage() {
             <h3>Final Value: {FinalValue}</h3>
             <hr />
 
-            {Status.toLowerCase() === 'pending' ? (
-              <button class='sendButton' onClick={sendtoAccountant}>Get Approval</button>
-            ) : (
-              <h3>Status: {Status}</h3>
-            )}
+            <select name="approvalstatus" id="approvalstatus" onChange={(e) => setApproval(e.target.value)}>
+                                <option value="blank">   </option>
+                                <option value="Approve">Approve</option>
+                                <option value="Hold">Hold</option>
+                                <option value="Reject">Reject</option>
+            </select>
+
+
 
             <hr />
           </div>

@@ -5,6 +5,7 @@
     header('Access-Control-Allow-Origin: *');
 
     // Retrieve data from the form from the POST data and sanitize them to prevent SQL injection
+    $projectname = mysqli_real_escape_string($connectNow, $_POST['projectname']);
     $propertytype = mysqli_real_escape_string($connectNow, $_POST['propertytype']);
     $location = mysqli_real_escape_string($connectNow, $_POST['location']);
     $district = mysqli_real_escape_string($connectNow, $_POST['district']);
@@ -18,8 +19,8 @@
  
 
     // Create the SQL query
-    $sql = "INSERT INTO property (PropertyType, Location, District, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice) 
-    VALUES ('$propertytype', '$location', '$district', '$address', '$lot_no', '$plan_no', '$size', '$price', '$total_price');";
+    $sql = "INSERT INTO property (ProjectName, PropertyType, Location, District, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice) 
+    VALUES (' $projectname', '$propertytype', '$location', '$district', '$address', '$lot_no', '$plan_no', '$size', '$price', '$total_price');";
 
     // Execute the query
     $result = mysqli_query($connectNow, $sql);

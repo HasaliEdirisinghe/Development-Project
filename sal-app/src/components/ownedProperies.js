@@ -150,24 +150,47 @@ const setData = (med) => {
 
       <div class="area3">
         <div id="wrapper" >
-          <table>
-            <tr><td>
-            <Link to={`/customer`}>
-            <button class="tablebutton">Customer</button>
-                        </Link>
-            </td></tr>
-            <tr><td>
-              <button class="tablebutton">Property</button>
-            </td></tr>
-            <tr><td>
-              <button class="tablebutton">Project Page</button>
-            </td></tr>
-            <tr><td>
-              <button class="tablebutton">Approvals</button>
-            </td></tr>
-            <tr><td>
-            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            
-            </td></tr>
+        <table>
+            <tr>
+              <td>
+                <Link to={`/customer`}>
+                  {/* Link to Customer page */}
+                  <button class="tablebutton">Customer</button>
+                </Link>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Link to={`/viewproperty`}>
+                  {/* Link to Property page */}
+                  <button class="tablebutton">Property</button>
+                </Link>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Link to={`/viewprojectpage`}>
+                  {/* Link to Project Page */}
+                  <button class="tablebutton">Project Page</button>
+                </Link>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Link to={`/salesofficerapprovals`}>
+                  {/* Link to Approvals page */}
+                  <button class="tablebutton">Approvals</button>
+                </Link>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button className="tablebutton" type="button" onClick={logout}>
+                  {/* Logout button */}
+                  Logout
+                </button> 
+              </td>
+            </tr>
           </table>
         </div>
       

@@ -70,6 +70,8 @@ export function AddCustomer() {
             setOtherName('');
             setAddress('');
             setPhone('');
+            window.location.href = '/customer';
+
 
           } else {
             alert('Invalid');
@@ -81,7 +83,7 @@ export function AddCustomer() {
 
     const handleCancelClick = (event) => {
       event.preventDefault();
-      setNIC('');
+              setNIC('');
               setFname('');
               setLname('');
               setOtherName('');
@@ -106,23 +108,30 @@ export function AddCustomer() {
 
       <div class="area3">
         <div id="wrapper" >
-          <table>
+        <table>
             <tr><td>
             <Link to={`/customer`}>
             <button class="tablebutton">Customer</button>
                         </Link>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Property</button>
+            <Link to={`/viewproperty`}>
+            <button class="tablebutton">Property</button>
+                        </Link>
+              
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Project Page</button>
+            <Link to={`/viewprojectpage`}>
+            <button class="tablebutton">Project Page</button>
+                        </Link>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Approvals</button>
-            </td></tr>
+            <Link to={`/salesofficerapprovals`}>
+            <button class="tablebutton">Approvals</button>
+                        </Link>
+            </td></tr> 
             <tr><td>
-              <button className="tablebutton" type="button" onClick={logout}>Logout</button>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            
             </td></tr>
           </table>
         </div>
@@ -169,7 +178,7 @@ export function AddCustomer() {
                         <td class='textbox'><input type='text' name='phone'  onChange={(e) => setPhone(e.target.value)} value={phone} /></td>
                     </tr>
                 </table>
-                <button class="cancelbutton" onClick={handleCancelClick}>Cancel</button>
+                <button class="cancelbutton" onClick={handleCancelClick}>Reset</button>
                 <input type='submit' class='submitbutton'value='Submit'/> 
 
             </form>

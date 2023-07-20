@@ -7,6 +7,8 @@ import myImage from './img/property.png';
 import { logout } from './logout';
 import { getUsername, handleArea1 } from './LocalStorageUtils';
 import homeImage from './img/homepage.png';
+import {Link} from 'react-router-dom';
+
 
 
 export function AddProperty() {
@@ -14,12 +16,13 @@ export function AddProperty() {
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
-    e.target.style.background = '#808080';
+    // e.target.style.background = '#808080';
   };
 
   const username2 = getUsername();
     // State variables to hold the username and password
     const [propertytype,setPropertyType] = useState('');
+    const [projectname,setProjectName] = useState('');
     const [location,setLocation] = useState('');
     const [district,setDistrict] = useState('');
     const [address,setAddress] = useState('');
@@ -28,9 +31,13 @@ export function AddProperty() {
     const [size,setSize] = useState('');
     const [price,setPrice] = useState('');
     
+    
     const handleSubmit = async (event) => {
       event.preventDefault();
-      if(location.length === 0){
+      if(projectname.length === 0){
+        alert("Project Name is required!");
+      }
+      else if (location.length === 0){
         alert("Location is required!");
       }
       else if(address.length === 0){
@@ -48,6 +55,7 @@ export function AddProperty() {
         // Send the customer data to the database
 
         let fData = new FormData();
+        fData.append('projectname', projectname);
         fData.append('propertytype', propertytype);
         fData.append('location', location);
         fData.append('district', district);
@@ -63,6 +71,7 @@ export function AddProperty() {
           if (response.data === 'Property Added') {
             alert('Property Added Successfully');
             // Reset the textboxes to their initial values
+            setProjectName('');
             setLocation('');
             setDistrict('');
             setAddress('');
@@ -70,15 +79,18 @@ export function AddProperty() {
             setPlanNo('');
             setSize('');
             setPrice('');
+            window.location.href = '/salesmanagerviewproperty';
+
         } else {
             alert('Invalid');
           }
         })
         .catch(error => alert(error.message)); // Display an error message if the request fails
       }
-    }
+    } 
     const handleCancelClick = (event) => {
       event.preventDefault();
+      setProjectName('');
       setLocation('');
             setDistrict('');
             setAddress('');
@@ -105,21 +117,35 @@ export function AddProperty() {
 
       <div class="area3">
         <div id="wrapper" onClick={handleButtonClick}>
-          <table>
-            <tr><td>
-              <button class="tablebutton">Navigation Bar for the Sales Manager</button>
+        <table>
+          <tr><td>
+          <Link to={`/dashvisuals`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Property</button>
+            <Link to={`/viewcustomer`}>
+            <button class="tablebutton">Customer</button>
+            </Link>
+              
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Dasboard</button>
+            <Link to={`/salesmanagerviewproperty`}>
+            <button class="tablebutton">Property</button>            </Link>
             </td></tr>
             <tr><td>
+            <Link to={`/salesmanagerviewprojectpage`}>
+              <button class="tablebutton">Project Page</button>
+              </Link>
+            </td></tr>
+            <tr><td>
+            <Link to={`/salesmanagerapprovals`}>
               <button class="tablebutton">Approvals</button>
+              </Link>
             </td></tr>
             <tr><td>
-            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            </td></tr>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
+            </td></tr>
           </table>
         </div>
       
@@ -127,14 +153,16 @@ export function AddProperty() {
 
       <div class="area4">
         <div>
-            <table>
-                <tr><td><button class="area4button">Add Property</button></td></tr>
-                <tr><td><button class="area4button">Edit Property</button></td></tr>
-            </table>
+
             <form onSubmit={handleSubmit}>
                 <table>
                     <tr>
                         <td colspan="3" align='center' class='propertyimage'><img src={myImage} alt="property"/>    </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Project Name</td>
+                        <td class='label1'>:</td>
+                        <td class='textbox'><input type='text' name='projectname'  onChange={(e) => setProjectName(e.target.value)} value={projectname}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Property Type</td>
@@ -191,7 +219,7 @@ export function AddProperty() {
                         <td class='textbox'><input type='text' name='property_address' onChange={(e) => setAddress(e.target.value)} value={address}/></td>
                     </tr>
                     <tr>
-                        <td class='label'>Lot No</td>
+                        <td class='label'>Lot No / BR</td>
                         <td class='label1'>:</td>
                         <td class='textbox'><input type='text' name='lotNo'  onChange={(e) => setLotNo(e.target.value)} value={lot_no}/></td>
                     </tr>
@@ -201,7 +229,7 @@ export function AddProperty() {
                         <td class='textbox'><input type='text' name='planNo'  onChange={(e) => setPlanNo(e.target.value)} value={plan_no} /></td>
                     </tr>
                     <tr>
-                        <td class='label'>Size (Square Feet)</td>
+                        <td class='label'>Size (Perch)</td>
                         <td class='label1'>:</td>
                         <td class='textbox'><input type='number' name='size'  onChange={(e) => setSize(e.target.value)} step="0.01" value={size}/></td>
                     </tr>
@@ -211,8 +239,8 @@ export function AddProperty() {
                         <td class='textbox'><input type='number' name='price'  onChange={(e) => setPrice(e.target.value) } step="0.01" value={price}/></td>
                     </tr>
                 </table>
-                <button class="cancelbutton" onClick={handleCancelClick}>Cancel</button>
-                <input type='submit' class='submitbutton' /> 
+                <button class="cancelbutton" onClick={handleCancelClick}>Reset</button>
+                <input type='submit' class='submitbutton' value='Submit'/> 
 
             </form>
                 
