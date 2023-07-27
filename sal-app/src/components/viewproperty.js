@@ -164,15 +164,15 @@ const setData = (med) => {
     </input>
 
 <br/><br/>
-      <table class="table table-striped">
+      <table class="showtable">
             <thead>
                 <th>Type</th>
                 <th>Project Name</th>
                 <th>Location</th>
                 <th>District</th>
                 <th>Address</th>
-                <th>Lot No</th>
-                <th>Plan No</th>
+                <th>LotNo</th>
+                <th>PlanNo</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
@@ -190,8 +190,8 @@ const setData = (med) => {
                       <td>{property.LotNo}</td>
                       <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>
-                      <td>{property.UnitPrice}</td>
-                      <td>{property.TotalPrice}</td>
+                      <td align='right'>{property.UnitPrice}</td>
+                      <td align='right'>{property.TotalPrice}</td>
 
                     </tr>
                   );

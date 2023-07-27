@@ -13,7 +13,7 @@ export function LegalOfficerDashboardPage() {
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
-    e.target.style.background = '#808080';
+    // e.target.style.background = '#808080';
   };
 
   // const [username,setUsername] = useState('');
@@ -72,10 +72,20 @@ export function LegalOfficerDashboardPage() {
               <button class="tablebutton">Property</button>
             </td></tr> */}
             <tr><td>
-              <button class="tablebutton">Project Page</button>
+            
+            <Link to={`/approvedprojpages`}>
+            <button class="tablebutton">Project Page</button>
+              </Link>  
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Deed Status</button>
+            <Link to={`/deedstatus`}>
+            <button class="tablebutton">Deed Status</button>
+              </Link> 
+            </td></tr>
+            <tr><td>
+            <Link to={`/signings`}>
+            <button class="tablebutton">Signings</button>
+              </Link>  
             </td></tr>
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  

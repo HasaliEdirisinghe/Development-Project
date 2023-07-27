@@ -84,7 +84,11 @@ export function DashVisualsForAccountant() {
       </div>
 
       <div class="area4">
-      <h1>Dashboard for visuals - Accountant</h1> 
+        <div>
+          <h2>Dashboard Visuals</h2>
+          <br/>
+      <iframe title="SALvisuals" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d7641b42-3383-4a0f-8d54-1f043503c7cf&autoAuth=true&embeddedDemo=true" frameborder="0" allowFullScreen="true"></iframe>
+      </div>
     </div>
   </div>
 

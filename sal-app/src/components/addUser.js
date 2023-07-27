@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/DashboardStyle.css';
 import './css/addcustomer.css';
-import { useState } from 'react';
 import axios from 'axios';
 import myImage from './img/user.png';
 import { logout } from './logout';
 import { getUsername, handleArea1 } from './LocalStorageUtils';
 import homeImage from './img/homepage.png';
+import { Link } from 'react-router-dom';
+import profileImage from './img/user_icon.png';
+
+
 
 
 export function AddUser() {
@@ -24,6 +27,24 @@ export function AddUser() {
     const [name,setName] = useState('');
     const [designation,setDesignation] = useState('');
     const [temp_pwd,setTempPassword] = useState('');
+
+    const [id2, setId2] = useState(null);
+
+    useEffect(() => {
+      const url = 'http://localhost/backend/getemployeename.php';
+      const id = localStorage.getItem('username');
+      let fData = new FormData();
+      fData.append('id', id);
+  
+      axios.post(url, fData)
+        .then(response => {
+          const username = response.data; // Retrieve the username from the response
+          setId2(username);
+          // Do further processing with the username here
+        })
+        .catch(error => alert(error.message));
+    }, []); // Empty dependencies array means the effect only runs once (on mount)
+  
   
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -65,6 +86,7 @@ export function AddUser() {
             setName('');
             setDesignation('');
             setTempPassword('');
+            window.location.href = '/users';
 
 
           } else {
@@ -97,25 +119,35 @@ export function AddUser() {
           <h1 class='area1text'>SAL</h1> 
         </button>      </div>
 
-      <div class="area2"></div>
+      <div class="area2">
+      <input type='text' value={id2} readOnly/>
+        <a href="/userprofile">
+          <img src={profileImage} alt="profile" className="profile" />
+        </a>
+      </div>
 
       <div class="area3">
         <div id="wrapper" onClick={handleButtonClick}>
-          <table>
+        <table>
             <tr><td>
-              <button class="tablebutton">Admin Panel</button>
+            <Link to={`/users`}>
+            <button class="tablebutton">Users</button>
+                        </Link>
+              
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Property</button>
+            <Link to={`/...`}>
+            <button class="tablebutton">Deactivate or Remove</button>
+                        </Link>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Project Page</button>
+              <button class="tablebutton">User Permissions</button>
             </td></tr>
             <tr><td>
-              <button class="tablebutton">Approvals</button>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>
-            <tr><td>
-            <button className="tablebutton" type="button" onClick={logout}>Logout</button>            </td></tr>
+
+
           </table>
         </div>
       
@@ -123,14 +155,10 @@ export function AddUser() {
 
       <div class="area4">
         <div>
-            <table>
-                <tr><td><button class="area4button">Add User</button></td></tr>
-                <tr><td><button class="area4button">Edit User</button></td></tr>
-            </table>
             <form onSubmit={handleSubmit}>
                 <table>
                     <tr>
-                        <td colspan="3" align='center' class='customerimage'><img src={myImage} alt="customer"/>    </td>
+                        <td colspan="3" align='center' class='customerimage'><img src={myImage} alt="user"/>    </td>
                     </tr>
                     <tr>
                         <td class='label'>Employee ID</td>
@@ -140,7 +168,7 @@ export function AddUser() {
                     <tr>
                         <td class='label'>NIC</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='nic'  onChange={(e) => setNIC(e.target.value)} value={nic}/></td>
+                        <td class='textbox'><input type='text' name='nic' pattern="^\d{9}[VX]$|^\d{12}$" onChange={(e) => setNIC(e.target.value)} value={nic}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Employee Name</td>
@@ -154,12 +182,13 @@ export function AddUser() {
                             <select name="designation" id="designation" onChange={(e) => setDesignation(e.target.value)} value={designation}>
                                 <option value="blank"> </option>
                                 <option value="Admin">Admin</option>
-                                <option value="SalesOfficer">Sales Officer</option>
-                                <option value="SalesManager">Sales Manager</option>
+                                <option value="Sales Officer">Sales Officer</option>
+                                <option value="Sales Manager">Sales Manager</option>
                                 <option value="Accountant">Accountant</option>
-                                <option value="ChiefAccountant">Chief Accountant</option>
-                                <option value="LegalClerk">LegalClerk</option>
-                                <option value="Lawyer">Lawyer</option>
+                                {/* <option value="ChiefAccountant">Chief Accountant</option> */}
+                                {/* <option value="LegalClerk">Legal Clerk</option> */}
+                                {/* <option value="Lawyer">Lawyer</option> */}
+                                <option value="Legal Officer">Legal Officer</option>
                                 <option value="Director">Director</option>
                             </select>
                         </td>
@@ -171,7 +200,7 @@ export function AddUser() {
                     </tr>
                 </table>
                 <button class="cancelbutton" onClick={handleCancelClick}>Cancel</button>
-                <input type='submit' class='submitbutton' /> 
+                <input type='submit' class='submitbutton' value='Submit'/> 
 
             </form>
                 

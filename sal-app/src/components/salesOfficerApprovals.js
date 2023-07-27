@@ -150,16 +150,17 @@ export function SalesOfficerApprovals() {
     </input>
 
     <br/><br/><br/>
-    <table class="table table-striped">
+    <table class="showtable">
             <thead>
                 <th>NIC</th>
                 <th>First Name</th>
-                <th>Last Name</th>
+                {/* <th>Last Name</th> */}
                 <th>PropertyID</th>
                 <th>Project Name</th>
                 <th>Property Type</th>
                 <th>Location</th>
-                <th>Lot No</th>
+                <th>LotNo</th>
+                <th>BR</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
@@ -172,17 +173,18 @@ export function SalesOfficerApprovals() {
                   return (
                     <tr>
                       <td>{property.NIC}</td>
-                      <td>{property.FirstName}</td>
-                      <td>{property.LastName}</td>
+                      <td>{property.FirstName} {property.LastName}</td>
+                      {/* <td>{property.LastName}</td> */}
                       <td>{property.PropertyID}</td>
                       <td>{property.ProjectName}</td>
                       <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
                       <td>{property.LotNo}</td>
+                      <td>{property.Bedrooms}</td>
                       <td>{property.Size}</td>
-                      <td>{property.UnitPrice}</td>
-                      <td>{property.TotalPrice}</td>
-                      <td>{property.FinalValue}</td>
+                      <td align='right'>{property.UnitPrice}</td>
+                      <td align='right'>{property.TotalPrice}</td>
+                      <td align='right'>{property.FinalValue}</td>
                       <td>{property.ProjPageStatus}</td>
                       <td>{property.DeedStatus}</td>
            

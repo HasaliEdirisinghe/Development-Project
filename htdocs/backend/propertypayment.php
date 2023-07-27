@@ -14,7 +14,8 @@ $total_price = (float)$_POST['total_price'];
 $final_value = $total_price - $Discount + $OtherCharges;
 
 // Create the SQL query
-$sql = "INSERT INTO customer_payment (CustomerID, PropertyID, Discount, OtherCharges, FinalValue) VALUES ('$CusID', '$PropID', '$Discount', '$OtherCharges', '$final_value');";
+$sql = "INSERT INTO customer_payment (CustomerID, PropertyID, Discount, OtherCharges, FinalValue) 
+        VALUES ('$CusID', '$PropID', '$Discount', '$OtherCharges', '$final_value');";
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql);

@@ -41,13 +41,14 @@ export function PendingApprovals() {
       })
       .catch(error => alert(error.message));
 
-      getAllProperties()
-      .then((propertiesData) => {
-        setProperties(propertiesData);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+      axios
+        .get("http://localhost/backend/pendingapprovals.php")
+        .then((res) => {
+          setProperties(res.data);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
 
   }, []); // Empty dependencies array means the effect only runs once (on mount)
 
@@ -63,7 +64,7 @@ export function PendingApprovals() {
   }
 const setData = (med) => {
 
-    let {CustomerID, NIC,FirstName,LastName,OtherNames, PropertyID, ProjectName, PropertyType, Location, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice, Discount, OtherCharges, FinalValue, ProjPageStatus} = med;
+    let {CustomerID, NIC,FirstName,LastName,OtherNames, PropertyID, ProjectName, PropertyType, Location, Address, LotNo, Bedrooms, PlanNo, Size, UnitPrice, TotalPrice, Discount, OtherCharges, FinalValue, ProjPageStatus} = med;
     
     localStorage.setItem('NIC', NIC);
     localStorage.setItem('FirstName', FirstName);
@@ -75,6 +76,7 @@ const setData = (med) => {
     localStorage.setItem('Address', Address);
     localStorage.setItem('LotNo', LotNo);
     localStorage.setItem('PlanNo', PlanNo);
+    localStorage.setItem('Bedrooms', Bedrooms);
     localStorage.setItem('Size', Size);
     localStorage.setItem('UnitPrice', UnitPrice);
     localStorage.setItem('TotalPrice', TotalPrice);
@@ -172,7 +174,7 @@ const setData = (med) => {
     </input>
 
     <br/><br/><br/>
-    <table class="table table-striped">
+    <table class="showtable">
             <thead>
                 <th>NIC</th>
                 <th>First Name</th>
@@ -181,7 +183,8 @@ const setData = (med) => {
                 <th>Project Name</th>
                 <th>Property Type</th>
                 <th>Location</th>
-                <th>Lot No</th>
+                <th>LotNo</th>
+                <th>BR</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
@@ -201,10 +204,11 @@ const setData = (med) => {
                       <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
                       <td>{property.LotNo}</td>
+                      <td>{property.Bedrooms}</td>
                       <td>{property.Size}</td>
-                      <td>{property.UnitPrice}</td>
-                      <td>{property.TotalPrice}</td>
-                      <td>{property.FinalValue}</td>
+                      <td align='right'>{property.UnitPrice}</td>
+                      <td align='right'>{property.TotalPrice}</td>
+                      <td align='right'>{property.FinalValue}</td>
                       <td>{property.ProjPageStatus}</td>
                       <td> <Link to={`/personalprojpageforaccountant`}>
                           <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>View More</button>

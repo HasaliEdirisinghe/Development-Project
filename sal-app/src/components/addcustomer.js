@@ -1,9 +1,9 @@
-import React from 'react';
 import './css/DashboardStyle.css';
 import './css/addcustomer.css';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import myImage from './img/customerprofile.png';
+import profileImage from './img/user_icon.png';
 import { logout } from './logout';
 import {Link} from 'react-router-dom';
 import homeImage from './img/homepage.png';
@@ -21,6 +21,9 @@ export function AddCustomer() {
 
   const username2 = getUsername();
 
+  const [id2, setId2] = useState(null);
+
+
     // State variables to hold the username and password
     const [nic,setNIC] = useState('');
     const [fname,setFname] = useState('');
@@ -28,6 +31,22 @@ export function AddCustomer() {
     const [othernames,setOtherName] = useState('');
     const [address,setAddress] = useState('');
     const [phone,setPhone] = useState('');
+
+    useEffect(() => {
+      const url = 'http://localhost/backend/getemployeename.php';
+      const id = localStorage.getItem('username');
+      let fData = new FormData();
+      fData.append('id', id);
+  
+      axios.post(url, fData)
+        .then(response => {
+          const username = response.data; // Retrieve the username from the response
+          setId2(username);
+          // Do further processing with the username here
+        })
+        .catch(error => alert(error.message));
+    }, []); // Empty dependencies array means the effect only runs once (on mount)
+  
   
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -72,7 +91,7 @@ export function AddCustomer() {
             setPhone('');
             window.location.href = '/customer';
 
-
+ 
           } else {
             alert('Invalid');
           }
@@ -104,7 +123,12 @@ export function AddCustomer() {
         </button>
       </div>
 
-      <div class="area2"></div>
+      <div class="area2">
+      <input type='text' value={id2} readOnly />
+        <a href="/userprofile">
+          <img src={profileImage} alt="profile" className="profile" />
+        </a>
+      </div>
 
       <div class="area3">
         <div id="wrapper" >

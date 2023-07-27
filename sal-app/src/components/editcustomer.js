@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/DashboardStyle.css';
 import './css/addcustomer.css';
 import { logout } from './logout';
@@ -7,6 +7,8 @@ import myImage from './img/customerprofile.png';
 import { Link } from 'react-router-dom';
 import { getUsername, handleArea1 } from './LocalStorageUtils';
 import homeImage from './img/homepage.png';
+import profileImage from './img/user_icon.png';
+
 
 export function EditCustomer() {
   const [CusID, setCusID] = useState('');
@@ -19,6 +21,7 @@ export function EditCustomer() {
 
   const username2 = getUsername();
 
+  const [id2, setId2] = useState(null);
 
   useEffect(() => {
     // Fetch the customer data based on the customer ID (retrieve the ID from localStorage or URL params)
@@ -37,6 +40,20 @@ export function EditCustomer() {
     setCusOtherNames(OtherNames);
     setCusPermanentAddress(PermanentAddress);
     setCusPhoneNumber(PhoneNumber);
+
+    const url = 'http://localhost/backend/getemployeename.php';
+    const id = localStorage.getItem('username');
+    let fData = new FormData();
+    fData.append('id', id);
+
+    axios.post(url, fData)
+      .then(response => {
+        const username = response.data; // Retrieve the username from the response
+        setId2(username);
+        // Do further processing with the username here
+      })
+      .catch(error => alert(error.message));
+
   }, []);
 
   const handleSubmit = (event) => {
@@ -91,7 +108,12 @@ export function EditCustomer() {
         </button>
       </div>
 
-      <div className="area2"></div>
+      <div className="area2">
+      <input type='text' value={id2} readOnly/>
+        <a href="/userprofile">
+          <img src={profileImage} alt="profile" className="profile" />
+        </a>
+      </div>
 
       <div className="area3">
         <div id="wrapper">

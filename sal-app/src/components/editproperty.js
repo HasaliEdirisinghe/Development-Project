@@ -7,6 +7,8 @@ import myImage from './img/property.png';
 import { Link } from 'react-router-dom';
 import { getUsername, handleArea1 } from './LocalStorageUtils';
 import homeImage from './img/homepage.png';
+import profileImage from './img/user_icon.png';
+
 
 export function EditProperty() {
   const [PropertyType, setPropertyType] = useState('');
@@ -19,20 +21,24 @@ export function EditProperty() {
   const [Size, setSize] = useState('');
   const [Price, setPrice] = useState('');
   const [PropertyID, setPropertyID] = useState('');
+  const [id2, setId2] = useState(null);
+
 
   const username2 = getUsername();
 
   useEffect(() => {
-    const propertytype = localStorage.getItem('propertytype');
-    const projectname = localStorage.getItem('projectname');
-    const location = localStorage.getItem('location');
-    const district = localStorage.getItem('district');
-    const address = localStorage.getItem('address');
-    const lot_no = localStorage.getItem('lot_no');
-    const plan_no = localStorage.getItem('plan_no');
-    const size = localStorage.getItem('size');
-    const price = localStorage.getItem('price');
+    const propertyID = localStorage.getItem('PropertyID');
+    const propertytype = localStorage.getItem('PropertyType');
+    const projectname = localStorage.getItem('ProjectName');
+    const location = localStorage.getItem('Location');
+    const district = localStorage.getItem('District');
+    const address = localStorage.getItem('Address');
+    const lot_no = localStorage.getItem('LotNo');
+    const plan_no = localStorage.getItem('PlanNo');
+    const size = localStorage.getItem('Size');
+    const price = localStorage.getItem('UnitPrice');
 
+    setPropertyID(propertyID);
     setPropertyType(propertytype);
     setProjectName(projectname);
     setLocation(location);
@@ -42,6 +48,21 @@ export function EditProperty() {
     setPlanNo(plan_no);
     setSize(size);
     setPrice(price);
+
+
+    const url = 'http://localhost/backend/getemployeename.php';
+    const id = localStorage.getItem('username');
+    let fData = new FormData();
+    fData.append('id', id);
+
+    axios.post(url, fData)
+      .then(response => {
+        const username = response.data; // Retrieve the username from the response
+        setId2(username);
+        // Do further processing with the username here
+      })
+      .catch(error => alert(error.message));
+
   }, []);
 
   const handleSubmit = (event) => {
@@ -102,7 +123,12 @@ export function EditProperty() {
         </button>
       </div>
 
-      <div className="area2"></div>
+      <div className="area2">
+      <input type='text' value={id2} readOnly/>
+        <a href="/userprofile">
+          <img src={profileImage} alt="profile" className="profile" />
+        </a>
+      </div>
 
       <div className="area3">
         <div id="wrapper">
@@ -171,7 +197,7 @@ export function EditProperty() {
               value={PropertyType}
               onChange={(e) => setPropertyType(e.target.value)}
             />
-          </td>
+          </td> 
         </tr>
         <tr>
           <td className="label">Location</td>

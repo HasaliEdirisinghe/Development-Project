@@ -61,7 +61,7 @@ export function ViewProjectPage() {
 
 const setData = (med) => {
 
-  let {CustomerID, NIC,FirstName,LastName,OtherNames, PropertyID, ProjectName, PropertyType, Location, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice, Discount, OtherCharges, FinalValue, ProjPageStatus} = med;
+  let {CustomerID, NIC,FirstName,LastName,OtherNames, PropertyID, ProjectName, PropertyType, Location, Address, LotNo, Bedrooms, PlanNo, Size, UnitPrice, TotalPrice, Discount, OtherCharges, FinalValue, ProjPageStatus} = med;
   
   localStorage.setItem('NIC', NIC);
   localStorage.setItem('FirstName', FirstName);
@@ -73,6 +73,7 @@ const setData = (med) => {
   localStorage.setItem('Address', Address);
   localStorage.setItem('LotNo', LotNo);
   localStorage.setItem('PlanNo', PlanNo);
+  localStorage.setItem('Bedrooms', Bedrooms);
   localStorage.setItem('Size', Size);
   localStorage.setItem('UnitPrice', UnitPrice);
   localStorage.setItem('TotalPrice', TotalPrice);
@@ -177,7 +178,7 @@ const setData = (med) => {
     </input>
 
     <br/><br/><br/>
-    <table class="table table-striped">
+    <table class="showtable">
             <thead>
                 <th>NIC</th>
                 <th>First Name</th>
@@ -186,8 +187,8 @@ const setData = (med) => {
                 <th>Project Name</th>
                 <th>Property Type</th>
                 <th>Location</th>
-                <th>Address</th>
-                <th>Lot No</th>
+                {/* <th>Address</th> */}
+                <th>LotNo</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
@@ -205,12 +206,12 @@ const setData = (med) => {
                       <td>{property.ProjectName}</td>
                       <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
-                      <td>{property.Address}</td>
+                      {/* <td>{property.Address}</td> */}
                       <td>{property.LotNo}</td>
                       <td>{property.Size}</td>
-                      <td>{property.UnitPrice}</td>
-                      <td>{property.TotalPrice}</td>
-                      <td>{property.FinalValue}</td>
+                      <td align='right'>{property.UnitPrice}</td>
+                      <td align='right'>{property.TotalPrice}</td>
+                      <td align='right'>{property.FinalValue}</td>
                       <td> <Link to={`/personalprojectpage`}>
                           <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>View More</button>
                         </Link></td>

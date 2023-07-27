@@ -1,3 +1,5 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css';
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -14,11 +16,11 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
-  /* height: auto; */
-  width: 30vh;
+  height: auto;
+  width: 33vh;
   grid-column: 1;
   grid-row: 1;
-  height: 15vh;
+  height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +46,7 @@
   grid-template-rows: 1fr 1fr;
   gap: 10px;
   width: 30vh;
-  height: auto;
+  /* height: auto; */
   grid-column: 1;
   grid-row: 2;
 }
@@ -58,8 +60,9 @@
   grid-column: 2;
   grid-row: 2;
   display: flex;
-  height: auto;
-  width: auto;
+  /* height: auto; */
+  /* width: auto; */
+  width: 172vh;
 }
   
 /* .container::before {
@@ -96,8 +99,8 @@ h1 {
   width: auto; 
 }
 .area4 img {
-  max-width: 40%;
-  max-height: 40%;
+  max-width: 20%;
+  max-height: 20%;
   position: absolute;
 }
 
@@ -116,16 +119,26 @@ h1 {
   align-items: center;
 }
 
-table {
+.area4 table {
   border-collapse: collapse;
-  width: 200%;
+  width: 100%;
+  /* border: 1px solid #000000; */
 }
+
+/* .area4 table td, table th {
+  border: 1px solid #000000;
+
+} */
 
 table td, table th {
   border-bottom: 1px solid #000000;
   padding: 4px;
   border-bottom-width: 30;
   
+}
+
+.showtable td,th{
+  border: 1px solid #000000;
 }
 
 .tablebutton {
@@ -148,5 +161,11 @@ table td, table th {
   margin-left: 10px;
 }
 
+.vl {
+  border-left: 2px solid rgb(0, 0, 0);
+  height: auto;
+}
 
-
+.propertyform{
+  width: 50%;
+}

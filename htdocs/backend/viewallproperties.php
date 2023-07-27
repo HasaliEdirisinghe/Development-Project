@@ -5,7 +5,12 @@ require 'connection.php';
 // Allow cross-origin requests
 header('Access-Control-Allow-Origin: *');
 
-$sql_query = "SELECT * FROM property";
+// $sql_query = "SELECT * FROM property";
+$sql_query = "SELECT PropertyID, PropertyType, ProjectName, Location, District, Address, LotNo, BedRooms, PlanNo, Size,
+            FORMAT(TotalPrice, 'N', 'en-US') AS TotalPrice,
+            FORMAT(UnitPrice, 'N', 'en-US') AS UnitPrice
+            FROM property;";
+
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql_query);

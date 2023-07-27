@@ -5,7 +5,18 @@ require 'connection.php';
 // Allow cross-origin requests
 header('Access-Control-Allow-Origin: *');
 
-$sql_query = "SELECT * FROM customer c, property p, customer_payment cp WHERE c.CustomerID = cp.CustomerID AND p.PropertyID = cp.PropertyID";
+// $sql_query = "SELECT * FROM customer c, property p, customer_payment cp WHERE c.CustomerID = cp.CustomerID AND p.PropertyID = cp.PropertyID";
+$sql_query = "SELECT c.CustomerID, c.NIC, c.FirstName, c.LastName, c.OtherNames, c.PermanentAddress, c.PhoneNumber, 
+            p.PropertyID, p.PropertyType, p.ProjectName, p.Location, p.District, p.Address, p.LotNo, p.BedRooms, p.PlanNo, p.Size, 
+            FORMAT(p.UnitPrice, 'N', 'en-US') AS UnitPrice, 
+            FORMAT(p.TotalPrice, 'N', 'en-US') AS TotalPrice, 
+            cp.Discount, cp.OtherCharges, 
+            FORMAT(cp.FinalValue, 'N', 'en-US') AS FinalValue, 
+            cp.ProjPageStatus, cp.SoldDate, cp.DeedStatus 
+            FROM customer c 
+            JOIN customer_payment cp ON c.CustomerID = cp.CustomerID 
+            JOIN property p ON p.PropertyID = cp.PropertyID;";
+
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql_query);

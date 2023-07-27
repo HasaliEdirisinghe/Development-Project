@@ -78,6 +78,7 @@ export function PropertyPage() {
       District,
       Address,
       LotNo,
+      BedRooms,
       PlanNo,
       Size,
       UnitPrice,
@@ -89,6 +90,7 @@ export function PropertyPage() {
       localStorage.setItem('District', District);
       localStorage.setItem('Address', Address);
       localStorage.setItem('LotNo', LotNo);
+      localStorage.setItem('BedRooms', BedRooms);
       localStorage.setItem('PlanNo', PlanNo);
       localStorage.setItem('Size', Size);
       localStorage.setItem('UnitPrice', UnitPrice);
@@ -219,7 +221,7 @@ export function PropertyPage() {
  
           <br />
           <br />
-          <table className="table table-striped">
+          <table className="showtable">
   <thead>
     <tr>
       <th>ID</th>
@@ -228,8 +230,8 @@ export function PropertyPage() {
       <th>Location</th>
       <th>District</th>
       <th>Address</th>
-      <th>Lot No</th>
-      <th>Plan No</th>
+      <th>LotNo</th>
+      <th>BRs</th>
       <th>Size</th>
       <th>Unit Price</th>
       <th>Total Price</th>
@@ -247,10 +249,10 @@ export function PropertyPage() {
           <td>{property.District}</td>
           <td>{property.Address}</td>
           <td>{property.LotNo}</td>
-          <td>{property.PlanNo}</td>
+          <td>{property.BedRooms}</td>
           <td>{property.Size}</td>
-          <td>{property.UnitPrice}</td>
-          <td>{property.TotalPrice}</td>
+          <td align='right'>{property.UnitPrice}</td>
+          <td align='right'>{property.TotalPrice}</td>
           <td>
             <Link to={`/propertypayment/${customerId}`}>
               <button

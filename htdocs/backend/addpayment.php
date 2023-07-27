@@ -10,7 +10,7 @@
     $other_charges = mysqli_real_escape_string($connectNow, $_POST['othercharges']);
 
 
-    $final_value = $price_per_unit*
+    $final_value = $price_per_unit * $basic_property_value
 
     // Create the SQL query
     $sql = "INSERT INTO payment (NIC, FirstName, LastName, OtherNames, PermanentAddress, PhoneNumber) VALUES ('$nic', '$fname', '$lname', '$othernames', '$address', '$phone');";

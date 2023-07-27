@@ -6,21 +6,11 @@ require 'connection.php';
 header('Access-Control-Allow-Origin: *');
 
 // Retrieve the customer data from the request
-$id = mysqli_real_escape_string($connectNow, $_POST['id']);
-$propertytype = mysqli_real_escape_string($connectNow, $_POST['propertytype']);
-$projectname = mysqli_real_escape_string($connectNow, $_POST['projectname']);
-$location = mysqli_real_escape_string($connectNow, $_POST['location']);
-$district = mysqli_real_escape_string($connectNow, $_POST['district']);
-$address = mysqli_real_escape_string($connectNow, $_POST['address']);
-$lot_no = mysqli_real_escape_string($connectNow, $_POST['lot_no']);
-$plan_no = mysqli_real_escape_string($connectNow, $_POST['plan_no']);
-$size = mysqli_real_escape_string($connectNow, $_POST['size']);
-$price = mysqli_real_escape_string($connectNow, $_POST['price']);
+$id = mysqli_real_escape_string($connectNow, $_POST['PropertyID']);
 
-$total_price = (int)$price*(int)$size;
 
 // Prepare the SQL statement to update the customer record
-$sql_query = "DELETE FROM property WHERE id = $id";
+$sql_query = "DELETE FROM property WHERE PropertyID = '$id'";
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql_query);

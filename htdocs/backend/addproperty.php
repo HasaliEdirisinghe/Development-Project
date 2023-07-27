@@ -11,6 +11,7 @@
     $district = mysqli_real_escape_string($connectNow, $_POST['district']);
     $address = mysqli_real_escape_string($connectNow, $_POST['address']);
     $lot_no = mysqli_real_escape_string($connectNow, $_POST['lot_no']);
+    $br = mysqli_real_escape_string($connectNow, $_POST['bedrooms_h']);
     $plan_no = mysqli_real_escape_string($connectNow, $_POST['plan_no']);
     $size = mysqli_real_escape_string($connectNow, $_POST['size']);
     $price = mysqli_real_escape_string($connectNow, $_POST['price']);
@@ -19,8 +20,8 @@
  
 
     // Create the SQL query
-    $sql = "INSERT INTO property (ProjectName, PropertyType, Location, District, Address, LotNo, PlanNo, Size, UnitPrice, TotalPrice) 
-    VALUES (' $projectname', '$propertytype', '$location', '$district', '$address', '$lot_no', '$plan_no', '$size', '$price', '$total_price');";
+    $sql = "INSERT INTO property (ProjectName, PropertyType, Location, District, Address, LotNo, BedRooms, PlanNo, Size, UnitPrice, TotalPrice) 
+            VALUES (' $projectname', '$propertytype', '$location', '$district', '$address', '$lot_no', '$br', '$plan_no', '$size', '$price', '$total_price');";
 
     // Execute the query
     $result = mysqli_query($connectNow, $sql);

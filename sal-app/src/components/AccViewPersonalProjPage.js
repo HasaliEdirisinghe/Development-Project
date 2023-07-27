@@ -110,18 +110,21 @@ export function AccViewPersonalProjectPage() {
       });
   }
 
-  const sendtoAccountant = () => {
+  const setApprovalStatus = () => {
     let formData = new FormData();
     formData.append('CustomerID', CustomerID);
     formData.append('PropertyID', PropertyID);
+    formData.append('ProjPageStatus', approval);
 
-    axios.post('http://localhost/backend/projpageapprovalstatus.php', formData)
+
+
+    axios.post('http://localhost/backend/accountantsetapproval.php', formData)
   .then((response) => {
     // Handle the response from the server if needed
     console.log(response.data);
     if (response.data === 'Status updated successfully') {
-      alert('Sent to Accountant. Please wait for the Approval.');
-      window.location.href = '/viewprojectpage';
+      alert('Project set to '+ approval);
+      window.location.href = '/pendingapprovals';
     } else {
       alert('Failed to send');
     }
@@ -175,46 +178,23 @@ export function AccViewPersonalProjectPage() {
       <div class="area3">
         <div id="wrapper" >
         <table>
-            <tr>
-              <td>
-                <Link to={`/customer`}>
-                  {/* Link to Customer page */}
-                  <button class="tablebutton">Customer</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Link to={`/viewproperty`}>
-                  {/* Link to Property page */}
-                  <button class="tablebutton">Property</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Link to={`/viewprojectpage`}>
-                  {/* Link to Project Page */}
-                  <button class="tablebutton">Project Page</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Link to={`/salesofficerapprovals`}>
-                  {/* Link to Approvals page */}
-                  <button class="tablebutton">Approvals</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton" type="button" onClick={logout}>
-                  {/* Logout button */}
-                  Logout
-                </button>
-              </td>
-            </tr>
+          <tr><td>
+          <Link to={`/dashvisualsforaccountant`}>
+          <button class="tablebutton">Dashboard</button>
+            </Link>            </td></tr>
+            <tr><td>
+            <Link to={`/pendingapprovals`}>
+            <button class="tablebutton">Pending Approvals</button>
+            </Link>
+              
+            </td></tr>
+            <tr><td>
+            <Link to={`/accountantapprovals`}>
+              <button class="tablebutton">All Approvals</button>
+              </Link>            </td></tr>
+            <tr><td>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
+            </td></tr>
           </table>
         </div>
       </div>
@@ -249,11 +229,11 @@ export function AccViewPersonalProjectPage() {
 
             <select name="approvalstatus" id="approvalstatus" onChange={(e) => setApproval(e.target.value)}>
                                 <option value="blank">   </option>
-                                <option value="Approve">Approve</option>
+                                <option value="Approved">Approved</option>
                                 <option value="Hold">Hold</option>
                                 <option value="Reject">Reject</option>
             </select>
-
+            <button id="save" class="proceed" onClick={()=>setApprovalStatus()}>Save</button>
 
 
             <hr />

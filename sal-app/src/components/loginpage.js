@@ -40,7 +40,7 @@ export function LoginPage() {
 
           // Redirect the user based on the designation
           if (designation === 'Admin') {
-            window.location.href = '/dashboard';
+            window.location.href = '/admindashboard';
           } else if (designation === 'Sales Manager') {
             window.location.href = '/salesmanagerdashboard';
           } else if (designation === 'Sales Officer') {
@@ -51,7 +51,9 @@ export function LoginPage() {
             window.location.href = '/chiefaccountantdashboard';
           } else if (designation === 'Legal Officer') {
             window.location.href = '/legalofficerdashboard';
-          } else {
+          } else if (designation === 'Director') {
+            window.location.href = '/directordashboard';
+          }else {
             alert('Invalid credentials.');
           }
         } else {

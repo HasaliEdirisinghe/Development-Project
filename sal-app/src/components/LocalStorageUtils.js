@@ -11,7 +11,7 @@ export const getUsername = () => {
 export const handleBackButton = (designation) => {
   // Redirect the user based on the designation
   if (designation === 'Admin') {
-    window.location.href = '/dashboard';
+    window.location.href = '/admindashboard';
   } else if (designation === 'Sales Manager') {
     window.location.href = '/salesmanagerdashboard';
   } else if (designation === 'Sales Officer') {
@@ -22,7 +22,9 @@ export const handleBackButton = (designation) => {
     window.location.href = '/chiefaccountantdashboard';
   } else if (designation === 'Legal Officer') {
     window.location.href = '/legalofficerdashboard';
-  } else {
+  } else if (designation === 'Director') {
+    window.location.href = '/directordashboard';
+  }else {
     alert('Invalid credentials.');
   }
 };
@@ -33,12 +35,13 @@ export const handleArea1 = async (username) => {
   const designationUrl = 'http://localhost/backend/getdesignation.php';
   const formData = new FormData();
   formData.append('name', username);
+
   const designationResponse = await axios.post(designationUrl, formData);
   const designation = designationResponse.data;
 
   // Redirect the user based on the designation
   if (designation === 'Admin') {
-    window.location.href = '/dashboard';
+    window.location.href = '/admindashboard';
   } else if (designation === 'Sales Manager') {
     window.location.href = '/salesmanagerdashboard';
   } else if (designation === 'Sales Officer') {
@@ -49,7 +52,9 @@ export const handleArea1 = async (username) => {
     window.location.href = '/chiefaccountantdashboard';
   } else if (designation === 'Legal Officer') {
     window.location.href = '/legalofficerdashboard';
-  } else {
+  } else if (designation === 'Director') {
+    window.location.href = '/directordashboard';
+  }else {
     alert('Invalid credentials.');
   }
 };
@@ -63,3 +68,4 @@ export const getAllProperties = async () => {
     throw new Error(error.message);
   }
 };
+

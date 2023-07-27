@@ -21,6 +21,9 @@ export function SalesManagerViewProperty() {
   const [id2, setId2] = useState(null);
     const [properties, setProperties] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
+    const [newWordEntered, setNewWordEntered] = useState("");
+
+    
   useEffect(() => {
     
     function getusername(){
@@ -69,13 +72,20 @@ function getAllProperties(){
   }
 const setData = (med) => {
 
-  let {id,NIC,FirstName,LastName,PhoneNumber} = med;
+  let {PropertyID, ProjectName,PropertyType,Location,District, Address, LotNo, Bedrooms, PlanNo, Size, UnitPrice} = med;
   
-  localStorage.setItem('id',id);
-  localStorage.setItem('NIC', NIC);
-  localStorage.setItem('FirstName', FirstName);
-  localStorage.setItem('LastName', LastName);
-  localStorage.setItem('PhoneNumber', PhoneNumber);
+  localStorage.setItem('PropertyID',PropertyID);
+  localStorage.setItem('ProjectName', ProjectName);
+  localStorage.setItem('PropertyType', PropertyType);
+  localStorage.setItem('Location', Location);
+  localStorage.setItem('District', District);
+  localStorage.setItem('Address', Address);
+  localStorage.setItem('LotNo', LotNo);
+  localStorage.setItem('PlanNo', PlanNo);
+  localStorage.setItem('Size', Size);
+  localStorage.setItem('UnitPrice', UnitPrice);
+  localStorage.setItem('Bedrooms', Bedrooms);
+
 
   }
 
@@ -101,24 +111,47 @@ const setData = (med) => {
     .catch(error => console.log(error));
   };
 
+  const filterDistrict = (event) => {
+    const searchWord = event.target.value;
+    console.log(searchWord);
+    setNewWordEntered(searchWord);
+    axios.get("http://localhost/backend/viewallproperties.php")
+    .then(response => {
+        console.log(response)
+        const newFilter = properties.filter((response) => {
+            //search from district
+            return response.District.toLowerCase().includes(searchWord.toLowerCase()); 
+        });
+  
+        if (searchWord === "") {
+            console.log("EMPLTY");
+            getData();
+        } else {
+          setProperties(newFilter);
+        }
+    })
+    .catch(error => console.log(error));
+  };
+  
+
+
 // Step 1: Add a function to delete a property
 const deleteProperty = (propertyId) => {
     const url = `http://localhost/backend/deleteproperty.php`;
 
+    const formData = new FormData();
+    formData.append('PropertyID', propertyId);
+
     // Send a DELETE request to the backend with the property ID
     axios
-      .delete(url, {
-        fData: {
-          propertyId: propertyId,
-        },
-      })
+      .post(url, formData)
       .then((response) => {
         if (response.data === 'Property Deleted') {
           alert('Property deleted successfully'); //need to show which property is deleted
           // Refresh the property list after deleting
           getAllProperties();
         } else {
-          alert('Failed to delete property');
+          alert('Property already assigned. Cannot delete!');
         }
       })
       .catch((error) => {
@@ -159,7 +192,7 @@ const deleteProperty = (propertyId) => {
             <Link to={`/viewcustomer`}>
             <button class="tablebutton">Customer</button>
             </Link>
-              
+               
             </td></tr>
             <tr><td>
             <Link to={`/salesmanagerviewproperty`}>
@@ -199,18 +232,30 @@ const deleteProperty = (propertyId) => {
     onChange={handleFilter}
     >
     </input>
+{/* <br/><br/><br/>
+    <input type="search" 
+    placeholder="Search" 
+    name="Searchquery" 
+    value={newWordEntered}
+    onChange={filterDistrict}
+    >
+    </input> */}
+
+
 
 <br/><br/>
-      <table class="table table-striped">
+      <table class="showtable">
             <thead>
                 <th> </th>
+                {/* <th>Id</th> */}
                 <th>Type</th>
                 <th>Project Name</th>
                 <th>Location</th>
                 <th>District</th>
                 <th>Address</th>
-                <th>Lot No</th>
-                <th>Plan No</th>
+                <th>LotNo</th>
+                <th>No.of BR</th>
+                <th>PlanNo</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
@@ -226,16 +271,18 @@ const deleteProperty = (propertyId) => {
                           <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(property)}>Edit</button>
                         </Link>
                       </td>
+                      {/* <td>{property.PropertyID}</td> */}
                       <td>{property.PropertyType}</td>
                       <td>{property.ProjectName}</td>
                       <td>{property.Location}</td>
                       <td>{property.District}</td>
                       <td>{property.Address}</td>
                       <td>{property.LotNo}</td>
+                      <td>{property.Bedrooms}</td>
                       <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>
-                      <td>{property.UnitPrice}</td>
-                      <td>{property.TotalPrice}</td>
+                      <td align='right'>{property.UnitPrice}</td>
+                      <td align='right'>{property.TotalPrice}</td>
                       <td>
                       {/* Add a confirmation prompt */}
                       <button
@@ -243,12 +290,8 @@ const deleteProperty = (propertyId) => {
                         style={{ marginLeft: '.5rem' }}
                         className="btn btn-warning"
                         onClick={() => {
-                          if (
-                            window.confirm(
-                              'Are you sure you want to delete this property?'
-                            )
-                          ) {
-                            deleteProperty(property.id);
+                          if (window.confirm('Are you sure you want to delete this property?')) {
+                            deleteProperty(property.PropertyID);
                           }
                         }}
                       >
