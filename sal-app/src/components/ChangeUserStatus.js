@@ -46,7 +46,7 @@ export function ChangeUserStatus() {
 
   function chageStatus() {
     // Determine the new status based on the current UserStatus
-    const newStatus = UserStatus.toLowerCase() === 'active' ? 'Deactivated' : 'Active';
+    const newStatus = UserStatus.toLowerCase() === 'active' ? 'Inactive' : 'Active';
 
     let formData = new FormData();
     formData.append('UserStatus', newStatus);
@@ -92,33 +92,26 @@ export function ChangeUserStatus() {
 
       <div className="area3">
         <div id="wrapper">
-          <table>
-            <tr>
-              <td>
-                <Link to={`/users`}>
-                  <button className="tablebutton">Users</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Link to={`/deactivateremove`}>
-                  <button className="tablebutton">Change User Status</button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton">User Permissions</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="tablebutton" type="button" onClick={logout}>
-                  Logout
-                </button>
-              </td>
-            </tr>
+        <table>
+            <tr><td>
+            <Link to={`/users`}>
+            <button class="tablebutton">Users</button>
+                        </Link>
+              
+            </td></tr>
+            <tr><td>
+            <Link to={`/deactivateremove`}>
+            <button class="tablebutton">Change User Status</button>
+                        </Link>
+            </td></tr>
+            {/* <tr><td>
+              <button class="tablebutton">User Permissions</button>
+            </td></tr> */}
+            <tr><td>
+            <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
+            </td></tr>
+
+
           </table>
         </div>
       </div>

@@ -169,3 +169,16 @@ table td, table th {
 .propertyform{
   width: 50%;
 }
+
+.pp_textbox {
+  width: 100px !important;
+}
+
+.search-bar {
+  width: 300px; 
+  padding: 5px; 
+  font-size: 14px; 
+  border: 1px solid #b8b8b8; 
+  border-radius: 0; /*round corners 5px*/
+  outline: none; 
+}

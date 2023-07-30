@@ -92,8 +92,11 @@ const setData = (med) => {
         console.log(response)
         const newFilter = users.filter((response) => {
             //can search from NIC, ID, Name and designation
-            return response.NIC.toLowerCase().includes(searchWord.toLowerCase()) || response.EmployeeID.toLowerCase().includes(searchWord.toLowerCase()) || response.EmployeeName.toLowerCase().includes(searchWord.toLowerCase()) || response.Designation.toLowerCase().includes(searchWord.toLowerCase());
-        });
+            return response.NIC.toLowerCase().includes(searchWord.toLowerCase()) || 
+                   response.EmployeeID.toLowerCase().includes(searchWord.toLowerCase()) || 
+                   response.EmployeeName.toLowerCase().includes(searchWord.toLowerCase()) || 
+                   response.Designation.toLowerCase().includes(searchWord.toLowerCase()) ||
+                   response.Status.toLowerCase().includes(searchWord.toLowerCase());        });
   
         if (searchWord === "") {
             console.log("EMPLTY");
@@ -162,9 +165,9 @@ const setData = (med) => {
             <button class="tablebutton">Change User Status</button>
                         </Link>
             </td></tr>
-            <tr><td>
+            {/* <tr><td>
               <button class="tablebutton">User Permissions</button>
-            </td></tr>
+            </td></tr> */}
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>

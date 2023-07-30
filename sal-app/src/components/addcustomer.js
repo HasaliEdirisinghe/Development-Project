@@ -199,7 +199,7 @@ export function AddCustomer() {
                     <tr>
                         <td class='label'>Phone Number</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='phone'  onChange={(e) => setPhone(e.target.value)} value={phone} /></td>
+                        <td class='textbox'><input type='text' name='phone'  pattern="07\d{8}" onChange={(e) => setPhone(e.target.value)} value={phone} /></td>
                     </tr>
                 </table>
                 <button class="cancelbutton" onClick={handleCancelClick}>Reset</button>

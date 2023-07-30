@@ -168,7 +168,7 @@ const setData = (med) => {
 <br/><br/><br/>
   
     <input type="search" 
-    placeholder="Search" 
+    placeholder="Search NIC" 
     name="Searchquery" 
     value={wordEntered}
     onChange={handleFilter}
@@ -177,7 +177,7 @@ const setData = (med) => {
   
 
 <br /><br/><br/>
-      <table class="table table-striped" border={1}>
+      <table class="showtable" border={1}>
             <thead>
               <th> </th>
                 <th>NIC</th>

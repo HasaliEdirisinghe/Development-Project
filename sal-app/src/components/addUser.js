@@ -136,13 +136,13 @@ export function AddUser() {
               
             </td></tr>
             <tr><td>
-            <Link to={`/...`}>
-            <button class="tablebutton">Deactivate or Remove</button>
+            <Link to={`/deactivateremove`}>
+            <button class="tablebutton">Change User Status</button>
                         </Link>
             </td></tr>
-            <tr><td>
+            {/* <tr><td>
               <button class="tablebutton">User Permissions</button>
-            </td></tr>
+            </td></tr> */}
             <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>

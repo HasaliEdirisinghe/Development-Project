@@ -189,6 +189,7 @@ const setData = (med) => {
                 <th>Location</th>
                 {/* <th>Address</th> */}
                 <th>LotNo</th>
+                <th>BR</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
@@ -208,6 +209,7 @@ const setData = (med) => {
                       <td>{property.Location}</td>
                       {/* <td>{property.Address}</td> */}
                       <td>{property.LotNo}</td>
+                      <td>{property.Bedrooms}</td>
                       <td>{property.Size}</td>
                       <td align='right'>{property.UnitPrice}</td>
                       <td align='right'>{property.TotalPrice}</td>

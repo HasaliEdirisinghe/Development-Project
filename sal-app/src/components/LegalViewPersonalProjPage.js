@@ -177,8 +177,8 @@ export function LegalViewPersonalProjectPage() {
 
       <div class="area3">
         <div id="wrapper" >
-        <table>            <tr><td>
-            
+        <table>
+            <tr><td>
             <Link to={`/approvedprojpages`}>
             <button class="tablebutton">Project Page</button>
               </Link>  
@@ -189,9 +189,14 @@ export function LegalViewPersonalProjectPage() {
               </Link> 
             </td></tr>
             <tr><td>
+            <Link to={`/signings`}>
+            <button class="tablebutton">Signings</button>
+              </Link>  
+            </td></tr>
+            <tr><td>
             <button className="tablebutton" type="button" onClick={logout}>Logout</button>  
             </td></tr>
-</table>
+          </table>
         </div>
       </div>
 

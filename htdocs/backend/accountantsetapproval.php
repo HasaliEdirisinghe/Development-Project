@@ -9,9 +9,11 @@ $CustomerID = $_POST['CustomerID'];
 $PropertyID = $_POST['PropertyID'];
 $status = $_POST['ProjPageStatus'];
 
+$todayDate = date("Y-m-d");
+
 // Create the SQL query
 $sql = "UPDATE customer_payment 
-        SET ProjPageStatus = '$status'
+        SET ProjPageStatus = '$status', SoldDate = '$todayDate'
         WHERE CustomerID = '$CustomerID' AND PropertyID = '$PropertyID';";
 
 // Execute the query

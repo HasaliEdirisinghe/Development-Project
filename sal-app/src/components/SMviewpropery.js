@@ -72,7 +72,7 @@ function getAllProperties(){
   }
 const setData = (med) => {
 
-  let {PropertyID, ProjectName,PropertyType,Location,District, Address, LotNo, Bedrooms, PlanNo, Size, UnitPrice} = med;
+  let {PropertyID, ProjectName,PropertyType,Location,District, Address, LotNo, BedRooms, PlanNo, Size, UnitPrice} = med;
   
   localStorage.setItem('PropertyID',PropertyID);
   localStorage.setItem('ProjectName', ProjectName);
@@ -84,7 +84,7 @@ const setData = (med) => {
   localStorage.setItem('PlanNo', PlanNo);
   localStorage.setItem('Size', Size);
   localStorage.setItem('UnitPrice', UnitPrice);
-  localStorage.setItem('Bedrooms', Bedrooms);
+  localStorage.setItem('Bedrooms', BedRooms);
 
 
   }
@@ -278,7 +278,7 @@ const deleteProperty = (propertyId) => {
                       <td>{property.District}</td>
                       <td>{property.Address}</td>
                       <td>{property.LotNo}</td>
-                      <td>{property.Bedrooms}</td>
+                      <td>{property.BedRooms}</td>
                       <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>
                       <td align='right'>{property.UnitPrice}</td>

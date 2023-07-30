@@ -17,6 +17,7 @@ export function EditProperty() {
   const [District, setDistrict] = useState('');
   const [Address, setAddress] = useState('');
   const [LotNo, setLotNo] = useState('');
+  const [BR, setBR] = useState('');
   const [PlanNo, setPlanNo] = useState('');
   const [Size, setSize] = useState('');
   const [Price, setPrice] = useState('');
@@ -34,6 +35,7 @@ export function EditProperty() {
     const district = localStorage.getItem('District');
     const address = localStorage.getItem('Address');
     const lot_no = localStorage.getItem('LotNo');
+    const br = localStorage.getItem('Bedrooms');
     const plan_no = localStorage.getItem('PlanNo');
     const size = localStorage.getItem('Size');
     const price = localStorage.getItem('UnitPrice');
@@ -44,7 +46,8 @@ export function EditProperty() {
     setLocation(location);
     setDistrict(district);
     setAddress(address);
-    setLotNo(lot_no);
+    setLotNo(lot_no);    
+    setBR(br);
     setPlanNo(plan_no);
     setSize(size);
     setPrice(price);
@@ -251,9 +254,14 @@ export function EditProperty() {
                         <td class='textbox'><input type='text' name='property_address' onChange={(e) => setAddress(e.target.value)} value={Address}/></td>
                     </tr>
                     <tr>
-                        <td class='label'>Lot No / BR</td>
+                        <td class='label'>Lot No</td>
                         <td class='label1'>:</td>
                         <td class='textbox'><input type='text' name='lotNo'  onChange={(e) => setLotNo(e.target.value)} value={LotNo}/></td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Bed Rooms</td>
+                        <td class='label1'>:</td>
+                        <td class='textbox'><input type='text' name='br'  onChange={(e) => setBR(e.target.value)} value={BR}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Plan No</td>

@@ -142,6 +142,18 @@ const setData = (med) => {
     .catch(error => console.log(error));
   };
 
+  const handleDeedStatusChange = (e, property) => {
+    const selectedStatus = e.target.value;
+    if (selectedStatus === "Completed") {
+      setData(property);
+      // Redirect to the new page when "Completed" is selected
+      window.location.href = "/deedcompletion";
+    } else {
+      // Set the Deed Status when other options are selected
+      setDeed(selectedStatus);
+    }
+  };
+
   function gotoDashboard (){
     handleArea1(username2)
 }
@@ -224,6 +236,8 @@ const setData = (med) => {
             </thead>    
               <tbody>
                 {properties.map((property) => {
+                    const isCompleted = property.DeedStatus === "Completed";
+
                   return (
                     <tr>
                       <td>{property.NIC}</td>
@@ -240,14 +254,15 @@ const setData = (med) => {
                       <td align='right'>{property.TotalPrice}</td>
                       <td align='right'>{property.FinalValue}</td>
                       <td>{property.DeedStatus}</td>
-                      <td>  <select name="approvalstatus" id="approvalstatus" onChange={(e) => setDeed(e.target.value)}>
-                                <option value="blank">   </option>
+                      <td>  <select name="approvalstatus" id="approvalstatus" onChange={(e) => handleDeedStatusChange(e, property)}
+                              disabled={isCompleted} > 
+                                <option value=" ">   </option>
                                 <option value="Drafting">Drafting</option>
                                 <option value="Finalizing">Finalizing</option>
                                 <option value="Waiting_to_Sign">Waiting to Sign</option>
                                 <option value="Completed">Completed</option>
             </select>
-            <button id="save" class="proceed" onClick={()=>setDeedStatus(property.CustomerID, property.PropertyID)}>Save</button>
+            <button id="save" class="proceed" onClick={()=>setDeedStatus(property.CustomerID, property.PropertyID)} disabled={isCompleted}>Save</button>
             </td>
            
                     </tr>

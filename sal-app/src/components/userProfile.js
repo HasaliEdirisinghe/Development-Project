@@ -106,10 +106,9 @@ export function UserProfile() {
       <div className="area3">
         <div id="wrapper">
         <table>
-            <tr>
+            {/* <tr>
               <td>
                 <Link to={`/customer`}>
-                  {/* Link to Customer page */}
                   <button class="tablebutton">Customer</button>
                 </Link>
               </td>
@@ -117,7 +116,6 @@ export function UserProfile() {
             <tr>
               <td>
                 <Link to={`/viewproperty`}>
-                  {/* Link to Property page */}
                   <button class="tablebutton">Property</button>
                 </Link>
               </td>
@@ -125,7 +123,6 @@ export function UserProfile() {
             <tr>
               <td>
                 <Link to={`/viewprojectpage`}>
-                  {/* Link to Project Page */}
                   <button class="tablebutton">Project Page</button>
                 </Link>
               </td>
@@ -133,15 +130,13 @@ export function UserProfile() {
             <tr>
               <td>
                 <Link to={`/salesofficerapprovals`}>
-                  {/* Link to Approvals page */}
                   <button class="tablebutton">Approvals</button>
                 </Link>
               </td>
-            </tr>
+            </tr> */}
             <tr>
               <td>
                 <button className="tablebutton" type="button" onClick={logout}>
-                  {/* Logout button */}
                   Logout
                 </button>
               </td>

@@ -34,9 +34,15 @@ const [LastName, setLastName] = useState('');
   const [Size, setSize] = useState('');
   const [UnitPrice, setUnitPrice] = useState('');
   const [TotalPrice, setTotalPrice] = useState('');
-  const [CusID, setCusID] = useState('');
+
   const [Discount, setDiscount] = useState('');
   const [OtherCharges, setOtherCharges] = useState('');
+  const [StampDuty, setStampDuty] = useState('');
+  const [LegalFee, setLegalFee] = useState(0);
+  const [FinalValue, setFinalValue] = useState(0);
+
+  const [CusID, setCusID] = useState('');
+
   const [PropID, setPropID] = useState('');
   const [CustomerDetails, setCustomerData] = useState([]);
 
@@ -97,7 +103,8 @@ const [LastName, setLastName] = useState('');
     
 
     getCustomer();
-  }, []);
+    calculateValues();
+  }, [TotalPrice, Discount, OtherCharges]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -105,26 +112,90 @@ const [LastName, setLastName] = useState('');
     fData.append('CusID', myVariable);
     fData.append('PropID', PropID);
     fData.append('Discount', Discount);
+    // fData.append('StampDuty', StampDuty);
+    // fData.append('LegalFee', LegalFee);
     fData.append('OtherCharges', OtherCharges);
     fData.append('total_price', TotalPrice);
+    fData.append('final_value', FinalValue);
+
 
     axios
-      .post(`http://localhost/backend/propertypayment.php`, fData)
-      .then((response) => {
-        if (response.data === 'Property Assigned') {
-          alert('Property Assigned Successfully');
-          window.location.href = '/customer';
-        } else {
-          alert('Invalid');
-        }
-      })
-      .catch((error) => alert(error.message));
+  .post(`http://localhost/backend/propertypayment.php`, fData)
+  .then((response) => {
+    console.log(response.data); // Add this line to check the actual response
+    if (response.data.message === 'Property Assigned') {
+      alert('Property Assigned Successfully');
+      window.location.href = '/viewprojectpage';
+    } else {
+      alert(response.data);
+    }
+  })
+  .catch((error) => alert(error.message));
+
   };
 
   const handleCancelClick = (event) => {
     event.preventDefault();
     window.location.href = '/customer';
   };
+
+  const handleDiscountChange = (e) => {
+    const value = e.target.value;
+    if (value === '') {
+      setDiscount(value);
+    } else {
+      const discountValue = parseFloat(value);
+      if (discountValue >= 0 && discountValue <= 20) {
+        setDiscount(value);
+      } else {
+        // Value is not within the range, display an error message or take any other appropriate action.
+        alert('Discount must be between 0 and 20');
+        // reset the value to an empty string.
+        setDiscount('');
+      }
+    }
+  };
+
+  const handleOtherChargesChange = (e) => {
+    const value = e.target.value;
+    if (value === '') {
+      setOtherCharges(value);
+    } else {
+      const otherChargesValue = parseFloat(value.replace(/,/g, '')); // Remove commas from OtherCharges and convert to a float
+      const maxOtherCharges = 100000; // Set the maximum allowed value for Other Charges
+  
+      if (otherChargesValue > maxOtherCharges) {
+        // The Other Charges value exceeds the maximum allowed value, show an alert
+        alert('Other Charges cannot exceed LKR 100,000');
+        // reset the value to an empty string.
+        setOtherCharges('');
+      } else {
+        setOtherCharges(value);
+      }
+    }
+  };
+
+
+  const calculateValues = () => {
+    const totalValue = parseFloat(TotalPrice.replace(/,/g, '')); // Remove commas from TotalPrice and convert to a float
+  
+    // Calculate stamp duty
+    const stampDutyRate = totalValue < 100000 ? 0.03 : 0.04;
+    const stampDuty = totalValue * stampDutyRate;
+  
+    // Calculate legal fee
+    const legalFeeRate = totalValue > 100000000 ? 0.015 : 0.01;
+    const legalFee = totalValue * legalFeeRate;
+  
+    // Calculate final value
+    const finalValue = totalValue - (totalValue * parseFloat(Discount)/100) + stampDuty + legalFee + parseFloat(OtherCharges);
+  
+    setStampDuty(stampDuty);
+    setLegalFee(legalFee);
+    setFinalValue(finalValue);
+  };
+  
+
 
   function gotoDashboard (){
     handleArea1(username2)
@@ -179,7 +250,16 @@ const [LastName, setLastName] = useState('');
           <h3>District: {District}</h3>
           <h3>Size: {Size}</h3>
           <h3>Unit Price: {UnitPrice}</h3>
-          <h3>TotalPrice: {TotalPrice}</h3>
+          <h3>Total Price: {TotalPrice}</h3>
+          <h3>Stamp Duty: {new Intl.NumberFormat('en-US').format(StampDuty)}</h3> 
+          <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;*stamp fee {'\u2192'} 3% upto LKR 100,000; 4% if greater
+          </p>
+          <h3>Legal Fee: {new Intl.NumberFormat('en-US').format(LegalFee)}</h3>
+          <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;*legal fee {'\u2192'} 1% upto 100,000,000; 1.5% greater
+          </p>
+
           {/* <h3>Customer Name: {FirstName} {LastName}</h3>  */}
           {/* {CustomerDetails.map((customer) => (
   <h3 key={customer.CustomerID}>
@@ -191,26 +271,28 @@ const [LastName, setLastName] = useState('');
           <form onSubmit={handleSubmit}>
             <table>
               <tr>
-                <td className="label">Discount</td>
-                <td className="label1">:</td>
-                <td className="textbox">
-                  <input
-                    type="text"
-                    name="empid"
-                    onChange={(e) => setDiscount(e.target.value)}
-                    value={Discount}
-                  />
+              <td className="label">Discount %</td>
+              <td className="label1">:</td>
+              <td className="pp_textbox">
+                <input
+                  type="text"
+                  name="discount"
+                  onChange={handleDiscountChange}
+                  value={Discount}
+                  onBlur={handleDiscountChange} // Add onBlur event to check the value when the user leaves the input field.
+                />
                 </td>
               </tr>
               <tr>
-                <td className="label">OtherCharges</td>
+                <td className="label">Other Charges</td>
                 <td className="label1">:</td>
-                <td className="textbox">
-                  <input
-                    type="text"
-                    name="nic"
-                    onChange={(e) => setOtherCharges(e.target.value)}
-                    value={OtherCharges}
+                <td className="pp_textbox">
+                <input
+                  type="text"
+                  name="othercharges"
+                  onChange={handleOtherChargesChange}
+                  onBlur={handleOtherChargesChange}
+                  value={OtherCharges}
                   />
                 </td>
               </tr>
@@ -218,8 +300,11 @@ const [LastName, setLastName] = useState('');
             <button className="cancelbutton" onClick={handleCancelClick}>
               Cancel
             </button>
-            <input type="submit" className="submitbutton" value='Submit'/>
+            <input type="submit" className="submitbutton" value='Assign'/>
           </form>
+
+          <h3>Final Value: {new Intl.NumberFormat('en-US').format(FinalValue)}</h3>
+
         </div>
       </div>
     </div>

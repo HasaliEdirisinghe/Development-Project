@@ -47,7 +47,12 @@ import { LegalViewPersonalProjectPage } from './components/LegalViewPersonalProj
 import { LegalViewDeedStatus } from './components/LegalViewDeedStatus.js';
 import { DirectorViewDashVisuals } from './components/DirectorViewDashVisuals.js';
 import { DirectorReports } from './components/DirectorReports.js';
+import {LegalSignings} from './components/LegalSignings.js';
+import {DeedCompletion} from './components/LegalDeedComplete.js';
+
+
 import ProjectDropdown from './components/ProjectDropdown';
+
 
 
 
@@ -101,15 +106,8 @@ function App() {
         <Route path="/directorDashVisuals" element={<DirectorViewDashVisuals />} /> 
         <Route path="/reports" element={<DirectorReports />} /> 
         <Route path="/ProjectDropdown" element={<ProjectDropdown />} /> 
-
-
-
-
-        
-        
-        
-        
-
+        <Route path="/signings" element={<LegalSignings />} /> 
+        <Route path="/deedcompletion" element={<DeedCompletion />} /> 
         
       </Routes>
   );

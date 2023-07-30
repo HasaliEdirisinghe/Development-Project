@@ -59,20 +59,7 @@ export function LegalOfficerDashboardPage() {
       <div class="area3">
         <div id="wrapper" onClick={handleButtonClick}>
           <table>
-          {/* <tr><td>
-              <button class="tablebutton">Dashboard - Legal</button>
-            </td></tr>
             <tr><td>
-            <Link to={`/customer`}>
-            <button class="tablebutton">Customer</button>
-            </Link>
-              
-            </td></tr>
-            <tr><td>
-              <button class="tablebutton">Property</button>
-            </td></tr> */}
-            <tr><td>
-            
             <Link to={`/approvedprojpages`}>
             <button class="tablebutton">Project Page</button>
               </Link>  

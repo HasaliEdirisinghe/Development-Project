@@ -132,10 +132,10 @@ export function AddProperty() {
       else if(address_h.length === 0){
         alert("Property Address is required!");
       }
-      else if(size_h.length === 0){
-        alert("Size is required!");
+      else if(bedrooms_h.length === 0){
+        alert("Number of Bedrooms is required!");
       }
-      else if(price_h.length === 0){
+      else if(size_h.length === 0){
         alert("Price is required!");
       } 
       else if(price_h.length === 0){
@@ -149,13 +149,14 @@ export function AddProperty() {
         fData.append('location', location_h);
         fData.append('district', district_h);
         fData.append('address', address_h);
+        fData.append('bedrooms_h', bedrooms_h);
         fData.append('plan_no', plan_no_h);
-        fData.append('size', size_h);
+        fData.append('area', size_h);
         fData.append('price', price_h);
-        fData.append('bedrooms', bedrooms_h);
+        
 
       // Send a POST request with the form data
-      axios.post(`http://localhost/backend/addproperty.php`, fData)
+      axios.post(`http://localhost/backend/addhouse.php`, fData)
         .then(response => {
           if (response.data === 'Property Added') {
             alert('House Added Successfully');
@@ -172,7 +173,7 @@ export function AddProperty() {
             window.location.href = '/salesmanagerviewproperty';
 
         } else {
-            alert('Invalid');
+            alert(response.data);
           }
         })
         .catch(error => alert(error.message)); // Display an error message if the request fails
@@ -338,12 +339,21 @@ export function AddProperty() {
                     <tr>
                         <td class='label'>Size (Perch)</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='number' name='size'  onChange={(e) => setSize(e.target.value)} step="0.01" value={size}/></td>
+                        <td class='textbox'>
+                          {/* <input type='number' name='size'  onChange={(e) => setSize(e.target.value)} step="0.01"  value={size}/> */}
+                        <input type="number" name="size" onChange={(e) => setSize(e.target.value)} value={size}
+                          min="6" // Minimum value allowed for the size
+                          pattern="^[^-].*$" // Ensure the input doesn't start with a minus symbol
+                          title="Size should be greater than 6 and not have negative values"
+                          step="0.01" // Set the step to allow decimals
+                          required
+                        />
+                        </td>
                     </tr>
                     <tr>
-                        <td class='label'>Unit Price (LKR)</td>
+                        <td class='label'>Price per Perch (LKR)</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='number' name='price'  onChange={(e) => setPrice(e.target.value) } step="0.01" value={price}/></td>
+                        <td class='textbox'><input type='number' name='price' pattern="^[^-].*$" min="0" onChange={(e) => setPrice(e.target.value) } step="0.01" value={price}/></td>
                     </tr>
                 </table>
                 <button class="cancelbutton" onClick={handleCancelClick}>Reset</button>
@@ -425,7 +435,7 @@ export function AddProperty() {
                     <tr>
                         <td class='label'>No. of Bed Rooms</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='lotNo'  onChange={(e) => setBedrooms(e.target.value)} value={bedrooms_h}/></td>
+                        <td class='textbox'><input type='number' name='lotNo' min="1" onChange={(e) => setBedrooms(e.target.value)} value={bedrooms_h}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Plan No</td>
@@ -433,14 +443,14 @@ export function AddProperty() {
                         <td class='textbox'><input type='text' name='planNo'  onChange={(e) => setHousePlanNo(e.target.value)} value={plan_no_h} /></td>
                     </tr>
                     <tr>
-                        <td class='label'>Size (Sq. feet)</td>
+                        <td class='label'>Floor Area (Sq. feet)</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='number' name='size'  onChange={(e) => setHouseSize(e.target.value)} step="0.01" value={size_h}/></td>
+                        <td class='textbox'><input type='number' name='area' min="1600"  onChange={(e) => setHouseSize(e.target.value)} step="0.01" value={size_h}/></td>
                     </tr>
                     <tr>
-                        <td class='label'>Unit Price (LKR)</td>
+                        <td class='label'>Total Price (LKR)</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='number' name='price'  onChange={(e) => setHousePrice(e.target.value) } step="0.01" value={price_h}/></td>
+                        <td class='textbox'><input type='number' name='price' pattern="^[^-].*$" min="0" onChange={(e) => setHousePrice(e.target.value) } step="0.01" value={price_h}/></td>
                     </tr>
                 </table>
                 <button class="cancelbutton" onClick={handleCancelClick}>Reset</button>

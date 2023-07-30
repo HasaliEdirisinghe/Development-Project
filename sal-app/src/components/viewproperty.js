@@ -87,7 +87,9 @@ const setData = (med) => {
     .then(response => {
         console.log(response)
         const newFilter = properties.filter((response) => {
-            return response.Location.toLowerCase().includes(searchWord.toLowerCase()) || response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()); //search from location
+            return response.Location.toLowerCase().includes(searchWord.toLowerCase()) || //search from location
+                   response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || //search from Project name
+                   response.District.toLowerCase().includes(searchWord.toLowerCase()) ;//search from District
         });
   
         if (searchWord === "") {
@@ -156,10 +158,11 @@ const setData = (med) => {
   
 
 <input type="search" 
-    placeholder="Search" 
+    placeholder="Search Project, Location, District" 
     name="Searchquery" 
     value={wordEntered}
     onChange={handleFilter}
+    class="search-bar"
     >
     </input>
 
@@ -172,6 +175,7 @@ const setData = (med) => {
                 <th>District</th>
                 <th>Address</th>
                 <th>LotNo</th>
+                <th>BR</th>
                 <th>PlanNo</th>
                 <th>Size</th>
                 <th>Unit Price</th>
@@ -188,6 +192,7 @@ const setData = (med) => {
                       <td>{property.District}</td>
                       <td>{property.Address}</td>
                       <td>{property.LotNo}</td>
+                      <td>{property.Bedrooms}</td>
                       <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>
                       <td align='right'>{property.UnitPrice}</td>
