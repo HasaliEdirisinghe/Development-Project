@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { logout } from './logout';
-import { getUsername, handleArea1,getAllProperties } from './LocalStorageUtils';
+import { getUsername, handleArea1, getAllProperties, ConfirmationModal } from './LocalStorageUtils';
 import homeImage from './img/homepage.png';
 
 
@@ -98,28 +98,57 @@ const setData = (med) => {
 
     }
 
-  const setDeedStatus = (cid, pid) => {
+  const setDeedStatus = (cid, pid, email) => {
     let formData = new FormData();
     formData.append('CustomerID', cid);
     formData.append('PropertyID', pid);
     formData.append('DeedStatus', DStatus);
+    formData.append('email', email);
 
+    if (DStatus === "Waiting to Sign") {
+      // Prompt the user for confirmation to send an email
+      const confirmed = window.confirm("Selecting this option will send an email to the cutomer. Are you sure you want to send the email?");
+      if (confirmed) {
+        axios.post('http://localhost/backend/setdeedstatus.php', formData)
+        .then((response) => {
+          // Handle the response from the server if needed
+          console.log(response.data);
+          if (response.data === 'Status updated successfully') {
+            alert('Deed is '+ DStatus);
+            window.location.href = '/deedstatus';
+          } else {
+            alert('Failed to set');
+          }
+        })
+        .catch((error) => {
+          // Handle error if the request fails
+          console.log(error.message);
+          
+        });
+        
+      } else {
+        return;
+      }
+
+    }      
     axios.post('http://localhost/backend/setdeedstatus.php', formData)
-  .then((response) => {
-    // Handle the response from the server if needed
-    console.log(response.data);
-    if (response.data === 'Status updated successfully') {
-      alert('Deed is '+ DStatus);
-      window.location.href = '/deedstatus';
-    } else {
-      alert('Failed to set');
-    }
-  })
-  .catch((error) => {
-    // Handle error if the request fails
-    console.log(error.message);
-    
-  });
+    .then((response) => {
+      // Handle the response from the server if needed
+      console.log(response.data);
+      if (response.data === 'Status updated successfully') {
+        alert('Deed is '+ DStatus);
+        window.location.href = '/deedstatus';
+      } else {
+        alert('Failed to set');
+      }
+    })
+    .catch((error) => {
+      // Handle error if the request fails
+      console.log(error.message);
+      
+    });
+
+
   }
 
 
@@ -316,10 +345,10 @@ const setData = (med) => {
                                 <option value=" ">   </option>
                                 <option value="Drafting">Drafting</option>
                                 <option value="Finalizing">Finalizing</option>
-                                <option value="Waiting_to_Sign">Waiting to Sign</option>
+                                <option value="Waiting to Sign">Waiting to Sign</option>
                                 <option value="Completed">Completed</option>
             </select>
-            <button id="save" class="proceed" onClick={()=>setDeedStatus(property.CustomerID, property.PropertyID)} disabled={isCompleted}>Save</button>
+            <button id="save" class="proceed" onClick={()=>setDeedStatus(property.CustomerID, property.PropertyID, property.email)} disabled={isCompleted}>Save</button>
             </td>
            
                     </tr>

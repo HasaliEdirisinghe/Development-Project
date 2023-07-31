@@ -31,6 +31,8 @@ export function AddCustomer() {
     const [othernames,setOtherName] = useState('');
     const [address,setAddress] = useState('');
     const [phone,setPhone] = useState('');
+    const [email,setEmail] = useState('');
+
 
     useEffect(() => {
       const url = 'http://localhost/backend/getemployeename.php';
@@ -200,6 +202,11 @@ export function AddCustomer() {
                         <td class='label'>Phone Number</td>
                         <td class='label1'>:</td>
                         <td class='textbox'><input type='text' name='phone'  pattern="07\d{8}" onChange={(e) => setPhone(e.target.value)} value={phone} /></td>
+                    </tr>
+                    <tr>
+                        <td class='label'>E-mail</td>
+                        <td class='label1'>:</td>
+                        <td class='textbox'><input type='email' name='email' pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" onChange={(e) => setEmail(e.target.value)} value={email} required/></td>
                     </tr>
                 </table>
                 <button class="cancelbutton" onClick={handleCancelClick}>Reset</button>

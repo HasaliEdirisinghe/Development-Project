@@ -29,6 +29,9 @@ export function DeedCompletion() {
   const [PropertyID, setPropertyID] = useState('');
   const [CustomerID, setCustomerID] = useState('');
 
+  const [employeeNames, setEmployeeNames] = useState([]);
+
+
 
   useEffect(() => {
     const url = 'http://localhost/backend/getemployeename.php';
@@ -46,6 +49,15 @@ export function DeedCompletion() {
 
       setPropertyID(localStorage.getItem('PropertyID'));
       setCustomerID(localStorage.getItem('CustomerID'));
+
+      // Make a GET request to the backend API to fetch employee names
+      fetch('http://localhost/backend/getLawyerDirector.php')
+      .then((response) => response.json())
+      .then((data) => {
+        // Update the state with the array of employee names
+        setEmployeeNames(data);
+    })
+    .catch((error) => console.error('Error fetching employees:', error));
 
 
   }, []); // Empty dependencies array means the effect only runs once (on mount)
@@ -168,10 +180,19 @@ export function DeedCompletion() {
                             
                         </td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                         <td class='label'>Lawyer</td>
                         <td class='label1'>:</td>
                         <td class='dropdown'><input type='text' name='lawyer'  onChange={(e) => setLawyer(e.target.value)} value={Lawyer}/></td>
+                    </tr> */}
+                    <tr>
+                        <td class='label'>Lawyer</td>
+                        <td class='label1'>:</td>
+                        <td class='dropdown'>
+                          <select>
+                            {employeeNames.map((name, index) => (<option key={index} value={name}>{name}</option>))}
+                          </select>
+                        </td>
                     </tr>
                     <tr>
                         <td class='label'>Director</td>

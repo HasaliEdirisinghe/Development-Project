@@ -69,3 +69,13 @@ export const getAllProperties = async () => {
   }
 };
 
+const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
+  return (
+    <div className="confirmation-modal">
+      <p>{message}</p>
+      <button onClick={onConfirm}>Send</button>
+      <button onClick={onCancel}>Cancel</button>
+    </div>
+  );
+};
+

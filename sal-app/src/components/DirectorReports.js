@@ -118,7 +118,7 @@ const exportPDF = () => {
       const totalNumberText = "Total Revenue: LKR";
       const totalValue = new Intl.NumberFormat('en-US').format(Grandtotal);
       doc.text(totalNumberText, 60, 300);
-      doc.text(totalValue, 60 + 120, 300);
+      doc.text(totalValue, 60 + 130, 300);
     }
   };
 

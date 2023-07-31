@@ -37,24 +37,35 @@ export function LoginPage() {
           const designationUrl = 'http://localhost/backend/getdesignation.php';
           const designationResponse = await axios.post(designationUrl, formData);
           const designation = designationResponse.data;
+          
+          // Check if the user's status is "active"
+          const statusUrl = 'http://localhost/backend/getemployeestatus.php';
+          const statusResponse = await axios.post(statusUrl, formData);
+          const status = statusResponse.data;
 
-          // Redirect the user based on the designation
-          if (designation === 'Admin') {
-            window.location.href = '/admindashboard';
-          } else if (designation === 'Sales Manager') {
-            window.location.href = '/salesmanagerdashboard';
-          } else if (designation === 'Sales Officer') {
-            window.location.href = '/salesofficerdashboard';
-          } else if (designation === 'Accountant') {
-            window.location.href = '/accountantdashboard';
-          } else if (designation === 'Chief Accountant') {
-            window.location.href = '/chiefaccountantdashboard';
-          } else if (designation === 'Legal Officer') {
-            window.location.href = '/legalofficerdashboard';
-          } else if (designation === 'Director') {
-            window.location.href = '/directordashboard';
-          }else {
-            alert('Invalid credentials.');
+          if (status === 'Active') {
+            // Redirect the user based on the designation
+            if (designation === 'Admin') {
+              window.location.href = '/admindashboard';
+            } else if (designation === 'Sales Manager') {
+              window.location.href = '/salesmanagerdashboard';
+            } else if (designation === 'Sales Officer') {
+              window.location.href = '/salesofficerdashboard';
+            } else if (designation === 'Accountant') {
+              window.location.href = '/accountantdashboard';
+            } else if (designation === 'Chief Accountant') {
+              window.location.href = '/chiefaccountantdashboard';
+            } else if (designation === 'Legal Officer') {
+              window.location.href = '/legalofficerdashboard';
+            } else if (designation === 'Director') {
+              window.location.href = '/directordashboard';
+            } else {
+              alert('Invalid credentials.');
+            }
+          } else {
+            alert('You do not have access to this system.');
+            setName('');
+            setPassword('');
           }
         } else {
           alert('Invalid credentials.');
