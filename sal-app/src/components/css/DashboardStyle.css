@@ -175,10 +175,40 @@ table td, table th {
 }
 
 .search-bar {
-  width: 300px; 
+  width: 320px; 
   padding: 5px; 
   font-size: 14px; 
   border: 1px solid #b8b8b8; 
   border-radius: 0; /*round corners 5px*/
   outline: none; 
+}
+
+.search-nic-input {
+  width: 120px; 
+  padding: 5px; 
+  font-size: 14px; 
+  border: 1px solid #b8b8b8; 
+  border-radius: 0; /*round corners 5px*/
+  outline: none; 
+}
+.search-project-input {
+  width: 320px; 
+  padding: 5px; 
+  font-size: 14px; 
+  border: 1px solid #b8b8b8; 
+  border-radius: 0; /*round corners 5px*/
+  outline: none; 
+}
+.search-type{
+  width: 180px; 
+  padding: 5px; 
+  font-size: 14px; 
+  border: 1px solid #b8b8b8; 
+  border-radius: 0; /*round corners 5px*/
+  outline: none; 
+}
+
+.final-value {
+  text-decoration-line: underline;
+  text-decoration-style: double;
 }

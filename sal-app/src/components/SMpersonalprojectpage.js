@@ -31,12 +31,15 @@ export function SalesManagerViewPersonalProjectPage() {
   const [Location, setLocation] = useState('');
   const [Address, setAddress] = useState('');
   const [LotNo, setLotNo] = useState('');
+  const [BedRooms, setBedRooms] = useState('');
   const [PlanNo, setPlanNo] = useState('');
   const [Size, setSize] = useState('');
   const [UnitPrice, setUnitPrice] = useState('');
 
   const [TotalPrice, setTotalPrice] = useState('');
   const [Discount, setDiscount] = useState('');
+  const [StampFee, setStampFee] = useState('');
+  const [LegalFee, setLegalFee] = useState('');
   const [OtherCharges, setOtherCharges] = useState('');
   const [FinalValue, setFinalValue] = useState('');
 
@@ -59,12 +62,15 @@ export function SalesManagerViewPersonalProjectPage() {
     setLocation(localStorage.getItem('Location'));
     setAddress(localStorage.getItem('Address'));
     setLotNo(localStorage.getItem('LotNo'));
+    setBedRooms(localStorage.getItem('BedRooms'));
     setPlanNo(localStorage.getItem('PlanNo'));
     setSize(localStorage.getItem('Size'));
     setUnitPrice(localStorage.getItem('UnitPrice'));
 
     setTotalPrice(localStorage.getItem('TotalPrice'));
     setDiscount(localStorage.getItem('Discount'));
+    setStampFee(localStorage.getItem('StampFee'));
+    setLegalFee(localStorage.getItem('LegalFee'));
     setOtherCharges(localStorage.getItem('OtherCharges'));
     setFinalValue(localStorage.getItem('FinalValue'));
 
@@ -221,17 +227,19 @@ export function SalesManagerViewPersonalProjectPage() {
             <h3>Property Type: {PropertyType}</h3>
             <h3>Location: {Location}</h3>
             <h3>Address: {Address}</h3>
-            <h3>Lot No: {LotNo}</h3>
+            {PropertyType.toLowerCase() === 'land' ? ( <h3>Lot No: {LotNo}</h3> ) : ( <h3>No. of Bedrooms: {BedRooms}</h3> )}
             <h3>Plan No: {PlanNo}</h3>
-            <h3>Size: {Size}</h3>
+            {PropertyType.toLowerCase() === 'land' ? ( <h3>Size: {Size} P</h3> ) : ( <h3>Size: {Size} Sq ft.</h3> )} {/* if house then sq ft, if land then perch */}
             <h3>Unit Price: {UnitPrice}</h3>
             <hr />
 
             <h2> Payment </h2>
             <h3>Total Price: {TotalPrice}</h3>
-            <h3>Discount: {Discount}</h3>
-            <h3>Other Charges: {OtherCharges}</h3>
-            <h3>Final Value: {FinalValue}</h3>
+            <h3>Discount: {Discount}%</h3>
+            <h3>Stamp Fee:  {StampFee}</h3>
+            <h3>Legal Fee: {LegalFee}</h3>
+            <h3>Other Charges: LKR {OtherCharges}</h3>
+            <h3 className="final-value">Final Value: LKR {FinalValue}</h3>
             <hr />
 
             <h3>Status: {Status}</h3>

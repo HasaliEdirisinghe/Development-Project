@@ -167,7 +167,7 @@ const setData = (med) => {
 <br/>
   
     <input type="search" 
-    placeholder="Search" 
+    placeholder="Search NIC" 
     name="Searchquery" 
     value={wordEntered}
     onChange={handleFilter}

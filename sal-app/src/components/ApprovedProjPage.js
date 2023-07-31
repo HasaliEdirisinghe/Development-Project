@@ -21,6 +21,7 @@ export function ApprovedProjPages() {
   // setUsername(username2)
   const [id2, setId2] = useState(null);
   const [wordEntered, setWordEntered] = useState("");
+  const [wordForProject, setWordForProject] = useState("");
   const [properties, setProperties] = useState([]);
   const [customers, setCustomers] = useState([]);
 
@@ -96,12 +97,36 @@ const setData = (med) => {
     const searchWord = event.target.value;
     console.log(searchWord);
     setWordEntered(searchWord);
-    axios.get("http://localhost/backend/approvedprojpages.php") //new php?
+    axios.get("http://localhost/backend/pendingapprovals.php") //new php?
     .then(response => {
         console.log(response)
         const newFilter = properties.filter((response) => {
           //search using customer NIC, project name or location
-            return response.NIC.toLowerCase().includes(searchWord.toLowerCase()) ||response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || response.Location.toLowerCase().includes(searchWord.toLowerCase()); 
+            return response.NIC.toLowerCase().includes(searchWord.toLowerCase()); 
+        });
+  
+        if (searchWord === "") {
+            console.log("EMPLTY");
+            getData();
+        } else {
+          setProperties(newFilter);
+        }
+    })
+    .catch(error => console.log(error));
+  };
+
+  const handleProjectFilter = (event) => {
+    const searchWord = event.target.value;
+    console.log(searchWord);
+    setWordForProject(searchWord);
+    axios.get("http://localhost/backend/getdetailsforprojectpage.php") //new php?
+    .then(response => {
+        console.log(response)
+        const newFilter = properties.filter((response) => {
+          //search using customer PropertyType, project name or location
+            return response.PropertyType.toLowerCase().includes(searchWord.toLowerCase()) ||
+                   response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || 
+                   response.Location.toLowerCase().includes(searchWord.toLowerCase()); 
         });
   
         if (searchWord === "") {
@@ -167,13 +192,12 @@ const setData = (med) => {
         <br></br>
 
     <div class="section">
-    <input type="search" 
-    placeholder="Search" 
-    name="Searchquery" 
-    value={wordEntered}
-    onChange={handleFilter}
-    >
-    </input>
+    <input type="search" placeholder="Search NIC" name="Searchquery" value={wordEntered} onChange={handleFilter} className="search-nic-input"/>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+    <input type="search" placeholder="Search Project, Location or Property Type" name="Searchquery" value={wordForProject} onChange={handleProjectFilter} className="search-project-input"/>
 
     <br/><br/><br/>
     <table class="showtable">

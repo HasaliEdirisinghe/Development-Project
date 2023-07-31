@@ -106,26 +106,24 @@ const setData = (med) => {
 
   }
 
-  const handleFilter = (event) => {
-    const searchWord = event.target.value;
-    console.log(searchWord);
-    setWordEntered(searchWord);
-    axios.get("http://localhost/backend/ownedproperties.php")
+const handleFilter = (event) => {
+  const searchWord = event.target.value;
+  setWordEntered(searchWord);
+  axios.get("http://localhost/backend/ownedproperties.php")
     .then(response => {
-        console.log(response)
-        const newFilter = properties.filter((response) => {
-            return response.Location.toLowerCase().includes(searchWord.toLowerCase());
-        });
-  
-        if (searchWord === "") {
-            console.log("EMPLTY");
-            getData();
-        } else {
-          setProperties(newFilter);
-        }
+      const newFilter = properties.filter((response) => {
+        return response.Location.toLowerCase().includes(searchWord.toLowerCase()) ||
+          response.ProjectName.toLowerCase().includes(searchWord.toLowerCase());
+      });
+
+      if (searchWord === "") {
+        getData();
+      } else {
+        setProperties(newFilter);
+      }
     })
     .catch(error => console.log(error));
-  };
+};
 
   function gotoDashboard (){
     handleArea1(username2)
@@ -198,13 +196,13 @@ const setData = (med) => {
 
       <div class="area4">
       <div>
-    <input type="search" 
-    placeholder="Search" 
-    name="Searchquery" 
-    value={wordEntered}
-    onChange={handleFilter}
-    >
-    </input>
+      <input
+            type="search"
+            placeholder="Search Project, Location"
+            name="Searchquery"
+            value={wordEntered}
+            onChange={handleFilter}
+          />
     <br/>
     <h2>{FirstName}{' '} {LastName}</h2>
     <h3>{NIC}</h3>
@@ -212,7 +210,7 @@ const setData = (med) => {
 
 
 <br/><br/>
-      <table class="table table-striped" border={1}>
+      <table class="showtable" border={1}>
             <thead>
                 <th>Property Type</th>
                 <th>Location</th>
@@ -237,8 +235,8 @@ const setData = (med) => {
                       <td>{property.LotNo}</td>
                       <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>
-                      <td>{property.UnitPrice}</td>
-                      <td>{property.TotalPrice}</td>
+                      <td align='right'>{property.UnitPrice}</td>
+                      <td align='right'>{property.TotalPrice}</td>
                       <td>{property.ProjPageStatus}</td>
                       <td>{property.DeedStatus}</td>
                     </tr>

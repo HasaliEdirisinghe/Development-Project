@@ -11,7 +11,7 @@ $id = mysqli_real_escape_string($connectNow, $_POST['EmployeeID']);
 // Prepare the SQL statement to delete the employee from user_login and employee table
 $sql = "DELETE ul, emp FROM user_login as ul
         LEFT JOIN employee as emp ON ul.EmployeeID = emp.EmployeeID
-        WHERE ul.EmployeeID = '$id' AND emp.Status = 'Deactivate'";
+        WHERE ul.EmployeeID = '$id' AND emp.Status = 'Inactive'";
 
 // Execute the delete query
 $result = mysqli_query($connectNow, $sql);

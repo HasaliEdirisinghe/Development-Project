@@ -22,6 +22,11 @@ export function LegalSignings() {
   const [id2, setId2] = useState(null);
   const [legal, setLegal] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const [clientEntered, setClientEntered] = useState("");
+  const [signedDate, setSignedDate] = useState("");
+  const [employeeEntered, setEmployeeEntered] = useState("");
+
+
 
 
 
@@ -94,7 +99,75 @@ const handleFilter = (event) => {
       console.log(response)
       const newFilter = legal.filter((response) => {
           //can search from client, project, Name and designation
-          return response.SignedDate.toLowerCase().includes(searchWord.toLowerCase()) || response.Lawyer.toLowerCase().includes(searchWord.toLowerCase()) ;
+          return response.ProjectName.toLowerCase().includes(searchWord.toLowerCase());
+      });
+
+      if (searchWord === "") {
+          console.log("EMPLTY");
+          getData();
+      } else {
+          setLegal(newFilter);
+      }
+  })
+  .catch(error => console.log(error));
+};
+
+const handleClientFilter = (event) => {
+  const searchWord = event.target.value;
+  console.log(searchWord);
+  setClientEntered(searchWord);
+  axios.get("http://localhost/backend/signings.php") 
+  .then(response => {
+      console.log(response)
+      const newFilter = legal.filter((response) => {
+          //can search from client, project, Name and designation
+          return response.FirstName.toLowerCase().includes(searchWord.toLowerCase()) || 
+                 response.LastName.toLowerCase().includes(searchWord.toLowerCase()) ;
+      });
+
+      if (searchWord === "") {
+          console.log("EMPLTY");
+          getData();
+      } else {
+          setLegal(newFilter);
+      }
+  })
+  .catch(error => console.log(error));
+};
+
+const handleDateFilter = (event) => {
+  const searchWord = event.target.value;
+  console.log(searchWord);
+  setSignedDate(searchWord);
+  axios.get("http://localhost/backend/signings.php") 
+  .then(response => {
+      console.log(response)
+      const newFilter = legal.filter((response) => {
+          //can search from client, project, Name and designation
+          return response.SignedDate.toLowerCase().includes(searchWord.toLowerCase());
+      });
+
+      if (searchWord === "") {
+          console.log("EMPLTY");
+          getData();
+      } else {
+          setLegal(newFilter);
+      }
+  })
+  .catch(error => console.log(error));
+};
+
+const handleLDFilter = (event) => {
+  const searchWord = event.target.value;
+  console.log(searchWord);
+  setEmployeeEntered(searchWord);
+  axios.get("http://localhost/backend/signings.php") 
+  .then(response => {
+      console.log(response)
+      const newFilter = legal.filter((response) => {
+          //can search from client, project, Name and designation
+          return response.Lawyer.toLowerCase().includes(searchWord.toLowerCase())|| 
+                 response.Director.toLowerCase().includes(searchWord.toLowerCase()) ;
       });
 
       if (searchWord === "") {
@@ -155,14 +228,24 @@ const handleFilter = (event) => {
 
       <div class="area4">
         <div>
-      <input type="search" 
-    placeholder="Search" 
-    name="Searchquery" 
-    value={wordEntered}
-    onChange={handleFilter}
-    >
-    </input>
-  
+        <input type="search" placeholder="Search Project" name="Searchquery" value={wordEntered} onChange={handleFilter} className="search-nic-input"/>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="search" placeholder="Search Client" name="Searchquery" value={clientEntered} onChange={handleClientFilter} className="search-type"/>
+        
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <label>Search Signed Date</label>
+        <input type="date" placeholder="Search Signed Date" name="Searchquery" value={signedDate} onChange={handleDateFilter} />
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="search" placeholder="Search Lawyer, Director" name="Searchquery" value={employeeEntered} onChange={handleLDFilter} className="search-type"/>
+        
  
 <br /><br/><br/>
       <table class="showtable" border={1}>

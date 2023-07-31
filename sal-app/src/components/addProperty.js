@@ -435,7 +435,7 @@ export function AddProperty() {
                     <tr>
                         <td class='label'>No. of Bed Rooms</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='number' name='lotNo' min="1" onChange={(e) => setBedrooms(e.target.value)} value={bedrooms_h}/></td>
+                        <td class='textbox'><input type='number' name='lotNo' min="1" max="10" onChange={(e) => setBedrooms(e.target.value)} value={bedrooms_h}/></td>
                     </tr>
                     <tr>
                         <td class='label'>Plan No</td>

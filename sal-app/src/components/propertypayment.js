@@ -275,11 +275,12 @@ const [LastName, setLastName] = useState('');
               <td className="label1">:</td>
               <td className="pp_textbox">
                 <input
-                  type="text"
+                  type="number"
                   name="discount"
                   onChange={handleDiscountChange}
                   value={Discount}
                   onBlur={handleDiscountChange} // Add onBlur event to check the value when the user leaves the input field.
+                  style={{ width: "50px" }}
                 />
                 </td>
               </tr>
@@ -288,11 +289,12 @@ const [LastName, setLastName] = useState('');
                 <td className="label1">:</td>
                 <td className="pp_textbox">
                 <input
-                  type="text"
+                  type="number"
                   name="othercharges"
                   onChange={handleOtherChargesChange}
                   onBlur={handleOtherChargesChange}
                   value={OtherCharges}
+                  style={{ width: "100px" }}
                   />
                 </td>
               </tr>

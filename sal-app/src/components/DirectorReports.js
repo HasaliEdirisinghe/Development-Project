@@ -260,7 +260,7 @@ const generateReport = () => {
       </div>
 
       <div class="area4">
-      {/* <img src={myImage} alt="logo" class='logo'/>     */}
+      {/* <img src={myImage} alt="logo" class='logo'/>      */}
       <div>
         <h2>Monthly Sales Report</h2>
         <h3>Select Month</h3>

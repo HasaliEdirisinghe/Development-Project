@@ -21,6 +21,9 @@ export function ViewProperty() {
   const [id2, setId2] = useState(null);
     const [properties, setProperties] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
+    const [typeEntered, setTypeEntered] = useState(""); 
+    const [lotEntered, setLotEntered] = useState(""); 
+
   useEffect(() => {
     
     function getusername(){
@@ -89,7 +92,50 @@ const setData = (med) => {
         const newFilter = properties.filter((response) => {
             return response.Location.toLowerCase().includes(searchWord.toLowerCase()) || //search from location
                    response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || //search from Project name
-                   response.District.toLowerCase().includes(searchWord.toLowerCase()) ;//search from District
+                   response.District.toLowerCase().includes(searchWord.toLowerCase()) ; //search from District
+        });
+  
+        if (searchWord === "") {
+            console.log("EMPLTY");
+            getData();
+        } else {
+          setProperties(newFilter);
+        }
+    })
+    .catch(error => console.log(error));
+  };
+
+  const PropertyTypeFilter = (event) => {
+    const searchWord = event.target.value;
+    console.log(searchWord);
+    setTypeEntered(searchWord);
+    axios.get("http://localhost/backend/viewallproperties.php")
+    .then(response => {
+        console.log(response)
+        const newFilter = properties.filter((response) => {
+            return response.PropertyType.toLowerCase().includes(searchWord.toLowerCase());
+        });
+  
+        if (searchWord === "") {
+            console.log("EMPLTY");
+            getData();
+        } else {
+          setProperties(newFilter);
+        }
+    })
+    .catch(error => console.log(error));
+  };
+
+  const handleLotBRFilter = (event) => {
+    const searchWord = event.target.value;
+    console.log(searchWord);
+    setLotEntered(searchWord);
+    axios.get("http://localhost/backend/viewallproperties.php")
+    .then(response => {
+        console.log(response)
+        const newFilter = properties.filter((response) => {
+            return response.LotNo.toLowerCase().includes(searchWord.toLowerCase()) || //search from LotNo
+                   response.Bedrooms.toLowerCase().includes(searchWord.toLowerCase()) ; //search from BR
         });
   
         if (searchWord === "") {
@@ -157,14 +203,14 @@ const setData = (med) => {
 <div>
   
 
-<input type="search" 
-    placeholder="Search Project, Location, District" 
-    name="Searchquery" 
-    value={wordEntered}
-    onChange={handleFilter}
-    class="search-bar"
-    >
-    </input>
+<input type="search" placeholder=" Search Property Type" name="Searchquery" value={typeEntered} onChange={PropertyTypeFilter} class="search-type" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="search" placeholder="Search Project, Location, District" name="Searchquery" value={wordEntered} onChange={handleFilter} class="search-bar" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="search" placeholder="Search LotNo/BR" name="Searchquery" value={lotEntered} onChange={handleLotBRFilter} class="search-type" />
+
 
 <br/><br/>
       <table class="showtable">

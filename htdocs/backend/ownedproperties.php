@@ -7,7 +7,14 @@ header('Access-Control-Allow-Origin: *');
 
 $id = mysqli_real_escape_string($connectNow, $_POST['cusid']);
 
-$sql_query = "SELECT c.NIC, c.FirstName, c.LastName, c.PhoneNumber, p.Location, p.ProjectName, p.PropertyType, p.Address, p.LotNo, p.PlanNo, p.Size, p.UnitPrice, p.TotalPrice, cp.FinalValue, cp.ProjPageStatus, cp.DeedStatus  
+$sql_query = "SELECT c.NIC, c.FirstName, c.LastName, c.PhoneNumber, 
+            p.Location, p.ProjectName, p.PropertyType, p.Address, p.LotNo, p.PlanNo, p.Size, 
+            FORMAT(p.UnitPrice, 'N', 'en-US') AS UnitPrice, 
+            FORMAT(p.TotalPrice, 'N', 'en-US') AS TotalPrice, 
+            FORMAT(cp.Discount, 'N', 'en-US') AS Discount, 
+            FORMAT(cp.OtherCharges, 'N', 'en-US') AS OtherCharges, 
+            FORMAT(cp.FinalValue, 'N', 'en-US') AS FinalValue, 
+            cp.ProjPageStatus, cp.DeedStatus  
             FROM customer_payment cp, property p, customer c 
             WHERE cp.CustomerId = '$id' AND cp.PropertyId = p.PropertyId AND cp.CustomerID = c.CustomerID;";
 

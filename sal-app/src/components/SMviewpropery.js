@@ -72,7 +72,7 @@ function getAllProperties(){
   }
 const setData = (med) => {
 
-  let {PropertyID, ProjectName,PropertyType,Location,District, Address, LotNo, BedRooms, PlanNo, Size, UnitPrice} = med;
+  let {PropertyID, ProjectName, PropertyType, Location,District, Address, LotNo, BedRooms, PlanNo, Size, UnitPrice} = med;
   
   localStorage.setItem('PropertyID',PropertyID);
   localStorage.setItem('ProjectName', ProjectName);
@@ -98,7 +98,10 @@ const setData = (med) => {
         console.log(response)
         const newFilter = properties.filter((response) => {
             //search from location & project name
-            return response.Location.toLowerCase().includes(searchWord.toLowerCase()) || response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()); 
+            return response.Location.toLowerCase().includes(searchWord.toLowerCase()) || 
+                   response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) ||
+                   response.District.toLowerCase().includes(searchWord.toLowerCase()) ||
+                   response.PropertyType.toLowerCase().includes(searchWord.toLowerCase()); 
         });
   
         if (searchWord === "") {
@@ -225,13 +228,8 @@ const deleteProperty = (propertyId) => {
 
 <br/><br/><br/>
 
-<input type="search" 
-    placeholder="Search" 
-    name="Searchquery" 
-    value={wordEntered}
-    onChange={handleFilter}
-    >
-    </input>
+<input type="search" placeholder="Search Property Type, Project, Location, District" name="Searchquery" value={wordEntered} onChange={handleFilter} className='search-bar' />
+
 {/* <br/><br/><br/>
     <input type="search" 
     placeholder="Search" 
@@ -253,7 +251,7 @@ const deleteProperty = (propertyId) => {
                 <th>Location</th>
                 <th>District</th>
                 <th>Address</th>
-                <th>LotNo</th>
+                <th>Lot</th>
                 <th>No.of BR</th>
                 <th>PlanNo</th>
                 <th>Size</th>
@@ -277,7 +275,7 @@ const deleteProperty = (propertyId) => {
                       <td>{property.Location}</td>
                       <td>{property.District}</td>
                       <td>{property.Address}</td>
-                      <td>{property.LotNo}</td>
+                      <td>Lot{property.LotNo}</td>
                       <td>{property.BedRooms}</td>
                       <td>{property.PlanNo}</td>
                       <td>{property.Size}</td>

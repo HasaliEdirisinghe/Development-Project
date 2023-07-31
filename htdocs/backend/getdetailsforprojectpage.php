@@ -10,7 +10,8 @@ $sql_query = "SELECT c.CustomerID, c.NIC, c.FirstName, c.LastName, c.OtherNames,
             p.PropertyID, p.PropertyType, p.ProjectName, p.Location, p.District, p.Address, p.LotNo, p.BedRooms, p.PlanNo, p.Size, 
             FORMAT(p.UnitPrice, 'N', 'en-US') AS UnitPrice, 
             FORMAT(p.TotalPrice, 'N', 'en-US') AS TotalPrice, 
-            cp.Discount, cp.OtherCharges, 
+            FORMAT(cp.Discount, 'N', 'en-US') AS Discount, 
+            FORMAT(cp.OtherCharges, 'N', 'en-US') AS OtherCharges, 
             FORMAT(cp.FinalValue, 'N', 'en-US') AS FinalValue, 
             cp.ProjPageStatus, cp.SoldDate, cp.DeedStatus 
             FROM customer c 

@@ -23,10 +23,12 @@ export function SalesOfficerApprovals() {
   const [wordEntered, setWordEntered] = useState("");
   const [properties, setProperties] = useState([]);
   const [customers, setCustomers] = useState([]);
+  const [wordForProject, setWordForProject] = useState("");
+  const [ppStatusEntered, setppStatusEntered] = useState("");
+  const [deedStatusEntered, setDeedStatusEntered] = useState("");
 
 
-
-
+  
   useEffect(() => {
     const url = 'http://localhost/backend/getemployeename.php';
     const id = localStorage.getItem('username');
@@ -62,27 +64,93 @@ export function SalesOfficerApprovals() {
         });
   }
 
-  const handleFilter = (event) => {
-    const searchWord = event.target.value;
-    console.log(searchWord);
-    setWordEntered(searchWord);
-    axios.get("http://localhost/backend/salesofficerapprovals.php") //new php?
-    .then(response => {
-        console.log(response)
-        const newFilter = properties.filter((response) => {
-          //search using customer NIC, project name or location
-            return response.NIC.toLowerCase().includes(searchWord.toLowerCase()) ||response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || response.Location.toLowerCase().includes(searchWord.toLowerCase()); 
-        });
-  
-        if (searchWord === "") {
-            console.log("EMPLTY");
-            getData();
-        } else {
-          setProperties(newFilter);
-        }
-    })
-    .catch(error => console.log(error));
-  };
+const handleFilter = (event) => {
+  const searchWord = event.target.value;
+  console.log(searchWord);
+  setWordEntered(searchWord);
+  axios.get("http://localhost/backend/getdetailsforprojectpage.php") //new php?
+  .then(response => {
+      console.log(response)
+      const newFilter = properties.filter((response) => {
+        //search using customer NIC
+          return response.NIC.toLowerCase().includes(searchWord.toLowerCase()); 
+      });
+
+      if (searchWord === "") {
+          console.log("EMPLTY");
+          getData();
+      } else {
+        setProperties(newFilter);
+      }
+  })
+  .catch(error => console.log(error));
+};
+
+const handleProjectFilter = (event) => {
+  const searchWord = event.target.value;
+  console.log(searchWord);
+  setWordForProject(searchWord);
+  axios.get("http://localhost/backend/getdetailsforprojectpage.php") //new php?
+  .then(response => {
+      console.log(response)
+      const newFilter = properties.filter((response) => {
+        //search using customer PropertyType, project name or location
+          return response.PropertyType.toLowerCase().includes(searchWord.toLowerCase()) ||
+                 response.ProjectName.toLowerCase().includes(searchWord.toLowerCase()) || 
+                 response.Location.toLowerCase().includes(searchWord.toLowerCase()); 
+      });
+
+      if (searchWord === "") {
+          console.log("EMPLTY");
+          getData();
+      } else {
+        setProperties(newFilter);
+      }
+  })
+  .catch(error => console.log(error));
+};
+
+const handleProjStatus = (event) => {
+  const searchWord = event.target.value;
+  console.log(searchWord);
+  setppStatusEntered(searchWord);
+  axios.get("http://localhost/backend/getdetailsforprojectpage.php") //new php?
+  .then(response => {
+      console.log(response)
+      const newFilter = properties.filter((response) => {
+          return response.ProjPageStatus.toLowerCase().includes(searchWord.toLowerCase()); 
+      });
+
+      if (searchWord === "") {
+          console.log("EMPLTY");
+          getData();
+      } else {
+        setProperties(newFilter);
+      }
+  })
+  .catch(error => console.log(error));
+};
+
+const handleDeedStatus = (event) => {
+  const searchWord = event.target.value;
+  console.log(searchWord);
+  setDeedStatusEntered(searchWord);
+  axios.get("http://localhost/backend/getdetailsforprojectpage.php") //new php?
+  .then(response => {
+      console.log(response)
+      const newFilter = properties.filter((response) => {
+          return response.DeedStatus.toLowerCase().includes(searchWord.toLowerCase()); 
+      });
+
+      if (searchWord === "") {
+          console.log("EMPLTY");
+          getData();
+      } else {
+        setProperties(newFilter);
+      }
+  })
+  .catch(error => console.log(error));
+};
 
   function gotoDashboard (){
     handleArea1(username2)
@@ -141,13 +209,35 @@ export function SalesOfficerApprovals() {
         <br></br>
 
     <div class="section">
-    <input type="search" 
-    placeholder="Search" 
-    name="Searchquery" 
-    value={wordEntered}
-    onChange={handleFilter}
-    >
-    </input>
+    <input type="search" placeholder="Search NIC" name="Searchquery" value={wordEntered} onChange={handleFilter} className="search-nic-input"/>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+    <input type="search" placeholder="Search Project, Location or Property Type" name="Searchquery" value={wordForProject} onChange={handleProjectFilter} className="search-project-input"/>
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <select name="Searchquery" placeholder="Search Project Status" id="ppStatus" onChange={handleProjStatus} value={ppStatusEntered}>
+          <option value=""> Search Project Status  </option>
+          <option value="Approved">Approved</option>
+          <option value="Hold">Hold</option>
+          <option value="Pending">Pending</option>
+          <option value="Reject">Reject</option>
+          <option value="Waiting">Waiting</option>
+    </select>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <select name="Searchquery" placeholder="Search Deed Status" id="deedStatus" onChange={handleDeedStatus} value={deedStatusEntered}>
+          <option value=""> Search Deed Status  </option>
+          <option value="Pending">Completed</option>
+          <option value="Approved">Drafting</option>
+          <option value="Hold">Finalizing</option>
+          <option value="Waiting">Waiting to Sign</option>
+    </select>
+    
 
     <br/><br/><br/>
     <table class="showtable">

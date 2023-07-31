@@ -258,13 +258,13 @@ export function EditProperty() {
                         <td class='label1'>:</td>
                         <td class='textbox'><input type='text' name='lotNo'  onChange={(e) => setLotNo(e.target.value)} value={LotNo}/></td>
                     </tr>
-                    <tr>
-                        <td class='label'>Bed Rooms</td>
+                   <tr>
+                        <td class='label'>No. of Bed Rooms</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='text' name='br'  onChange={(e) => setBR(e.target.value)} value={BR}/></td>
+                        <td class='textbox'><input type='number' name='lotNo' min="1" max="10" onChange={(e) => setBR(e.target.value)} value={BR}/></td>
                     </tr>
                     <tr>
-                        <td class='label'>Plan No</td>
+                        <td class='label'>Plan No</td> 
                         <td class='label1'>:</td>
                         <td class='textbox'><input type='text' name='planNo'  onChange={(e) => setPlanNo(e.target.value)} value={PlanNo} /></td>
                     </tr>

@@ -10,7 +10,7 @@ $sql_query = "SELECT * FROM customer";
 // Execute the query
 $result = mysqli_query($connectNow, $sql_query);
 
-// Check if the query was successful
+// Check if the query was successful 
 if ($result) {
     // If the query was successful, check if any rows were returned
     if (mysqli_num_rows($result) > 0) {
