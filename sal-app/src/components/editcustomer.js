@@ -18,6 +18,8 @@ export function EditCustomer() {
   const [CusOtherNames, setCusOtherNames] = useState('');
   const [CusPermanentAddress, setCusPermanentAddress] = useState('');
   const [CusPhoneNumber, setCusPhoneNumber] = useState('');
+  const [CusEmail, setCusEmail] = useState('');
+
 
   const username2 = getUsername();
 
@@ -32,6 +34,8 @@ export function EditCustomer() {
     const OtherNames = localStorage.getItem('OtherNames');
     const PermanentAddress = localStorage.getItem('PermanentAddress');
     const PhoneNumber = localStorage.getItem('PhoneNumber');
+    const Email = localStorage.getItem('email');
+
     
     setCusID(customerId);
     setCusNIC(NIC);
@@ -40,6 +44,7 @@ export function EditCustomer() {
     setCusOtherNames(OtherNames);
     setCusPermanentAddress(PermanentAddress);
     setCusPhoneNumber(PhoneNumber);
+    setCusEmail(Email);
 
     const url = 'http://localhost/backend/getemployeename.php';
     const id = localStorage.getItem('username');
@@ -67,6 +72,7 @@ export function EditCustomer() {
     formData.append('othernames', CusOtherNames);
     formData.append('address', CusPermanentAddress);
     formData.append('phone', CusPhoneNumber);
+    formData.append('email', CusEmail);
     formData.append('id', CusID);
 
     // Send a POST request with the form data
@@ -92,6 +98,7 @@ export function EditCustomer() {
     setCusOtherNames('');
     setCusPermanentAddress('');
     setCusPhoneNumber('');
+    setCusEmail('');
   };
 
   function gotoDashboard (){
@@ -224,6 +231,18 @@ export function EditCustomer() {
                     name="phone"
                     value={CusPhoneNumber}
                     onChange={(e) => setCusPhoneNumber(e.target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="label">E-mail</td>
+                <td className="label1">:</td>
+                <td className="textbox">
+                  <input
+                    type="text"
+                    name="email"
+                    value={CusEmail}
+                    onChange={(e) => setCusEmail(e.target.value)}
                   />
                 </td>
               </tr>

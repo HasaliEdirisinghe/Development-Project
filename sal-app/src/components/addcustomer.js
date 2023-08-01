@@ -79,6 +79,8 @@ export function AddCustomer() {
         fData.append('othernames', othernames);
         fData.append('address', address);
         fData.append('phone', phone);
+        fData.append('email', email);
+
       // Send a POST request with the form data
       axios.post(`http://localhost/backend/addcustomer.php`, fData)
         .then(response => {
@@ -206,7 +208,11 @@ export function AddCustomer() {
                     <tr>
                         <td class='label'>E-mail</td>
                         <td class='label1'>:</td>
-                        <td class='textbox'><input type='email' name='email' pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" onChange={(e) => setEmail(e.target.value)} value={email} required/></td>
+                        <td class='textbox'><input type='email' name='email' 
+                                             pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" 
+                                             onChange={(e) => setEmail(e.target.value)} value={email} required
+                                             style={{ width: '97%', borderRadius: '5px', border: '1px solid black', fontSize: '18px', }}/>
+                        </td>
                     </tr>
                 </table>
                 <button class="cancelbutton" onClick={handleCancelClick}>Reset</button>

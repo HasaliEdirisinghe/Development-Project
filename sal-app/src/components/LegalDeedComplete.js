@@ -66,16 +66,16 @@ export function DeedCompletion() {
     // alert(PropertyID);
     event.preventDefault();
       if(deed_no.length === 0){
-        alert("NIC is required!");
+        alert("Deed Number is required!");
       }
       else if(deed_date.length === 'null'){
-        alert("First Name is required!");
+        alert("Deed date is required!");
       }
       else if(Lawyer.length === 0){
-        alert("Last Name is required!");
+        alert("Lawyer Name is required!");
       }
       else if(Director.length === 0){
-        alert("Address is required!");
+        alert("Director Name is required!");
       }
       else{
 
@@ -180,12 +180,12 @@ export function DeedCompletion() {
                             
                         </td>
                     </tr>
-                    {/* <tr>
+                    <tr>
                         <td class='label'>Lawyer</td>
                         <td class='label1'>:</td>
                         <td class='dropdown'><input type='text' name='lawyer'  onChange={(e) => setLawyer(e.target.value)} value={Lawyer}/></td>
-                    </tr> */}
-                    <tr>
+                    </tr>
+                    {/* <tr>
                         <td class='label'>Lawyer</td>
                         <td class='label1'>:</td>
                         <td class='dropdown'>
@@ -193,7 +193,7 @@ export function DeedCompletion() {
                             {employeeNames.map((name, index) => (<option key={index} value={name}>{name}</option>))}
                           </select>
                         </td>
-                    </tr>
+                    </tr> */}
                     <tr>
                         <td class='label'>Director</td>
                         <td class='label1'>:</td>

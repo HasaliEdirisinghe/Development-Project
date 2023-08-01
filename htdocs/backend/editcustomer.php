@@ -13,10 +13,13 @@ $lastName = mysqli_real_escape_string($connectNow, $_POST['lname']);
 $otherNames = mysqli_real_escape_string($connectNow, $_POST['othernames']);
 $address = mysqli_real_escape_string($connectNow, $_POST['address']);
 $phoneNumber = mysqli_real_escape_string($connectNow, $_POST['phone']);
+$email = mysqli_real_escape_string($connectNow, $_POST['email']);
+
 
 // Prepare the SQL statement to update the customer record
 $sql_query = "UPDATE customer 
-            SET NIC = '$nic', FirstName = '$firstName', LastName = '$lastName', OtherNames = '$otherNames', PermanentAddress = '$address', PhoneNumber = '$phoneNumber' 
+            SET NIC = '$nic', FirstName = '$firstName', LastName = '$lastName', OtherNames = '$otherNames', 
+                PermanentAddress = '$address', PhoneNumber = '$phoneNumber', email = '$email' 
             WHERE CustomerID = '$id'";
 
 // Execute the query

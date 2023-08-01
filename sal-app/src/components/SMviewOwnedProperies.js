@@ -192,6 +192,7 @@ export function SMviewOwnedProperties() {
                 <th>Project Name</th>
                 <th>Address</th>
                 <th>Lot No</th>
+                <th>BR</th>
                 <th>Plan No</th>
                 <th>Size</th>
                 <th>Unit Price</th>
@@ -208,10 +209,13 @@ export function SMviewOwnedProperties() {
                       <td>{property.ProjectName}</td>
                       <td>{property.Address}</td>
                       <td>{property.LotNo}</td>
+                      <td>{property.BedRooms}</td>
                       <td>{property.PlanNo}</td>
-                      <td>{property.Size}</td>
-                      <td>{property.UnitPrice}</td>
-                      <td>{property.TotalPrice}</td>
+                      <td>
+                          {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+                      </td>
+                      <td align='right'>{property.UnitPrice}</td>
+                      <td align='right'>{property.TotalPrice}</td>
                       <td>{property.ProjPageStatus}</td>
                       <td>{property.DeedStatus}</td>
                     </tr>

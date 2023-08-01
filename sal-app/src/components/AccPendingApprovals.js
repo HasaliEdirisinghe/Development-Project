@@ -66,7 +66,9 @@ export function PendingApprovals() {
   }
 const setData = (med) => {
 
-    let {CustomerID, NIC,FirstName,LastName,OtherNames, PropertyID, ProjectName, PropertyType, Location, Address, LotNo, Bedrooms, PlanNo, Size, UnitPrice, TotalPrice, Discount, OtherCharges, FinalValue, ProjPageStatus} = med;
+    let {CustomerID, NIC,FirstName,LastName,OtherNames, 
+        PropertyID, ProjectName, PropertyType, Location, Address, LotNo, BedRooms, PlanNo, Size, HouseArea, UnitPrice, TotalPrice, 
+        Discount, OtherCharges, FinalValue, ProjPageStatus} = med;
     
     localStorage.setItem('NIC', NIC);
     localStorage.setItem('FirstName', FirstName);
@@ -78,8 +80,9 @@ const setData = (med) => {
     localStorage.setItem('Address', Address);
     localStorage.setItem('LotNo', LotNo);
     localStorage.setItem('PlanNo', PlanNo);
-    localStorage.setItem('Bedrooms', Bedrooms);
+    localStorage.setItem('BedRooms', BedRooms);
     localStorage.setItem('Size', Size);
+    localStorage.setItem('HouseArea', HouseArea);
     localStorage.setItem('UnitPrice', UnitPrice);
     localStorage.setItem('TotalPrice', TotalPrice);
     localStorage.setItem('Discount', Discount);
@@ -228,9 +231,11 @@ const setData = (med) => {
                       <td>{property.ProjectName}</td>
                       <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
-                      <td>Lot{property.LotNo}</td>
-                      <td>{property.Bedrooms}</td>
-                      <td>{property.Size}</td>
+                      <td>{property.LotNo}</td>
+                      <td>{property.BedRooms}</td>
+                      <td align='right'>
+                        {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+                      </td>
                       <td align='right'>{property.UnitPrice}</td>
                       <td align='right'>{property.TotalPrice}</td>
                       <td align='right'>{property.FinalValue}</td>

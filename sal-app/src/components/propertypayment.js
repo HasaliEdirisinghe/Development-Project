@@ -30,8 +30,10 @@ const [LastName, setLastName] = useState('');
   const [District, setDistrict] = useState('');
   const [Address, setAddress] = useState('');
   const [LotNo, setLotNo] = useState('');
+  const [BedRooms, setBedRooms] = useState('');
   const [PlanNo, setPlanNo] = useState('');
   const [Size, setSize] = useState('');
+  const [HouseArea, setHouseArea] = useState('');
   const [UnitPrice, setUnitPrice] = useState('');
   const [TotalPrice, setTotalPrice] = useState('');
 
@@ -54,8 +56,10 @@ const [LastName, setLastName] = useState('');
     setLocation(localStorage.getItem('Location'));
     setAddress(localStorage.getItem('Address'));
     setLotNo(localStorage.getItem('LotNo'));
+    setBedRooms(localStorage.getItem('BedRooms'));
     setPlanNo(localStorage.getItem('PlanNo'));
     setSize(localStorage.getItem('Size'));
+    setHouseArea(localStorage.getItem('HouseArea'));
     setUnitPrice(localStorage.getItem('UnitPrice'));
     setTotalPrice(localStorage.getItem('TotalPrice'));
     setDistrict(localStorage.getItem('District'));
@@ -186,13 +190,16 @@ const [LastName, setLastName] = useState('');
     // Calculate legal fee
     const legalFeeRate = totalValue > 100000000 ? 0.015 : 0.01;
     const legalFee = totalValue * legalFeeRate;
+
+    // Calculate discount amount
+    const discountAmount = (totalValue * parseFloat(Discount)) / 100;
   
     // Calculate final value
-    const finalValue = totalValue - (totalValue * parseFloat(Discount)/100) + stampDuty + legalFee + parseFloat(OtherCharges);
+    const FinalValue = totalValue - discountAmount + stampDuty + legalFee + parseFloat(OtherCharges);
   
     setStampDuty(stampDuty);
     setLegalFee(legalFee);
-    setFinalValue(finalValue);
+    setFinalValue(FinalValue);
   };
   
 
@@ -248,9 +255,10 @@ const [LastName, setLastName] = useState('');
           <h2>Property Type: {PropertyType}</h2>
           <h3>Location: {Location}</h3>
           <h3>District: {District}</h3>
-          <h3>Size: {Size}</h3>
-          <h3>Unit Price: {UnitPrice}</h3>
-          <h3>Total Price: {TotalPrice}</h3>
+          {PropertyType.toLowerCase() === 'land' ? ( <h3>Lot No: {LotNo}</h3> ) : ( <h3>No. of Bedrooms: {BedRooms}</h3> )}
+          {PropertyType.toLowerCase() === 'land' ? ( <h3>Size: {Size} P</h3> ) : ( <h3>Size: {HouseArea} Sq ft.</h3> )} {/* if house then sq ft, if land then perch */}
+          <h3>Unit Price: LKR {UnitPrice}</h3>
+          <h3>Total Price: LKR {TotalPrice}</h3>
           <h3>Stamp Duty: {new Intl.NumberFormat('en-US').format(StampDuty)}</h3> 
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;*stamp fee {'\u2192'} 3% upto LKR 100,000; 4% if greater
@@ -276,7 +284,7 @@ const [LastName, setLastName] = useState('');
               <td className="pp_textbox">
                 <input
                   type="number"
-                  name="discount"
+                  name="discount" required
                   onChange={handleDiscountChange}
                   value={Discount}
                   onBlur={handleDiscountChange} // Add onBlur event to check the value when the user leaves the input field.
@@ -290,7 +298,7 @@ const [LastName, setLastName] = useState('');
                 <td className="pp_textbox">
                 <input
                   type="number"
-                  name="othercharges"
+                  name="othercharges" required
                   onChange={handleOtherChargesChange}
                   onBlur={handleOtherChargesChange}
                   value={OtherCharges}

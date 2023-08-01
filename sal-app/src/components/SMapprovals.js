@@ -170,7 +170,7 @@ export function SalesManagerApprovals() {
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
-                <th>Final Value</th>   
+                <th>Final Value</th>    
                 <th>ProjectPage Status</th> 
                 <th>Deed Status</th>    
             </thead>    
@@ -186,13 +186,15 @@ export function SalesManagerApprovals() {
                       <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
                       <td>{property.LotNo}</td>
-                      <td>{property.Bedrooms}</td>
-                      <td>{property.Size}</td>
+                      <td>{property.BedRooms}</td>
+                      <td align='right'>
+                        {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+                      </td>
                       <td align='right'>{property.UnitPrice}</td>
                       <td align='right'>{property.TotalPrice}</td>
                       <td align='right'>{property.FinalValue}</td>
                       <td>{property.ProjPageStatus}</td>
-                      <td>{property.DeedStatus}</td>
+                      <td>{property.DeedStatus}</td> 
            
                     </tr>
                   );

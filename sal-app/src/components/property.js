@@ -72,17 +72,7 @@ export function PropertyPage() {
   };
   const setData = (med) => {
 
-    let {PropertyID,
-      PropertyType,
-      Location,
-      District,
-      Address,
-      LotNo,
-      BedRooms,
-      PlanNo,
-      Size,
-      UnitPrice,
-      TotalPrice,} = med;
+    let {PropertyID, PropertyType, Location, District, Address, LotNo, BedRooms, PlanNo, Size, HouseArea, UnitPrice, TotalPrice,} = med;
     
       localStorage.setItem('PropId', PropertyID);
       localStorage.setItem('PropertyType', PropertyType);
@@ -93,6 +83,7 @@ export function PropertyPage() {
       localStorage.setItem('BedRooms', BedRooms);
       localStorage.setItem('PlanNo', PlanNo);
       localStorage.setItem('Size', Size);
+      localStorage.setItem('HouseArea', HouseArea);
       localStorage.setItem('UnitPrice', UnitPrice);
       localStorage.setItem('TotalPrice', TotalPrice);
 
@@ -250,7 +241,9 @@ export function PropertyPage() {
           <td>{property.Address}</td>
           <td>{property.LotNo}</td>
           <td>{property.BedRooms}</td>
-          <td>{property.Size}</td>
+          <td align='right'>
+            {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+          </td>
           <td align='right'>{property.UnitPrice}</td>
           <td align='right'>{property.TotalPrice}</td>
           <td>

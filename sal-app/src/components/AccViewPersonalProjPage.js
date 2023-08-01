@@ -35,6 +35,7 @@ export function AccViewPersonalProjectPage() {
 
   const [PlanNo, setPlanNo] = useState('');
   const [Size, setSize] = useState('');
+  const [HouseArea, setHouseArea] = useState('');
   const [UnitPrice, setUnitPrice] = useState('');
 
   const [TotalPrice, setTotalPrice] = useState('');
@@ -67,6 +68,7 @@ export function AccViewPersonalProjectPage() {
     setBedRooms(localStorage.getItem('BedRooms'));
     setPlanNo(localStorage.getItem('PlanNo'));
     setSize(localStorage.getItem('Size'));
+    setHouseArea(localStorage.getItem('HouseArea'));
     setUnitPrice(localStorage.getItem('UnitPrice'));
 
     setTotalPrice(localStorage.getItem('TotalPrice'));
@@ -223,7 +225,7 @@ export function AccViewPersonalProjectPage() {
             <h3>Address: {Address}</h3>
             {PropertyType.toLowerCase() === 'land' ? ( <h3>Lot No: {LotNo}</h3> ) : ( <h3>No. of Bedrooms: {BedRooms}</h3> )}
             <h3>Plan No: {PlanNo}</h3>
-            {PropertyType.toLowerCase() === 'land' ? ( <h3>Size: {Size} P</h3> ) : ( <h3>Size: {Size} Sq ft.</h3> )} {/* if house then sq ft, if land then perch */}
+            {PropertyType.toLowerCase() === 'land' ? ( <h3>Size: {Size} P</h3> ) : ( <h3>Size: {HouseArea} Sq ft.</h3> )} {/* if house then sq ft, if land then perch */}
             <h3>Unit Price: LKR {UnitPrice}</h3>
             <hr />
 

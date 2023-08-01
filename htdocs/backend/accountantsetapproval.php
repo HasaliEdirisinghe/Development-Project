@@ -9,12 +9,24 @@ $CustomerID = $_POST['CustomerID'];
 $PropertyID = $_POST['PropertyID'];
 $status = $_POST['ProjPageStatus'];
 
-$todayDate = date("Y-m-d");
-
-// Create the SQL query
-$sql = "UPDATE customer_payment 
+if ($status == 'Approved'){
+    $todayDate = date("Y-m-d");
+    $sql = "UPDATE customer_payment 
         SET ProjPageStatus = '$status', SoldDate = '$todayDate'
         WHERE CustomerID = '$CustomerID' AND PropertyID = '$PropertyID';";
+}else{
+    $sql = "UPDATE customer_payment 
+        SET ProjPageStatus = '$status'
+        WHERE CustomerID = '$CustomerID' AND PropertyID = '$PropertyID';";
+
+}
+
+// $todayDate = date("Y-m-d");
+
+// Create the SQL query
+// $sql = "UPDATE customer_payment 
+//         SET ProjPageStatus = '$status', SoldDate = '$todayDate'
+//         WHERE CustomerID = '$CustomerID' AND PropertyID = '$PropertyID';";
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql);

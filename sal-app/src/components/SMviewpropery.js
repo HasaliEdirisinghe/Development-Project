@@ -251,8 +251,8 @@ const deleteProperty = (propertyId) => {
                 <th>Location</th>
                 <th>District</th>
                 <th>Address</th>
-                <th>Lot</th>
-                <th>No.of BR</th>
+                <th>LotNo</th>
+                <th>BR</th>
                 <th>PlanNo</th>
                 <th>Size</th>
                 <th>Unit Price</th>
@@ -275,10 +275,12 @@ const deleteProperty = (propertyId) => {
                       <td>{property.Location}</td>
                       <td>{property.District}</td>
                       <td>{property.Address}</td>
-                      <td>Lot{property.LotNo}</td>
+                      <td>{property.LotNo}</td>
                       <td>{property.BedRooms}</td>
                       <td>{property.PlanNo}</td>
-                      <td>{property.Size}</td>
+                      <td align='right'>
+                        {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+                      </td>
                       <td align='right'>{property.UnitPrice}</td>
                       <td align='right'>{property.TotalPrice}</td>
                       <td>

@@ -72,7 +72,9 @@ export function LegalViewDeedStatus() {
   }
 const setData = (med) => {
 
-    let {CustomerID, NIC,FirstName,LastName,OtherNames, PropertyID, ProjectName, PropertyType, Location, Address, LotNo, PlanNo, BedRooms, Size, UnitPrice, TotalPrice, Discount, OtherCharges, FinalValue, ProjPageStatus, DeedStatus} = med;
+    let {CustomerID, NIC,FirstName,LastName,OtherNames, 
+        PropertyID, ProjectName, PropertyType, Location, Address, LotNo, PlanNo, BedRooms, Size, HouseArea, UnitPrice, TotalPrice, 
+        Discount, OtherCharges, FinalValue, ProjPageStatus, DeedStatus} = med;
     
     localStorage.setItem('NIC', NIC);
     localStorage.setItem('FirstName', FirstName);
@@ -86,6 +88,7 @@ const setData = (med) => {
     localStorage.setItem('BedRooms', BedRooms);
     localStorage.setItem('PlanNo', PlanNo);
     localStorage.setItem('Size', Size);
+    localStorage.setItem('HouseArea', HouseArea);
     localStorage.setItem('UnitPrice', UnitPrice);
     localStorage.setItem('TotalPrice', TotalPrice);
     localStorage.setItem('Discount', Discount);
@@ -335,7 +338,9 @@ const setData = (med) => {
                       <td>{property.Location}</td>
                       <td>{property.LotNo}</td>
                       <td>{property.BedRooms}</td>
-                      <td>{property.Size}</td>
+                      <td align='right'>
+                        {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+                      </td>
                       <td align='right'>{property.UnitPrice}</td>
                       <td align='right'>{property.TotalPrice}</td>
                       <td align='right'>{property.FinalValue}</td>

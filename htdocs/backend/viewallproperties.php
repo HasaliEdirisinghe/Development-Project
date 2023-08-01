@@ -6,7 +6,7 @@ require 'connection.php';
 header('Access-Control-Allow-Origin: *');
 
 // $sql_query = "SELECT * FROM property";
-$sql_query = "SELECT PropertyID, PropertyType, ProjectName, Location, District, Address, LotNo, BedRooms, PlanNo, Size,
+$sql_query = "SELECT PropertyID, PropertyType, ProjectName, Location, District, Address, LotNo, BedRooms, PlanNo, Size, HouseArea,
             FORMAT(TotalPrice, 'N', 'en-US') AS TotalPrice,
             FORMAT(UnitPrice, 'N', 'en-US') AS UnitPrice
             FROM property;";

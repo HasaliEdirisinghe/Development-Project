@@ -10,13 +10,13 @@ $sql_query = "SELECT c.*,
             FORMAT(cp.Discount, 'N', 'en-US') AS Discount, 
             FORMAT(cp.OtherCharges, 'N', 'en-US') AS OtherCharges, 
             FORMAT(cp.FinalValue, 'N', 'en-US') AS FinalValue, 
-            p.PropertyType, p.ProjectName, p.Location, p.Address, p.LotNo, p.BedRooms, p.PlanNo, p.Size, 
+            p.PropertyType, p.ProjectName, p.Location, p.Address, p.LotNo, p.BedRooms, p.PlanNo, p.Size, p.HouseArea,
             FORMAT(p.UnitPrice, 'N', 'en-US') AS UnitPrice, 
             FORMAT(p.TotalPrice, 'N', 'en-US') AS TotalPrice 
             FROM customer_payment cp 
             JOIN property p ON cp.PropertyID = p.PropertyID 
             JOIN customer c ON cp.CustomerID = c.CustomerID 
-            WHERE cp.ProjPageStatus = 'Waiting to be Approved' OR cp.ProjPageStatus = 'Hold';";
+            WHERE cp.ProjPageStatus = 'Waiting to be Approved' OR cp.ProjPageStatus = 'Hold' OR cp.ProjPageStatus = '';";
 
 // Execute the query
 $result = mysqli_query($connectNow, $sql_query);

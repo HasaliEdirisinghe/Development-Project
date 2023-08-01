@@ -72,7 +72,7 @@ function getAllCustomers(){
   }
 const setData = (med) => {
 
-  let {CustomerID, NIC,FirstName,LastName,OtherNames, PermanentAddress, PhoneNumber} = med;
+  let {CustomerID, NIC,FirstName,LastName,OtherNames, PermanentAddress, PhoneNumber, email} = med;
   
   localStorage.setItem('customerId',CustomerID);
   localStorage.setItem('NIC', NIC);
@@ -81,6 +81,8 @@ const setData = (med) => {
   localStorage.setItem('OtherNames', OtherNames);
   localStorage.setItem('PermanentAddress', PermanentAddress);
   localStorage.setItem('PhoneNumber', PhoneNumber);
+  localStorage.setItem('email', email);
+
 
   }
 
@@ -184,6 +186,7 @@ const setData = (med) => {
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
+                <th>E-mail</th>
                 <th>Actions</th>
             </thead>    
               <tbody>
@@ -199,6 +202,7 @@ const setData = (med) => {
                       <td>{customer.FirstName}</td>
                       <td>{customer.LastName}</td>
                       <td>{customer.PhoneNumber}</td>
+                      <td>{customer.email}</td>
                       <td>
                         <Link to={`/property`}>
                           <button id="view" style={{ marginLeft: '.5rem' }} class="btn btn-warning" onClick={()=>setData(customer)}>Assign Property</button>

@@ -244,11 +244,12 @@ const handleDeedStatus = (event) => {
                 <th>Project Name</th>
                 <th>Property Type</th>
                 <th>Location</th>
-                <th>Lot No</th>
+                <th>LotNo</th>
+                <th>BR</th>
                 <th>Size</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
-                <th>Final Value</th>   
+                <th>Final Value</th>      
                 <th>ProjectPage Status</th> 
                 <th>Deed Status</th>    
             </thead>    
@@ -263,8 +264,11 @@ const handleDeedStatus = (event) => {
                       <td>{property.ProjectName}</td>
                       <td>{property.PropertyType}</td>
                       <td>{property.Location}</td>
-                      <td>Lot{property.LotNo}</td>
-                      <td>{property.Size}</td>
+                      <td>{property.LotNo}</td>
+                      <td>{property.BedRooms}</td>
+                      <td align='right'>
+                        {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+                      </td>
                       <td align='right'>{property.UnitPrice}</td>
                       <td align='right'>{property.TotalPrice}</td>
                       <td align='right'>{property.FinalValue}</td>

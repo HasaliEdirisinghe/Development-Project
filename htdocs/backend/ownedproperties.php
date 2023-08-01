@@ -8,7 +8,7 @@ header('Access-Control-Allow-Origin: *');
 $id = mysqli_real_escape_string($connectNow, $_POST['cusid']);
 
 $sql_query = "SELECT c.NIC, c.FirstName, c.LastName, c.PhoneNumber, 
-            p.Location, p.ProjectName, p.PropertyType, p.Address, p.LotNo, p.PlanNo, p.Size, 
+            p.Location, p.ProjectName, p.PropertyType, p.Address, p.LotNo, p.PlanNo, p.Size, p.HouseArea, p.BedRooms,
             FORMAT(p.UnitPrice, 'N', 'en-US') AS UnitPrice, 
             FORMAT(p.TotalPrice, 'N', 'en-US') AS TotalPrice, 
             FORMAT(cp.Discount, 'N', 'en-US') AS Discount, 

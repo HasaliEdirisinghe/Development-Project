@@ -238,9 +238,11 @@ const setData = (med) => {
                       <td>{property.District}</td>
                       <td>{property.Address}</td>
                       <td>{property.LotNo}</td>
-                      <td>{property.Bedrooms}</td>
+                      <td>{property.BedRooms}</td>
                       <td>{property.PlanNo}</td>
-                      <td>{property.Size}</td>
+                      <td align='right'>
+                        {property.PropertyType.toLowerCase() === 'land' ? property.Size + ' P' : property.HouseArea + ' sqft'} {/* if house then sq ft, if land then perch */}
+                      </td>
                       <td align='right'>{property.UnitPrice}</td>
                       <td align='right'>{property.TotalPrice}</td>
 

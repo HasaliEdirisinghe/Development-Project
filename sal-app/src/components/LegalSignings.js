@@ -253,7 +253,7 @@ const handleLDFilter = (event) => {
                 <th>Project</th>
                 <th>Lot No.</th>
                 <th>Client</th>
-                <th>Deed Value</th>
+                <th>Deed Value (LKR)</th>
                 <th>Signed Date</th>
                 <th>Lawyer</th>
                 <th>Director </th>
@@ -268,7 +268,7 @@ const handleLDFilter = (event) => {
                       <td>{l_table.LotNo}</td>
                       <td>{l_table.FirstName} {l_table.LastName}</td>   {/* fname + lname */}
                       <td align='right'>{l_table.FinalValue}</td>
-                      <td>{l_table.SignedDate}</td>
+                      <td align='center'>{l_table.SignedDate}</td>
                       <td>{l_table.Lawyer}</td>
                       <td>{l_table.Director}</td>  
                      

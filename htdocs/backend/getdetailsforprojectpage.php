@@ -7,7 +7,7 @@ header('Access-Control-Allow-Origin: *');
 
 // $sql_query = "SELECT * FROM customer c, property p, customer_payment cp WHERE c.CustomerID = cp.CustomerID AND p.PropertyID = cp.PropertyID";
 $sql_query = "SELECT c.CustomerID, c.NIC, c.FirstName, c.LastName, c.OtherNames, c.PermanentAddress, c.PhoneNumber, 
-            p.PropertyID, p.PropertyType, p.ProjectName, p.Location, p.District, p.Address, p.LotNo, p.BedRooms, p.PlanNo, p.Size, 
+            p.PropertyID, p.PropertyType, p.ProjectName, p.Location, p.District, p.Address, p.LotNo, p.BedRooms, p.PlanNo, p.Size, p.HouseArea, 
             FORMAT(p.UnitPrice, 'N', 'en-US') AS UnitPrice, 
             FORMAT(p.TotalPrice, 'N', 'en-US') AS TotalPrice, 
             FORMAT(cp.Discount, 'N', 'en-US') AS Discount, 
